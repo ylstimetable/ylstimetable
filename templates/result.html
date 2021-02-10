@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr class="text-center">
+            <th>과목명</th>
+            <th>강의실</th>
+            <th>담당교수</th>
+            <th>시간</th>
+            <th>학정번호</th>
+            <th>분반</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in lists %}
+        <tr class="text-center">
+            <td>{{ i.title }}</td>
+            <td>{{ i.room }}</td>
+            <td>{{ i.professor }}</td>
+            <td>{{ i.time }}</td>
+            <td>{{ i.number }}</td>
+            <td>{{ i.ban }}</td>
+            <td>
+                <form method="POST" action="{% url 'timetable:register' i.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">수강</button>
+                </form>
+            </td>
+            <td>
+                <a href="{% url 'timetable:address' i.number i.ban %}">실라버스</a>
+            </td>
+            <td>
+                <a href="{% url 'board:create' i.id %}">강의평가 글쓰기</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

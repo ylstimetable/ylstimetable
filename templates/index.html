@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+<br>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-4">
+            <form method="POST" action="{% url 'timetable:result' %}">검색명:
+                {% csrf_token %}
+                <input type="text" name="classname">
+                <button type="submit" class="btn btn-primary">검색</button>
+            </form>
+            <table class="table-sm table-striped table-condensed">
+                <tbody>
+                <tr class="text-center">
+                    <th style="width: 50%">과목명</th>
+                    <th>교수</th>
+                </tr>
+                신청학점: {{ tabletime | length }}
+                {% for i in list %}
+                <tr class = "text-center" height="30px">
+                    <td><p style = "font-size:14px;">{{ i.title }}</p></td>
+                    <td><p style = "font-size:14px;">{{ i.professor }}</p></td>
+                    <td><h6>
+                        <form method="POST" action="{% url 'timetable:delete' i.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">삭제</button>
+                        </form>
+                    </h6></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- 시간표 -->
+        <div class="col-md-8">
+            <table class="table-sm table-bordered" style="table-layout: fixed">
+                <tbody>
+                <tr class="text-center" style="background-color:#AEB9C6">
+                    <th width="6%"></th>
+                    <th width="15.6%"><h6>월</h6></th>
+                    <th width="15.6%"><h6>화</h6></th>
+                    <th width="15.6%"><h6>수</h6></th>
+                    <th width="15.6%"><h6>목</h6></th>
+                    <th width="15.6%"><h6>금</h6></th>
+                    <th width="15.6%"><h6>토</h6></th>
+                </tr>
+                {% for i in ran %}
+                <tr>
+                    {% time i as p %}
+                    <th class="text-center align-middle"><p style = "font-size:14px; font-weight:lighter;">{{ p }}시</p></th>
+                    {% for j in rang %}
+                    {% add_str i j as cou %}
+                    {% if cou in tabletime %}
+                    {% location tabletime cou as loca %}
+                    {% content tablename loca as title %}
+                    {% content tablecolor loca as color %}
+                    {% content tableroom loca as room %}
+                        {% if color == 1 %}
+                        <th bgcolor="CFE2F8">
+                            <p style = "font-size:12px;">{{ title }}</p>
+                            <p style = "font-size:12px; font-weight:lighter;">{{ room }}</p>
+                        </th>
+                        {% endif %}
+                        {% if color == 2 %}
+                        <th bgcolor="F8CFD2">
+                            <p style = "font-size:12px;">{{ title }}</p>
+                            <p style = "font-size:12px; font-weight:lighter;">{{ room }}</p>
+                        </th>
+                        {% endif %}
+                        {% if color == 3 %}
+                        <th bgcolor="DAF8CF">
+                            <p style = "font-size:12px;">{{ title }}</p>
+                            <p style = "font-size:12px; font-weight:lighter;">{{ room }}</p>
+                        </th>
+                        {% endif %}
+                        {% if color == 4 %}
+                        <th bgcolor="F4CFF8">
+                            <p style = "font-size:12px;">{{ title }}</p>
+                            <p style = "font-size:12px; font-weight:lighter;">{{ room }}</p>
+                        </th>
+                        {% endif %}
+                        {% if color == 5 %}
+                        <th bgcolor="F7F8CF">
+                            <p style = "font-size:12px;">{{ title }}</p>
+                            <p style = "font-size:12px; font-weight:lighter;">{{ room }}</p>
+                        </th>
+                        {% endif %}
+                        {% if color == 6 %}
+                        <th bgcolor="CFF8F6">
+                            <p style = "font-size:12px;">{{ title }}</p>
+                            <p style = "font-size:12px; font-weight:lighter;">{{ room }}</p>
+                        </th>
+                        {% endif %}
+                        {% if color == 7 %}
+                        <th bgcolor="F8DECF">
+                            <p style = "font-size:12px;">{{ title }}</p>
+                            <p style = "font-size:12px; font-weight:lighter;">{{ room }}</p>
+                        </th>
+                        {% endif %}
+                        {% if color == 8 %}
+                        <th bgcolor="F0CFF8">
+                            <p style = "font-size:12px;">{{ title }}</p>
+                            <p style = "font-size:12px; font-weight:lighter;">{{ room }}</p>
+                        </th>
+                        {% endif %}
+                        {% else %}
+                        <th></th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

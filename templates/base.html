@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>연세대학교 법학전문대학원 강의검색시스템에 오신 것을 환영합니다.</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+{% if user.is_authenticated %}
+{% include "navbar.html" %}
+{% endif %}
+{% block content %}
+{% endblock %}
+
+<!-- jQuery JS -->
+<script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
+
+{% block script %}
+{% endblock %}
+
+</body>
+</html>

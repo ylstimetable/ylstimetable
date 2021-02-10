@@ -48,8 +48,8 @@ def detail(request, assess_id):
 
 
 @login_required(login_url='common:login')
-def delete(request, question_id):
-    assess = get_object_or_404(Assess, pk=question_id)
+def delete(request, assess_id):
+    assess = get_object_or_404(Assess, pk=assess_id)
 
     if request.user != assess.author:
         messages.error(request, '삭제권한이 없습니다.')

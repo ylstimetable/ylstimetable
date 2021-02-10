@@ -47,4 +47,17 @@ def detail(request, assess_id):
     return render(request, 'assess_detail.html', context)
 
 
+@login_required(login_url='common:login')
+def delete(request, question_id):
+    assess = get_object_or_404(Assess, pk=question_id)
+
+    if request.user != assess.author:
+        messages.error(request, '삭제권한이 없습니다.')
+        return redirect('board:detail', assess_id=assess.id)
+
+    assess.delete()
+
+    return redirect('index')
+
+
 

@@ -16,9 +16,9 @@
             <table class="table">
                 <thead>
                 <tr class="text-center thead-dark">
-                    <th>과목</th>
-                    <th>교수</th>
-                    <th>번호</th>
+                    <th class="width:15%">과목</th>
+                    <th class="width:15%">교수</th>
+                    <th class="d-none d-sm-block">번호</th>
                     <th style="width:40%">제목</th>
                     <th class="d-none d-sm-block">글쓴이</th>
                     <th class="d-none d-sm-block">작성일시</th>
@@ -30,7 +30,7 @@
                 <tr class="text-center">
                     <td>{{ assess.classinfo.title }}</td>
                     <td>{{ assess.classinfo.professor }}</td>
-                    <td>{{ assess_list.paginator.count|sub:assess_list.start_index|sub:forloop.counter0|add:1}}</td>
+                    <td class="d-none d-sm-block">{{ assess_list.paginator.count|sub:assess_list.start_index|sub:forloop.counter0|add:1}}</td>
                     <td class="text-left">
                         <a href="{% url 'board:detail' assess.id %}">
                             {{ assess.subject }}

@@ -27,3 +27,7 @@ def time(ctime):
 @register.filter
 def sub(value, arg):
     return value -arg
+
+def subst(value):
+    value -= 1
+    return value

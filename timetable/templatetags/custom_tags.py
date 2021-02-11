@@ -28,6 +28,7 @@ def time(ctime):
 def sub(value, arg):
     return value -arg
 
+@register.simple_tag
 def subst(value):
     value -= 1
     return value

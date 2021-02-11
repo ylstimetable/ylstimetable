@@ -65,7 +65,6 @@
                     {% endif %}
                     {% content tablecolor loca as color %}
                     {% content tableroom loca as room %}
-                    {{ titlesub }}
                         {% if color == 1 %}
                         <th bgcolor="CFE2F8">
                             {% if title != titlesub %}
@@ -131,7 +130,9 @@
                         </th>
                         {% endif %}
                         {% else %}
-                        <th></th>
+                        <th>
+                            {{ titlesub }}
+                        </th>
                         {% endif %}
                     {% endfor %}
                 </tr>

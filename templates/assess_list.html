@@ -20,8 +20,8 @@
                     <th>교수</th>
                     <th>번호</th>
                     <th style="width:40%">제목</th>
-                    <th class="hidden-xs">글쓴이</th>
-                    <th class="hidden-xs">작성일시</th>
+                    <th class=".d-none .d-sm-block">글쓴이</th>
+                    <th class=".d-none .d-sm-block">작성일시</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,13 +36,13 @@
                             {{ assess.subject }}
                         </a>
                     </td>
-                    <td class="hidden-xs">{{ assess.author.username }}</td>
-                    <td class="hidden-xs">{{ assess.create_date }}</td>
+                    <td class=".d-none .d-sm-block">{{ assess.author.username }}</td>
+                    <td class=".d-none .d-sm-block">{{ assess.create_date }}</td>
                 </tr>
                 {% endfor %}
                 {% else %}
                 <tr>
-                    <td colspan="3">질문이 없습니다.</td>
+                    <td colspan="3">강의평가가 없습니다.</td>
                 </tr>
                 {% endif %}
                 </tbody>

@@ -4,40 +4,6 @@
 <br>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12 col-md-4">
-            <form method="POST" action="{% url 'timetable:result' %}">과목명/교수:
-                {% csrf_token %}
-                <input type="text" name="classname">
-                <button type="submit" class="btn btn-primary">검색</button>
-                <br>
-                신청학점: {{ tabletime | length }}
-            </form>
-            {% if tabletime %}
-                <table class="table-sm table-striped table-condensed">
-                    <tbody>
-                    <tr class="text-center">
-                        <th style="width: 50%">과목명</th>
-                        <th>교수</th>
-                        <th></th>
-                    </tr>
-                    {% for i in list %}
-                    <tr class = "text-center" height="30px">
-                        <td><p style = "font-size:14px;">{{ i.title }}</p></td>
-                        <td><p style = "font-size:14px;">{{ i.professor }}</p></td>
-                        <td><h6>
-                            <form method="POST" action="{% url 'timetable:delete' i.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">삭제</button>
-                            </form>
-                        </h6></td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
-        </div>
-
-        <!-- 시간표 -->
         <div class="col-xs-12 col-md-8">
             <table class="table-sm table-bordered" style="table-layout: fixed">
                 <tbody>
@@ -140,6 +106,40 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+
+        <!-- 시간표 -->
+        <div class="col-xs-12 col-md-4">
+            <form method="POST" action="{% url 'timetable:result' %}">과목명/교수:
+                {% csrf_token %}
+                <input type="text" name="classname">
+                <button type="submit" class="btn btn-primary">검색</button>
+                <br>
+                신청학점: {{ tabletime | length }}
+            </form>
+            {% if tabletime %}
+                <table class="table-sm table-striped table-condensed">
+                    <tbody>
+                    <tr class="text-center">
+                        <th style="width: 50%">과목명</th>
+                        <th>교수</th>
+                        <th></th>
+                    </tr>
+                    {% for i in list %}
+                    <tr class = "text-center" height="30px">
+                        <td><p style = "font-size:14px;">{{ i.title }}</p></td>
+                        <td><p style = "font-size:14px;">{{ i.professor }}</p></td>
+                        <td><h6>
+                            <form method="POST" action="{% url 'timetable:delete' i.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">삭제</button>
+                            </form>
+                        </h6></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
     </div>
 </div>

@@ -59,10 +59,8 @@
                     {% subst cou as couu %}
                     {% location tabletime cou as loca %}
                     {% content tablename loca as title %}
-                    {% if cou != 1 %}
                     {% location tabletime couu as locaa %}
-                    {% content tablecolor locaa as titlesub %}
-                    {% endif %}
+                    {% content tablename locaa as titlesub %}
                     {% content tablecolor loca as color %}
                     {% content tableroom loca as room %}
                         {% if color == 1 %}

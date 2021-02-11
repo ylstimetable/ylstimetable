@@ -3,7 +3,7 @@ from django.urls import path, include
 from timetable import views
 
 urlpatterns = [
-    path('leehwan/', admin.site.urls),
+    path('adminlee/', admin.site.urls),
     path('timetable/', include('timetable.urls')),
     path('common/', include('common.urls')),
     path('board/', include('board.urls')),

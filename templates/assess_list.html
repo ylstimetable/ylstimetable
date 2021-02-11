@@ -18,10 +18,10 @@
                 <tr class="text-center thead-dark">
                     <th class="width:15%">과목</th>
                     <th class="width:15%">교수</th>
-                    <th class="d-none d-sm-block">번호</th>
+                    <th class="d-none">번호</th>
                     <th style="width:40%">제목</th>
-                    <th class="d-none d-sm-block">글쓴이</th>
-                    <th class="d-none d-sm-block">작성일시</th>
+                    <th class="d-none">글쓴이</th>
+                    <th class="d-none">작성일시</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,14 +30,14 @@
                 <tr class="text-center">
                     <td>{{ assess.classinfo.title }}</td>
                     <td>{{ assess.classinfo.professor }}</td>
-                    <td class="d-none d-sm-block">{{ assess_list.paginator.count|sub:assess_list.start_index|sub:forloop.counter0|add:1}}</td>
+                    <td class="d-none">{{ assess_list.paginator.count|sub:assess_list.start_index|sub:forloop.counter0|add:1}}</td>
                     <td class="text-left">
                         <a href="{% url 'board:detail' assess.id %}">
                             {{ assess.subject }}
                         </a>
                     </td>
-                    <td class="d-none d-sm-block">{{ assess.author.username }}</td>
-                    <td class="d-none d-sm-block">{{ assess.create_date }}</td>
+                    <td class="d-none">{{ assess.author.username }}</td>
+                    <td class="d-none">{{ assess.create_date }}</td>
                 </tr>
                 {% endfor %}
                 {% else %}

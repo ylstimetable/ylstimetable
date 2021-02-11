@@ -26,14 +26,14 @@
                 {% if assess_list %}
                 {% for assess in assess_list %}
                 <tr class="text-center">
-                    <td>{{ assess.classinfo.title }}</td>
-                    <td>{{ assess.classinfo.professor }}</td>
-                    <td class="text-left">
+                    <td class="align-middle small">{{ assess.classinfo.title }}</td>
+                    <td class="align-middle small">{{ assess.classinfo.professor }}</td>
+                    <td class="align-middle small">
                         <a href="{% url 'board:detail' assess.id %}">
                             {{ assess.subject }}
                         </a>
                     </td>
-                    <td>{{ assess.author.username }}</td>
+                    <td class="align-middle small">{{ assess.author.username }}</td>
                 </tr>
                 {% endfor %}
                 {% else %}

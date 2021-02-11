@@ -4,17 +4,14 @@
 <br>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12 col-md-4">
-        <form method="POST" action="{% url 'timetable:result' %}">과목명/교수:
+        <div class="col-xs-12 col-md-8">
+            <form method="POST" action="{% url 'timetable:result' %}">과목명/교수:
                 {% csrf_token %}
                 <input type="text" name="classname">
                 <button type="submit" class="btn btn-primary">검색</button>
                 <br>
                 신청학점: {{ tabletime | length }}
-        </form>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-md-8">
+            </form>
             <table class="table-sm table-bordered" style="table-layout: fixed">
                 <tbody>
                 <tr class="text-center" style="background-color:#AEB9C6">

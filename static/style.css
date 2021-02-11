@@ -1,0 +1,11 @@
+.body {
+    margin-bottom: 80px;
+    background: #eee;
+    font-size: 0.9em;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 0.8rem;
+    color: #212529;
+}

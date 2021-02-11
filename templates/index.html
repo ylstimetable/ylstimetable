@@ -57,10 +57,9 @@
                     {% add_str i j as cou %}
                     {% if cou in tabletime %}
                     {% subst cou as couu %}
-                    {% divide couu as couuu %}
                     {% location tabletime cou as loca %}
                     {% content tablename loca as title %}
-                    {% if couuu == 1 %}
+                    {% if couu in tabletime %}
                     {% location tabletime couu as locaa %}
                     {% content tablename locaa as titlesub %}
                     {% endif %}

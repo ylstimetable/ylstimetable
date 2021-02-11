@@ -9,8 +9,6 @@
                 {% csrf_token %}
                 <input type="text" name="classname">
                 <button type="submit" class="btn btn-primary">검색</button>
-                <br>
-                신청학점: {{ tabletime | length }}
             </form>
             <table class="table-sm table-bordered" style="table-layout: fixed">
                 <tbody>
@@ -117,6 +115,7 @@
 
         <!-- 시간표 -->
         <div class="col-xs-12 col-md-4">
+            신청학점: {{ tabletime | length }}
             {% if tabletime %}
                 <table class="table-sm table-striped table-condensed">
                     <tbody>

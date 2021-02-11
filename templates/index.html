@@ -57,13 +57,13 @@
                     {% add_str i j as cou %}
                     {% if cou in tabletime %}
                     {% subst cou as couu %}
+                    {% divide couu as couuu %}
                     {% location tabletime cou as loca %}
                     {% content tablename loca as title %}
-                    {% if cou != 1 %}
+                    {% if couuu == 1 %}
                     {% location tabletime couu as locaa %}
                     {% content tablename locaa as titlesub %}
                     {% endif %}
-
                     {% content tableroom loca as room %}
                         {% if color == 1 %}
                         <th bgcolor="CFE2F8">

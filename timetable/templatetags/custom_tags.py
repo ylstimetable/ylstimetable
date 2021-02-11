@@ -32,3 +32,8 @@ def sub(value, arg):
 def subst(value):
     value -= 1
     return value
+
+@register.simple_tag
+def divide(value):
+    value = value % 10
+    return value

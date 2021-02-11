@@ -59,9 +59,11 @@
                     {% subst cou as couu %}
                     {% location tabletime cou as loca %}
                     {% content tablename loca as title %}
+                    {% if cou != 1 %}
                     {% location tabletime couu as locaa %}
                     {% content tablename locaa as titlesub %}
-                    {% content tablecolor loca as color %}
+                    {% endif %}
+
                     {% content tableroom loca as room %}
                         {% if color == 1 %}
                         <th bgcolor="CFE2F8">

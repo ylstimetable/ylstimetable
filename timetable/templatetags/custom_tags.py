@@ -37,8 +37,3 @@ def subst(value):
 def divide(value):
     value = value % 10
     return value
-
-@register.simple_tag
-def strsubst(value):
-    value = int(value) - 1
-    return str(value)

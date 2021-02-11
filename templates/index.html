@@ -59,13 +59,13 @@
                     {% subst cou as couu %}
                     {% location tabletime cou as loca %}
                     {% content tablename loca as title %}
+                    {% content tablecolor loca as color %}
                     {% if couu in tabletime %}
                     {% location tabletime couu as locaa %}
                     {% content tablecolor locaa as colorsub %}
                     {% else %}
-                    {% strsubst color as colorsub %}
+                    {% subst color as colorsub %}
                     {% endif %}
-                    {% content tablecolor loca as color %}
                     {% content tableroom loca as room %}
                         {% if color == 1 %}
                         <th bgcolor="CFE2F8">

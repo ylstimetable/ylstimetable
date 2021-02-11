@@ -9,3 +9,6 @@ urlpatterns = [
     path('board/', include('board.urls')),
     path('', views.index, name='index'),
 ]
+
+
+handler404 = 'common.views.page_not_found'

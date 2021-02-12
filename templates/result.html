@@ -28,10 +28,8 @@
                                 <button type="submit" class="btn btn-primary">수강</button>
                             </form>
                         </td>
-                        <td>
-                            <button class="btn btn-primary">
-                                <a href="{% url 'timetable:address' i.number i.ban %}"></a>열기
-                            </button>
+                        <td class="text-center">
+                            <a href="{% url 'timetable:address' i.number i.ban %}">열기</a>
                         </td>
                         <td class="text-center">
                             <a href="{% url 'board:create' i.id %}">강의평가</a>

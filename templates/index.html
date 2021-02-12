@@ -3,11 +3,19 @@
 {% block content %}
 <br>
 <div class="container">
+    {% if messages %}
+    <div class = "alert alert-danger my-3" role="alert">
+        {% for message in messages %}
+            <strong>{{ message.tags }}</strong>
+            <ul><li>{{ message.message }}</li></ul>
+        {% endfor %}
+    </div>
+    {% endif %}
     <div class="row">
         <div class="col-xs-12 col-md-8">
-            <form method="POST" action="{% url 'timetable:result' %}">과목명/교수:
+            <form method="POST" action="{% url 'timetable:result' %}">
                 {% csrf_token %}
-                <input type="text" name="classname">
+                <input type="text" name="classname" placeholder="검색어를 입력해 주세요." size="30">
                 <button type="submit" class="btn btn-primary">검색</button>
             </form>
             <table class="table-sm table-bordered" style="table-layout: fixed">

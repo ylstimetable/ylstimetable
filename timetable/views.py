@@ -219,8 +219,10 @@ def register(request, class_id):
     if check == 0:
         reg.voter.add(request.user)
         reg.save()
-
-    return redirect('index')
+        return redirect('index')
+    else:
+        messages.error(request, '해당 시간에 수강하는 과목이 있습니다.')
+        return redirect('index')
 
 
 @login_required(login_url='common:login')

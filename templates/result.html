@@ -7,7 +7,7 @@
                 <table class="table table-hover">
                     <thead>
                     <tr class="text-center">
-                        <th width="35%">강의</th>
+                        <th width="40%">강의</th>
                         <th>수강</th>
                         <th>실라버스</th>
                         <th>강의평가</th>
@@ -19,8 +19,7 @@
                         <td>
                             <h4>{{ i.title }}</h4>
                             <p>
-                                <span>{{ i.professor }}</span>
-                                <span>{{ i.room }}</span>
+                                {{ i.professor }}{{ i.room }}
                             </p>
                             <p><span>{{ i.time }}</span></p>
                         <td class="text-center">
@@ -29,8 +28,10 @@
                                 <button type="submit" class="btn btn-primary">수강</button>
                             </form>
                         </td>
-                        <td class="text-center">
-                            <a href="{% url 'timetable:address' i.number i.ban %}">실라버스</a>
+                        <td>
+                            <button class="btn btn-primary">
+                                <a href="{% url 'timetable:address' i.number i.ban %}"></a>열기
+                            </button>
                         </td>
                         <td class="text-center">
                             <a href="{% url 'board:create' i.id %}">강의평가</a>

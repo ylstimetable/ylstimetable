@@ -33,7 +33,7 @@ def index(request):
     user = request.user
     q = user.class_voter.all()
     ran = range(1, 13)
-    rang = range(0, 6)
+    rang = range(0, 5)
 
     tabletime = []
     tablename = []

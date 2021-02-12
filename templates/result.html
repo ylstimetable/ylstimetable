@@ -1,43 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-fluid">
-    <div class="table-responsive">
-        <div class="col-md-12 col xs-12">
-            <table class="table table-hover">
-                <thead>
-                <tr class="text-center">
-                    <th width="40%">강의</th>
-                    <th>수강</th>
-                    <th>실라버스</th>
-                    <th>강의평가</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for i in lists %}
-                <tr>
-                    <td>
-                        <h4>{{ i.title }}</h4>
-                        <p>
-                            <span>{{ i.professor }}</span>
-                            <span>{{ i.room }}</span>
-                        </p>
-                        <p><span>{{ i.time }}</span></p>
-                    <td class="text-center">
-                        <form method="POST" action="{% url 'timetable:register' i.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">수강</button>
-                        </form>
-                    </td>
-                    <td class="text-center">
-                        <a href="{% url 'timetable:address' i.number i.ban %}">실라버스</a>
-                    </td>
-                    <td class="text-center">
-                        <a href="{% url 'board:create' i.id %}">강의평가</a>
-                    </td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+<div class="container">
+    <div class="row">
+        <div class="table-responsive">
+            <div class="col-md-12 col xs-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr class="text-center">
+                        <th width="40%">강의</th>
+                        <th>수강</th>
+                        <th>실라버스</th>
+                        <th>강의평가</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in lists %}
+                    <tr>
+                        <td>
+                            <h4>{{ i.title }}</h4>
+                            <p>
+                                <span>{{ i.professor }}</span>
+                                <span>{{ i.room }}</span>
+                            </p>
+                            <p><span>{{ i.time }}</span></p>
+                        <td class="text-center">
+                            <form method="POST" action="{% url 'timetable:register' i.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">수강</button>
+                            </form>
+                        </td>
+                        <td class="text-center">
+                            <a href="{% url 'timetable:address' i.number i.ban %}">실라버스</a>
+                        </td>
+                        <td class="text-center">
+                            <a href="{% url 'board:create' i.id %}">강의평가</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -1,10 +1,39 @@
-.body {
+/* ------------------------------------------------------ */
+/* Layout */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
     margin-bottom: 80px;
     background: #eee;
-    font-size: 0.9em;
+    font-size:0.9em;
 }
 
-.table {
+.footer {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    margin-bottom: 0.8rem;
+    /* Set the fixed height of the footer here */
+    height: 50px;
+
+    background-color: #f5f5f5;
 }
+
+.container {
+
+}
+
+#content {
+    background: #fff;
+}
+
+.content_block {
+    padding:20px;
+}
+
+.table th, .table td {
+    padding: 5px;
+}
+

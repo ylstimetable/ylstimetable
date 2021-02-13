@@ -47,3 +47,14 @@ body {
     position: relative;
     top: 35%;
 }
+
+#side_left {
+    height: 100%;
+    background: #00A4EF;
+}
+
+
+#side_right {
+    height: 100%;
+    background: #00A4EF;
+}

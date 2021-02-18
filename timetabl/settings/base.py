@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'timetable.apps.TimetableConfig',
     'common.apps.CommonConfig',
     'board.apps.BoardConfig',
+    'freeboard.apps.FreeboardConfig',
 ]
 
 MIDDLEWARE = [

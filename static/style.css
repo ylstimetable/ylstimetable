@@ -24,8 +24,9 @@ body {
 
 #comment_table {
    list-style:none;
-   padding-left:0px;
+   padding-left: 20px;
 }
+
 
 #content {
     background: #fff;
@@ -43,18 +44,23 @@ body {
     height: 100%;
 }
 
+#top_banner {
+    position: absolute;
+    background: #202A44;
+    height: 100%;
+    width: 30%;
+}
+
 #login {
     position: relative;
     top: 20%;
 }
 
-#side_left {
+#under_banner {
+    position: absolute;
+    background: #202A44;
+    top: 0%;
     height: 100%;
-    background: #00A4EF;
-}
-
-
-#side_right {
-    height: 100%;
-    background: #00A4EF;
+    width: 30%;
+    right: 0;
 }

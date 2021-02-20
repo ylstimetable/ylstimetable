@@ -9,8 +9,6 @@
                     <ul class="list-group list-group-flush">
                     <li class="list-group-item">공지사항</li>
                     <a class="rounded-0 list-group-item list-group-item-action"
-                       href="/">시간표</a>
-                    <a class="rounded-0 list-group-item list-group-item-action"
                        href="/board/list">강의평가</a>
                     <a class="rounded-0 list-group-item list-group-item-action"
                        href="/freeboard/list">자유게시판</a>
@@ -25,9 +23,9 @@
                         <h3>{{ post.subject }}</h3>
                         <span>{{ post.author.username }} |</span>
                         {% if post.modify_date %}
-                        <span>작성일: {{ post.create_date }}</span>
+                        <span>작성일: {{ post.modify_date | date:'Y년 m월d일 H:i' }}</span>
                         {% else %}
-                        <span>{{ post.create_date }}</span>
+                        <span>{{ post.create_date | date:'Y년 m월d일 H:i' }}</span>
                         {% endif %}
                     </div>
                     <br>
@@ -42,9 +40,9 @@
                     <div id="comment_header">
                         <span>{{ comment.author.username }} |</span>
                         {% if post.modify_date %}
-                        <span>{{ comment.create_date }}</span>
+                        <span>{{ comment.modify_date | date:'Y년 m월d일 H:i' }}</span>
                         {% else %}
-                        <span>{{ comment.create_date }}</span>
+                        <span>{{ comment.create_date | date:'Y년 m월d일 H:i'}}</span>
                         {% endif %}
                     </div>
                     <div class="card-text" style="white-space: pre-line;">{{ comment.content }}</div>

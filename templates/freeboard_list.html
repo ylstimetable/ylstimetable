@@ -20,8 +20,6 @@
                     <ul class="list-group list-group-flush">
                     <li class="list-group-item">공지사항</li>
                     <a class="rounded-0 list-group-item list-group-item-action"
-                       href="/">시간표</a>
-                    <a class="rounded-0 list-group-item list-group-item-action"
                        href="/board/list">강의평가</a>
                     <a class="rounded-0 list-group-item list-group-item-action"
                        href="/freeboard/list">자유게시판</a>
@@ -51,7 +49,7 @@
                         </a>
                     </td>
                     <td class="align-middle">{{ post.author.username }}</td>
-                    <td>{{ post.create_date }}</td>
+                    <td>{{ post.create_date | date:'Y년 m월d일 H:i' }}</td>
                 </tr>
                 {% endfor %}
                 {% else %}

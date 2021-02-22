@@ -34,7 +34,7 @@
                 {% for i in ran %}
                 <tr>
                     {% time i as p %}
-                    <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}시</p></th>
+                    <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}</p></th>
                     {% for j in rang %}
                     {% add_str i j as cou %}
                     {% if cou in tabletime %}

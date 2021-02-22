@@ -11,7 +11,6 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 80px;
     font-size:0.9em;
-    height: 100%;
 }
 
 .footer {
@@ -39,10 +38,6 @@ body {
 
 .table th, .table td {
     padding: 5px;
-}
-
-#common_container {
-    height: 100%;
 }
 
 #top_banner {

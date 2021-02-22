@@ -18,10 +18,10 @@
                 <input type="text" name="classname" placeholder="검색어를 입력해 주세요." size="22">
                 <button type="submit" class="btn btn-primary">검색</button>
             </form>
-            <table class="table-sm table-bordered" style="table-layout: fixed">
+            <table class="table-sm table-bordered" height="50">
                 <tbody>
                 <tr class="text-center" style="background-color:#AEB9C6">
-                    <th width="6%"></th>
+                    <th width="5%"></th>
                     <th width="15.6%"><span style = "font-size:14px;">월</span></th>
                     <th width="15.6%"><span style = "font-size:14px;">화</span></th>
                     <th width="15.6%"><span style = "font-size:14px;">수</span></th>
@@ -34,7 +34,7 @@
                 {% for i in ran %}
                 <tr>
                     {% time i as p %}
-                    <th class="text-center align-middle"><p style = "font-size:14px; font-weight:lighter;">{{ p }}시</p></th>
+                    <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}시</p></th>
                     {% for j in rang %}
                     {% add_str i j as cou %}
                     {% if cou in tabletime %}

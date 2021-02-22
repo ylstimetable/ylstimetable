@@ -40,6 +40,7 @@ def index(request):
     tablecolor = []
     tableroom = []
     colorcount = 0
+    saturday = 0
 
     for temp in q:
         temptime = temp.time
@@ -70,6 +71,8 @@ def index(request):
                 if string[0] == '토':
                     tabletime.append(int(string[1]) * 10 + int(string[2]) + 100)
                     count = 100
+                    saturday = 1
+                    rang = range(0, 6)
             if len(string) == 2:
                 if string[0] == '월':
                     tabletime.append(int(string[1]))
@@ -89,6 +92,8 @@ def index(request):
                 if string[0] == '토':
                     tabletime.append(int(string[1]) + 100)
                     count = 100
+                    saturday = 1
+                    rang = range(0, 6)
                 if string[0] == '1':
                     tabletime.append(int(string[0]) * 10 + int(string[1]) + count)
             if len(string) == 1:
@@ -100,7 +105,7 @@ def index(request):
 
     return render(request, 'index.html', {"list": q, "ran": ran, "rang": rang,
                                     "tabletime": tabletime, "tablename": tablename,
-                                          "tablecolor": tablecolor, "tableroom": tableroom})
+                                          "tablecolor": tablecolor, "tableroom": tableroom, "saturday": saturday})
 
 
 @login_required(login_url='common:login')

@@ -38,7 +38,7 @@ body {
 }
 
 .table th, .table td {
-    padding: 5px;
+    padding: 10px;
 }
 
 #common_container {
@@ -48,8 +48,8 @@ body {
 #top_banner {
     position: absolute;
     background: #202A44;
+    top: 0%;
     height: 100%;
-    width: 30%;
 }
 
 #login {
@@ -60,8 +60,6 @@ body {
 #under_banner {
     position: absolute;
     background: #202A44;
-    top: 0%;
-    height: 100%;
-    width: 30%;
-    right: 0;
+    top: 40%;
+    height: 10%;
 }

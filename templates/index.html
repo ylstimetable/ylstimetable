@@ -27,6 +27,9 @@
                     <th width="15.6%"><span style = "font-size:14px;">수</span></th>
                     <th width="15.6%"><span style = "font-size:14px;">목</span></th>
                     <th width="15.6%"><span style = "font-size:14px;">금</span></th>
+                    {% if saturday == 1 %}
+                    <th width="15.6%"><span style = "font-size:14px;">토</span></th>
+                    {% endif %}
                 </tr>
                 {% for i in ran %}
                 <tr>

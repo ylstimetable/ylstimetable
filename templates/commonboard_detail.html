@@ -4,7 +4,7 @@
 <div class="container my-3">
     <div class="row my-2">
          <div class="col-xs-12 col-md-2">
-             <nav id="sidebar" class="border-top border-secondary">
+            <nav id="sidebar" class="border-top border-secondary">
                 <div class="list-group">
                     <ul class="list-group list-group-flush">
                     <a class="rounded-0 list-group-item list-group-item-action"
@@ -17,24 +17,23 @@
                 </div>
             </nav>
         </div>
-        <div class="col-xs-12 col-md-10"> <!-- 질문 영역 -->
+        <div class="col-xs-12 col-md-10"> <!-- 글 영역 -->
             <div class="card">
                 <div class="card-body">
                     <div id="post_header">
-                        <h3>{{ assess.subject }}</h3>
-                        <span>{{ assess.author.username }} |</span>
-                        {% if assess.modify_date %}
-                        <span>작성일: {{ assess.create_date | date:'Y년 m월d일 H:i' }}</span>
+                        <h3>{{ announce.subject }}</h3>
+                        <span>{{ announce.author.username }} |</span>
+                        {% if announce.modify_date %}
+                        <span>작성일: {{ announce.modify_date | date:'Y년 m월d일 H:i' }}</span>
                         {% else %}
-                        <span>{{ assess.create_date | date:'Y년 m월d일 H:i' }}</span>
+                        <span>{{ announce.create_date | date:'Y년 m월d일 H:i' }}</span>
                         {% endif %}
                     </div>
                     <br>
-                    <div class="card-text" style="white-space: pre-line;">{{ assess.content }}</div>
+                    <div class="card-text" style="white-space: pre-line;">{{ announce.content }}</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

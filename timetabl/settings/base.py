@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'board.apps.BoardConfig',
     'freeboard.apps.FreeboardConfig',
+    'commonboard.apps.CommonboardConfig',
 ]
 
 MIDDLEWARE = [

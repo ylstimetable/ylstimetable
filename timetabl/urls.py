@@ -9,6 +9,7 @@ urlpatterns = [
     path('board/', include('board.urls')),
     path('', views.index, name='index'),
     path('freeboard/', include('freeboard.urls')),
+    path('commonboard/', include('commonboard.urls')),
 ]
 
 handler404 = 'common.views.page_not_found'

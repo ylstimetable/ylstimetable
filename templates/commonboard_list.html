@@ -32,30 +32,30 @@
             <table class="table">
                 <thead>
                 <tr class="text-center thead-dark">
-                    <th>과목</th>
-                    <th>교수</th>
+                    <th>번호</th>
                     <th style="width:50%">제목</th>
                     <th>글쓴이</th>
+                    <th>시간</th>
                 </tr>
                 </thead>
                 <tbody>
-                <h4 class="border-bottom pb-2 mb-3">강의평가</h4>
-                {% if assess_list %}
-                {% for assess in assess_list %}
+                <h4 class="border-bottom pb-2 mb-3">공지사항</h4>
+                {% if announce_list %}
+                {% for announce in announce_list %}
                 <tr class="text-center">
-                    <td class="align-middle">{{ assess.classinfo.title }}</td>
-                    <td class="align-middle">{{ assess.classinfo.professor }}</td>
+                    <td>{{ announce.id }}</td>
                     <td class="align-middle">
-                        <a href="{% url 'board:detail' assess.id %}">
-                            {{ assess.subject }}
+                        <a href="{% url 'freeboard:detail' post.id %}">
+                            {{ announce.subject }}
                         </a>
                     </td>
-                    <td class="align-middle">{{ assess.author.username }}</td>
+                    <td class="align-middle">{{ announce.author.username }}</td>
+                    <td>{{ announce.create_date | date:'Y년 m월d일 H:i' }}</td>
                 </tr>
                 {% endfor %}
                 {% else %}
                 <tr>
-                    <td colspan="3">강의평가가 없습니다.</td>
+                    <td colspan="3">글이 없습니다.</td>
                 </tr>
                 {% endif %}
                 </tbody>
@@ -63,10 +63,10 @@
 
             <!-- 페이징 처리 시작 -->
             <ul class="pagination justify-content-center">
-                {% if assess_list.has_previous %}
+                {% if announce_list.has_previous %}
                 <li class="page-item">
                     <a class="page-link"
-                       href="?page={{ assess_list.previous_page_number }}">
+                       href="?page={{ post_list.previous_page_number }}">
                         이전
                     </a>
                 </li>
@@ -79,9 +79,9 @@
                 {% endif %}
 
                 <!-- 페이지 리스트 -->
-                {% for page_number in assess_list.paginator.page_range %}
-                {% if page_number >= assess_list.number|add:-5 and page_number <= assess_list.number|add:5 %}
-                {% if page_number == assess_list.number %}
+                {% for page_number in announce_list.paginator.page_range %}
+                {% if page_number >= announce_list.number|add:-5 and page_number <= announce_list.number|add:5 %}
+                {% if page_number == announce_list.number %}
                 <li class="page-item active" aria-current="page">
                     <a class="page-link" href="?page={{ page_number }}">
                         {{ page_number }}
@@ -98,10 +98,10 @@
                 {% endfor %}
 
                 <!-- 다음페이지 -->
-                {% if assess_list.has_next %}
+                {% if announce_list.has_next %}
                 <li class="page-item">
                     <a class="page-link"
-                       href="?page={{ assess_list.next_page_number }}">
+                       href="?page={{ post_list.next_page_number }}">
                         다음
                     </a>
                 </li>

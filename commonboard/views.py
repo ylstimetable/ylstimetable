@@ -29,8 +29,8 @@ def detail(request, announce_id):
 
 @login_required(login_url='common:login')
 def announce_create(request):
-    if request.method == 'announce':
-        form = AnnounceForm(request.announce)
+    if request.method == 'POST':
+        form = AnnounceForm(request.POST)
         if form.is_valid():
             announce = form.save(commit=False)
             announce.author = request.user
@@ -54,7 +54,7 @@ def announce_modify(request, announce_id):
         return redirect('commonboard:list', announce_id=announce_id)
 
     if request.method == "announce":
-        form = AnnounceForm(request.announce, instance=announce)
+        form = AnnounceForm(request.POST, instance=announce)
         if form.is_valid():
             announce = form.save(commit=False)
             announce.author = request.user

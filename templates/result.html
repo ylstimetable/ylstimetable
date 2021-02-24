@@ -22,17 +22,17 @@
                                 {{ i.professor }}{{ i.room }}
                             </p>
                             <p><span>{{ i.time }}</span></p>
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             <form method="POST" action="{% url 'timetable:register' i.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-primary">수강</button>
                             </form>
                         </td>
-                        <td class="text-center">
-                            <a href="{% url 'timetable:address' i.number i.ban %}">열기</a>
+                        <td class="text-center align-middle">
+                            <a href="{% url 'timetable:address' i.number i.ban %}" style="color:black;">열기</a>
                         </td>
-                        <td class="text-center">
-                            <a href="{% url 'board:create' i.id %}">강의평가</a>
+                        <td class="text-center align-middle">
+                            <a href="{% url 'board:create' i.id %}" style="color:black;">강의평가</a>
                         </td>
                     </tr>
                     {% endfor %}

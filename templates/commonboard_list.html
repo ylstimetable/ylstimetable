@@ -42,8 +42,8 @@
                 <h4 class="border-bottom pb-2 mb-3">공지사항</h4>
                 {% if announce_list %}
                 {% for announce in announce_list %}
-                <tr class="text-center">
-                    <td>{{ announce.id }}</td>
+                <tr>
+                    <td class="text-center">{{ announce.id }}</td>
                     <td class="align-middle">
                         <a href="{% url 'commonboard:detail' announce.id %}" style="color:black;">
                             {{ announce.subject }}

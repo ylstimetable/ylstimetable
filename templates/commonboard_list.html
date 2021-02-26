@@ -49,8 +49,8 @@
                             {{ announce.subject }}
                         </a>
                     </td>
-                    <td class="align-middle">{{ announce.author.username }}</td>
-                    <td>{{ announce.create_date | date:'Y년 m월d일 H:i' }}</td>
+                    <td class="text-center">{{ announce.author.username }}</td>
+                    <td class="text-center">{{ announce.create_date | date:'Y년 m월d일 H:i' }}</td>
                 </tr>
                 {% endfor %}
                 {% else %}

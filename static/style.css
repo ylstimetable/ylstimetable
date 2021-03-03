@@ -59,3 +59,63 @@ body {
     top: 40%;
     height: 10%;
 }
+
+.btnn {
+  background: linear-gradient(to right, rgb(220, 227, 91), rgb(69, 182, 73));
+  padding: 10px 20px;
+  display: inline-block;
+  border-radius: 25px;
+  margin: 5px 0;
+  color: #fff;
+  position: relative;
+  transition: all .4s ease;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+  }
+}
+
+#popup {
+    display: none; /*숨기기*/
+    position: absolute;
+    width: 96%;
+    height: 90%;
+    background: rgba(0,0,0,0.5);
+}
+
+.exit {
+    background: linear-gradient(to right, rgb(220, 227, 91), rgb(69, 182, 73));
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 25px;
+    margin: 5px 0;
+    left: 80%;
+    color: #fff;
+    position: relative;
+    transition: all .4s ease;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+    }
+}
+
+#popmenu {
+     background-color: #fefefe;
+     margin: 30% auto; /* 15% from the top and centered */
+     padding: 20px;
+     border: 1px solid #888;
+     width: 63%;
+ }
+
+
+.containers {
+    display: inline;
+}
+
+.search {
+    display: inline;
+}
+
+#inputclass {
+    display: block;
+}

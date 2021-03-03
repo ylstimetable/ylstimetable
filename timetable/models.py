@@ -14,3 +14,11 @@ class ClassD(models.Model):
 
     def __str__(self):
         return self.title
+
+class ClassM(models.Model):
+    title = models.CharField(max_length=200)
+    time = models.CharField(max_length=200)
+    author = models.ManyToManyField(User, related_name='class_author', blank=True)
+
+    def __str__(self):
+        return self.title

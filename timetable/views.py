@@ -1,12 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .form import ClassForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from .models import ClassD
+from .models import ClassD, ClassM
 from django.contrib import messages
-from django.contrib.auth.models import User
-from django.http import HttpResponse, JsonResponse
-
 
 import requests
 from bs4 import BeautifulSoup
@@ -32,6 +28,7 @@ def result(request):
 def index(request):
     user = request.user
     q = user.class_voter.all()
+    m = user.class_author.all()
     ran = range(1, 13)
     rang = range(0, 5)
 
@@ -41,6 +38,7 @@ def index(request):
     tableroom = []
     colorcount = 0
     saturday = 0
+    credit = 0
 
     for temp in q:
         temptime = temp.time
@@ -102,8 +100,72 @@ def index(request):
             tablename.append(tempname)
             tablecolor.append(colorcount)
             tableroom.append(temp.room)
+            credit += 1
 
-    return render(request, 'index.html', {"list": q, "ran": ran, "rang": rang,
+
+    for temp in m:
+        temptime = temp.time
+        tempnam = temp.title
+        strings = temptime.split(',')
+        colorcount += 1
+        count = 0
+
+        for string in strings:
+            string = string.replace(u'\xa0', u'')
+            tempname = tempnam.replace(u'\xa0', u'')
+            if len(string) == 3:
+                if string[0] == '월':
+                    tabletime.append(int(string[1]) * 10 + int(string[2]))
+                    count = 0
+                if string[0] == '화':
+                    tabletime.append(int(string[1]) * 10 + int(string[2]) + 20)
+                    count = 20
+                if string[0] == '수':
+                    tabletime.append(int(string[1]) * 10 + int(string[2]) + 40)
+                    count = 40
+                if string[0] == '목':
+                    tabletime.append(int(string[1]) * 10 + int(string[2]) + 60)
+                    count = 60
+                if string[0] == '금':
+                    tabletime.append(int(string[1]) * 10 + int(string[2]) + 80)
+                    count = 80
+                if string[0] == '토':
+                    tabletime.append(int(string[1]) * 10 + int(string[2]) + 100)
+                    count = 100
+                    saturday = 1
+                    rang = range(0, 6)
+            if len(string) == 2:
+                if string[0] == '월':
+                    tabletime.append(int(string[1]))
+                    count = 0
+                if string[0] == '화':
+                    tabletime.append(int(string[1]) + 20)
+                    count = 20
+                if string[0] == '수':
+                    tabletime.append(int(string[1]) + 40)
+                    count = 40
+                if string[0] == '목':
+                    tabletime.append(int(string[1]) + 60)
+                    count = 60
+                if string[0] == '금':
+                    tabletime.append(int(string[1]) + 80)
+                    count = 80
+                if string[0] == '토':
+                    tabletime.append(int(string[1]) + 100)
+                    count = 100
+                    saturday = 1
+                    rang = range(0, 6)
+                if string[0] == '1':
+                    tabletime.append(int(string[0]) * 10 + int(string[1]) + count)
+            if len(string) == 1:
+                tabletime.append(int(string[0]) + count)
+
+            tablename.append(tempname)
+            tablecolor.append(colorcount)
+            tableroom.append('')
+
+
+    return render(request, 'index.html', {"list": q, "listm": m, "ran": ran, "rang": rang, "credit": credit,
                                     "tabletime": tabletime, "tablename": tablename,
                                           "tablecolor": tablecolor, "tableroom": tableroom, "saturday": saturday})
 
@@ -113,7 +175,6 @@ def register(request, class_id):
     q = request.user.class_voter.all()
 
     reg = get_object_or_404(ClassD, pk=class_id)
-
 
     tabletime = []
     regtime = []
@@ -237,6 +298,14 @@ def delete(request, class_id):
     return redirect('index')
 
 
+@login_required(login_url='common:login')
+def manual_delete(request, class_id):
+    reg = get_object_or_404(ClassM, pk=class_id)
+    reg.delete()
+    return redirect('index')
+
+
+
 def addition(request):
     classlist = {"헌법": 6101, "행정법": 6104, "민사소송법": 6210, "계약법": 6212,
                  "불법행위법": 6213, "형법": 6301, "형사증거법": 6304, "상거래법": 6401, "회사법": 6402,
@@ -306,7 +375,183 @@ def addition(request):
 
     return render(request, 'addition.html')
 
+
 @login_required(login_url='common:login')
 def address(request, number, ban):
     addr = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno={number}&bb=0{ban}&sbb=00&domain=W&startyy=2021&hakgi=1&ohak=23100"
     return redirect(addr)
+
+
+@login_required(login_url='common:login')
+def manual_register(request):
+    if request.method == 'POST':
+        title = request.POST.get("title")
+        time = request.POST.get("time")
+    else:
+        return render(request, 'index.html')
+
+    q = request.user.class_voter.all()
+    m = request.user.class_author.all()
+    reg = ClassM(title=title, time=time)
+
+    tabletime = []
+    regtime = []
+
+    for temp in q:
+        temptime = temp.time
+        strings = temptime.split(',')
+        count = 0
+
+        for string in strings:
+            string = string.replace(u'\xa0', u'')
+            if len(string) == 3:
+                if string[0] == '월':
+                    regtime.append(int(string[1]) * 10 + int(string[2]))
+                    count = 0
+                if string[0] == '화':
+                    regtime.append(int(string[1]) * 10 + int(string[2]) + 20)
+                    count = 20
+                if string[0] == '수':
+                    regtime.append(int(string[1]) * 10 + int(string[2]) + 40)
+                    count = 40
+                if string[0] == '목':
+                    regtime.append(int(string[1]) * 10 + int(string[2]) + 60)
+                    count = 60
+                if string[0] == '금':
+                    regtime.append(int(string[1]) * 10 + int(string[2]) + 80)
+                    count = 80
+                if string[0] == '토':
+                    regtime.append(int(string[1]) * 10 + int(string[2]) + 100)
+                    count = 100
+            if len(string) == 2:
+                if string[0] == '월':
+                    tabletime.append(int(string[1]))
+                    count = 0
+                if string[0] == '화':
+                    tabletime.append(int(string[1]) + 20)
+                    count = 20
+                if string[0] == '수':
+                    tabletime.append(int(string[1]) + 40)
+                    count = 40
+                if string[0] == '목':
+                    tabletime.append(int(string[1]) + 60)
+                    count = 60
+                if string[0] == '금':
+                    tabletime.append(int(string[1]) + 80)
+                    count = 80
+                if string[0] == '토':
+                    tabletime.append(int(string[1]) + 100)
+                    count = 100
+            if len(string) == 1:
+                tabletime.append(int(string[0]) + count)
+
+    for temp in m:
+        temptime = temp.time
+        strings = temptime.split(',')
+        count = 0
+
+        for string in strings:
+            string = string.replace(u'\xa0', u'')
+            if len(string) == 3:
+                if string[0] == '월':
+                    regtime.append(int(string[1]) * 10 + int(string[2]))
+                    count = 0
+                if string[0] == '화':
+                    regtime.append(int(string[1]) * 10 + int(string[2]) + 20)
+                    count = 20
+                if string[0] == '수':
+                    regtime.append(int(string[1]) * 10 + int(string[2]) + 40)
+                    count = 40
+                if string[0] == '목':
+                    regtime.append(int(string[1]) * 10 + int(string[2]) + 60)
+                    count = 60
+                if string[0] == '금':
+                    regtime.append(int(string[1]) * 10 + int(string[2]) + 80)
+                    count = 80
+                if string[0] == '토':
+                    regtime.append(int(string[1]) * 10 + int(string[2]) + 100)
+                    count = 100
+            if len(string) == 2:
+                if string[0] == '월':
+                    tabletime.append(int(string[1]))
+                    count = 0
+                if string[0] == '화':
+                    tabletime.append(int(string[1]) + 20)
+                    count = 20
+                if string[0] == '수':
+                    tabletime.append(int(string[1]) + 40)
+                    count = 40
+                if string[0] == '목':
+                    tabletime.append(int(string[1]) + 60)
+                    count = 60
+                if string[0] == '금':
+                    tabletime.append(int(string[1]) + 80)
+                    count = 80
+                if string[0] == '토':
+                    tabletime.append(int(string[1]) + 100)
+                    count = 100
+            if len(string) == 1:
+                tabletime.append(int(string[0]) + count)
+
+    temtime = reg.time
+    temstring = temtime.split(',')
+    count = 0
+    check = 0
+
+    for string in temstring:
+        string = string.replace(u'\xa0', u'')
+        if len(string) == 3:
+            if string[0] == '월':
+                regtime.append(int(string[1]) * 10 + int(string[2]))
+                count = 0
+            if string[0] == '화':
+                regtime.append(int(string[1]) * 10 + int(string[2]) + 20)
+                count = 20
+            if string[0] == '수':
+                regtime.append(int(string[1]) * 10 + int(string[2]) + 40)
+                count = 40
+            if string[0] == '목':
+                regtime.append(int(string[1]) * 10 + int(string[2]) + 60)
+                count = 60
+            if string[0] == '금':
+                regtime.append(int(string[1]) * 10 + int(string[2]) + 80)
+                count = 80
+            if string[0] == '토':
+                regtime.append(int(string[1]) * 10 + int(string[2]) + 100)
+                count = 100
+        if len(string) == 2:
+            if string[0] == '월':
+                regtime.append(int(string[1]))
+                count = 0
+            if string[0] == '화':
+                regtime.append(int(string[1]) + 20)
+                count = 20
+            if string[0] == '수':
+                regtime.append(int(string[1]) + 40)
+                count = 40
+            if string[0] == '목':
+                regtime.append(int(string[1]) + 60)
+                count = 60
+            if string[0] == '금':
+                regtime.append(int(string[1]) + 80)
+                count = 80
+            if string[0] == '토':
+                regtime.append(int(string[1]) + 100)
+                count = 100
+            if string[0] == '1':
+                regtime.append(int(string[0]) * 10 + int(string[1]) + count)
+        if len(string) == 1:
+            regtime.append(int(string[0]) + count)
+
+    for b in tabletime:
+        if regtime.count(b) != 0:
+            check += 1
+
+    if check == 0:
+        reg.save()
+        reg.author.add(request.user)
+        return redirect('index')
+    else:
+        messages.error(request, '해당 시간에 수강하는 과목이 있습니다.')
+        return redirect('index')
+

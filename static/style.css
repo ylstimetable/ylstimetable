@@ -144,6 +144,18 @@ body {
     display: inline;
 }
 
+.back {
+    padding: 10px;
+}
+
+.upper {
+    padding: 10px;
+}
+
+.backwhite {
+    background-color: #fff;
+}
+
 .search {
     display: inline;
 }
@@ -169,7 +181,7 @@ body {
 }
 
 #classmenu td{
-    padding: 12px 10px;
+    padding: 12px 15px;
 }
 
 .searchbar {

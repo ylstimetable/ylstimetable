@@ -78,110 +78,112 @@
         </div>
 
         <!-- 시간표 -->
-        <div id="capture" class="col-xs-12 col-md-8">
-            <table class="table">
-                <tbody>
-                <tr class="text-center">
-                    <th width="5%"></th>
-                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">월</span></th>
-                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">화</span></th>
-                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">수</span></th>
-                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">목</span></th>
-                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">금</span></th>
-                    {% if saturday == 1 %}
-                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">토</span></th>
-                    {% endif %}
-                </tr>
-                {% for i in ran %}
-                <tr>
-                    {% time i as p %}
-                    <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}</p></th>
-                    {% for j in rang %}
-                    {% add_str i j as cou %}
-                    {% if cou in tabletime %}
-                    {% subst cou as couu %}
-                    {% location tabletime cou as loca %}
-                    {% content tablename loca as title %}
-                    {% content tablecolor loca as color %}
-                    {% if couu in tabletime %}
-                    {% location tabletime couu as locaa %}
-                    {% content tablecolor locaa as colorsub %}
-                    {% else %}
-                    {% subst color as colorsub %}
-                    {% endif %}
-                    {% content tableroom loca as room %}
-                        {% if color == 1 %}
-                        <th bgcolor="CFE2F8">
-                            {% if color != colorsub %}
-                            <span style = "font-size:12px;">{{ title }}</span><br>
-                            <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                            {% endif %}
-                        </th>
+        <div class="col-xs-12 col-md-8">
+            <div id="capture">
+                <table id="table1" class="table">
+                    <tbody>
+                    <tr class="text-center">
+                        <th width="5%"></th>
+                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">월</span></th>
+                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">화</span></th>
+                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">수</span></th>
+                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">목</span></th>
+                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">금</span></th>
+                        {% if saturday == 1 %}
+                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">토</span></th>
                         {% endif %}
-                        {% if color == 2 %}
-                        <th bgcolor="F8CFD2">
-                            {% if color != colorsub %}
-                            <span style = "font-size:12px;">{{ title }}</span><br>
-                            <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                            {% endif %}
-                        </th>
-                        {% endif %}
-                        {% if color == 3 %}
-                        <th bgcolor="DAF8CF">
-                            {% if color != colorsub %}
-                            <span style = "font-size:12px;">{{ title }}</span><br>
-                            <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                            {% endif %}
-                        </th>
-                        {% endif %}
-                        {% if color == 4 %}
-                        <th bgcolor="F8E0EC">
-                            {% if color != colorsub %}
-                            <span style = "font-size:12px;">{{ title }}</span><br>
-                            <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                            {% endif %}
-                        </th>
-                        {% endif %}
-                        {% if color == 5 %}
-                        <th bgcolor="F7F8CF">
-                            {% if color != colorsub %}
-                            <span style = "font-size:12px;">{{ title }}</span><br>
-                            <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                            {% endif %}
-                        </th>
-                        {% endif %}
-                        {% if color == 6 %}
-                        <th bgcolor="CFF8F6">
-                            {% if color != colorsub %}
-                            <span style = "font-size:12px;">{{ title }}</span><br>
-                            <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                            {% endif %}
-                        </th>
-                        {% endif %}
-                        {% if color == 7 %}
-                        <th bgcolor="F8DECF">
-                            {% if color != colorsub %}
-                            <span style = "font-size:12px;">{{ title }}</span><br>
-                            <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                            {% endif %}
-                        </th>
-                        {% endif %}
-                        {% if color == 8 %}
-                        <th bgcolor="F0CFF8">
-                            {% if color != colorsub %}
-                            <span style = "font-size:12px;">{{ title }}</span><br>
-                            <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                            {% endif %}
-                        </th>
-                        {% endif %}
+                    </tr>
+                    {% for i in ran %}
+                    <tr>
+                        {% time i as p %}
+                        <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}</p></th>
+                        {% for j in rang %}
+                        {% add_str i j as cou %}
+                        {% if cou in tabletime %}
+                        {% subst cou as couu %}
+                        {% location tabletime cou as loca %}
+                        {% content tablename loca as title %}
+                        {% content tablecolor loca as color %}
+                        {% if couu in tabletime %}
+                        {% location tabletime couu as locaa %}
+                        {% content tablecolor locaa as colorsub %}
                         {% else %}
-                        <th></th>
+                        {% subst color as colorsub %}
                         {% endif %}
+                        {% content tableroom loca as room %}
+                            {% if color == 1 %}
+                            <th bgcolor="CFE2F8">
+                                {% if color != colorsub %}
+                                <span style = "font-size:12px;">{{ title }}</span><br>
+                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                {% endif %}
+                            </th>
+                            {% endif %}
+                            {% if color == 2 %}
+                            <th bgcolor="F8CFD2">
+                                {% if color != colorsub %}
+                                <span style = "font-size:12px;">{{ title }}</span><br>
+                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                {% endif %}
+                            </th>
+                            {% endif %}
+                            {% if color == 3 %}
+                            <th bgcolor="DAF8CF">
+                                {% if color != colorsub %}
+                                <span style = "font-size:12px;">{{ title }}</span><br>
+                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                {% endif %}
+                            </th>
+                            {% endif %}
+                            {% if color == 4 %}
+                            <th bgcolor="F8E0EC">
+                                {% if color != colorsub %}
+                                <span style = "font-size:12px;">{{ title }}</span><br>
+                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                {% endif %}
+                            </th>
+                            {% endif %}
+                            {% if color == 5 %}
+                            <th bgcolor="F7F8CF">
+                                {% if color != colorsub %}
+                                <span style = "font-size:12px;">{{ title }}</span><br>
+                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                {% endif %}
+                            </th>
+                            {% endif %}
+                            {% if color == 6 %}
+                            <th bgcolor="CFF8F6">
+                                {% if color != colorsub %}
+                                <span style = "font-size:12px;">{{ title }}</span><br>
+                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                {% endif %}
+                            </th>
+                            {% endif %}
+                            {% if color == 7 %}
+                            <th bgcolor="F8DECF">
+                                {% if color != colorsub %}
+                                <span style = "font-size:12px;">{{ title }}</span><br>
+                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                {% endif %}
+                            </th>
+                            {% endif %}
+                            {% if color == 8 %}
+                            <th bgcolor="F0CFF8">
+                                {% if color != colorsub %}
+                                <span style = "font-size:12px;">{{ title }}</span><br>
+                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                {% endif %}
+                            </th>
+                            {% endif %}
+                            {% else %}
+                            <th></th>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
             <button type="button" class="btnnn" data-toggle="modal" data-target="#myModal">
                 직접추가
             </button>

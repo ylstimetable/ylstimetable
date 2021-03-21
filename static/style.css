@@ -43,6 +43,10 @@ body {
     padding: 5px;
 }
 
+#table1 {
+    line-height: 120%;
+}
+
 #top_banner {
     position: absolute;
     background: #202A44;

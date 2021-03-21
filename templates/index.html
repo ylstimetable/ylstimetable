@@ -2,7 +2,8 @@
 {% load custom_tags %}
 {% block content %}
 <br>
-<div class="container">
+<div class="back">
+    <div class="container">
     {% if messages %}
     <div class = "alert alert-danger my-3" role="alert">
         {% for message in messages %}
@@ -179,7 +180,7 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <button type="button" class="btnn" data-toggle="modal" data-target="#myModal">
+            <button type="button" class="btnnn" data-toggle="modal" data-target="#myModal">
                 직접추가
             </button>
             <!-- Modal -->
@@ -212,19 +213,12 @@
     </div>
 </div>
 
+</div>
+
 {% endblock %}
 
 {% block script %}
 <script type='text/javascript'>
-$(document).ready(function() {
-        $("#contents").click(function() {
-            $("#popup").fadeIn();
-        });
-        $(".exit").click(function() {
-            $("#popup").fadeOut();
-        });
-    });
-
 $(function(){
   $('table tbody td').mouseenter(function(){
     $(this).find('.reg').show();

@@ -107,9 +107,9 @@ body {
 #popup {
     display: none; /*숨기기*/
     position: absolute;
-    width: 96%;
-    height: 90%;
-    background: rgba(0,0,0,0.5);
+    width: 100%;!important
+    height: 100%;!important
+    background: rgba(0,0,0,50);
 }
 
 .exit {
@@ -167,7 +167,7 @@ body {
 }
 
 #classmenu td{
-    padding: 19px 10px;
+    padding: 12px 10px;
 }
 
 .searchbar {
@@ -175,12 +175,21 @@ body {
     outline: none;
     padding: 8px;
     font-size: 14px;
-    width: 65%;
+    width: 100%;
     margin: 5px 0px;
 
 }
 
-#search {
+.searchbar2 {
+    border: 1px solid #1974D2;
+    outline: none;
+    padding: 8px;
+    font-size: 14px;
+    width: 100%;
+    margin: 5px 0px;
+}
+
+.search {
     border: transparent;
     display: inline;
     outline: none;
@@ -196,4 +205,12 @@ body {
     display: inline;
     padding: 0px;
     float: right;
+}
+
+.navbar-brand {
+    color: #000;
+}
+
+.nav-link {
+    color: #000;
 }

@@ -12,31 +12,70 @@
     </div>
     {% endif %}
     <div class="row">
-        <div class="col-xs-12 col-md-8">
+        <div class="col-md-3"></div>
+        <div class="col-xs-12 col-md-6">
             <div class="searchbar">
                 <form method="POST" action="{% url 'timetable:result' %}">
                     {% csrf_token %}
-                <input id="search" type="text" name="classname" placeholder="검색어를 입력해 주세요.">
+                <input class="search" type="text" name="classname" placeholder="검색어를 입력해 주세요.">
                 <button id="searchbutton" type="submit">
                     <i class="fas fa-search fa-lg"></i>
                 </button>
                 </form>
             </div>
-            <div class="containers">
-                <a class="btnn" id="contents">직접 추가</a>
-                <div id="popup">
-                    <div id="popmenu">
-                        <form method="POST" action="{% url 'timetable:manual' %}">
-                        {% csrf_token %}
-                        <input id="inputclass" type="text" name="title" placeholder="수업명" size="20">
-                        <input class="my-2" type="text" name="time" placeholder="시간 ex)화5,6,수5" size="20">
-                        <br>
-                        <button type="submit" class="btn btn-primary">등록</button>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row my-2">
+        <div class="col-xs-12 col-md-4">
+            <p style="font-weight: bold">현재 시간표</p>
+            {% if tabletime %}
+                <table id="classmenu" class="table table-hover">
+                    <tbody>
+                    {% for i in list %}
+                    <tr>
+                        <td>
+                            <p class="title" style="font-weight: bold">{{ i.title }}</p>
+                            <p class="prof">{{ i.professor }}/ {{ i.room }}</p>
+                            <div class="reg">
+                                <form id="forminline" method="POST" action="{% url 'timetable:delete' i.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btnnb">삭제</button>
+                                </form>
+                                <a class="btnnn" href="{% url 'timetable:address' i.number i.ban %}">실라버스</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            <br>
+            {% if listm %}
+            <table class="table-sm table-striped table-condensed">
+                <tbody>
+                <tr class="text-center">
+                    <th style="width: 50%">일정</th>
+                    <th></th>
+                </tr>
+                {% for i in listm %}
+                <tr class = "text-center" height="30px">
+                    <td><p style = "font-size:14px;">{{ i.title }}</p></td>
+                    <td><h6>
+                        <form method="POST" action="{% url 'timetable:manual_delete' i.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">삭제</button>
                         </form>
-                        <div class="exit">닫기</div>
-                    </div>
-                </div>
-            </div>
+                    </h6></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+
+        <!-- 시간표 -->
+        <div class="col-xs-12 col-md-8">
             <table class="table table-bordered">
                 <tbody>
                 <tr class="text-center">
@@ -140,55 +179,35 @@
                 {% endfor %}
                 </tbody>
             </table>
-
-        </div>
-
-        <!-- 시간표 -->
-        <div class="col-xs-12 col-md-4">
-            2021학년도 1학기 <br>신청학점: {{ credit }}
-            {% if tabletime %}
-                <table id="classmenu" class="table table-hover">
-                    <tbody>
-                    {% for i in list %}
-                    <tr>
-                        <td>
-                            <p class="title" style="font-weight: bold">{{ i.title }}</p>
-                            <p class="prof">{{ i.professor }}/ {{ i.room }}</p>
-                            <div class="reg">
-                                <form id="forminline" method="POST" action="{% url 'timetable:delete' i.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btnnb">삭제</button>
-                                </form>
-                                <a class="btnnn" href="{% url 'timetable:address' i.number i.ban %}">실라버스</a>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
-            <br>
-            {% if listm %}
-            <table class="table-sm table-striped table-condensed">
-                <tbody>
-                <tr class="text-center">
-                    <th style="width: 50%">일정</th>
-                    <th></th>
-                </tr>
-                {% for i in listm %}
-                <tr class = "text-center" height="30px">
-                    <td><p style = "font-size:14px;">{{ i.title }}</p></td>
-                    <td><h6>
-                        <form method="POST" action="{% url 'timetable:manual_delete' i.id %}">
+            <button type="button" class="btnn" data-toggle="modal" data-target="#myModal">
+                직접추가
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">강의 직접 추가</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{% url 'timetable:manual' %}">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">삭제</button>
-                        </form>
-                    </h6></td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            {% endif %}
+                                <div class="searchbar2">
+                                    <input class="search" type="text" name="title" placeholder="수업명">
+                                </div>
+                                <div class="searchbar2">
+                                    <input class="search" type="text" name="time" placeholder="시간 ex)화5,6,수5">
+                                </div>
+                            <br>
+                            <button type="submit" class="btnnn">등록</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

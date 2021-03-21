@@ -13,6 +13,7 @@ def result(request):
         name = request.POST.get("classname")
         class_list = ClassD.objects.all()
         classfind = class_list.filter(
+            Q(semester__icontains='2021-2') &
             Q(title__icontains=name) |
             Q(professor__icontains=name) |
             Q(number__icontains=name)
@@ -27,7 +28,8 @@ def result(request):
 @login_required(login_url='common:login')
 def index(request):
     user = request.user
-    q = user.class_voter.all()
+    q_all = user.class_voter.all()
+    q = q_all.filter(semester='2021-2')
     m = user.class_author.all()
     ran = range(1, 13)
     rang = range(0, 5)
@@ -172,7 +174,8 @@ def index(request):
 
 @login_required(login_url='common:login')
 def register(request, class_id):
-    q = request.user.class_voter.all()
+    q_all = request.user.class_voter.all()
+    q = q_all.filter(semester='2021-2')
 
     reg = get_object_or_404(ClassD, pk=class_id)
 
@@ -321,8 +324,8 @@ def addition(request):
         name = request.POST.get("classname")
         if name in classlist:
             classnum = classlist[name]
-            for i in range(1, 5):
-                url = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno=YJD{classnum}&bb=0{i}&sbb=00&domain=W&startyy=2021&hakgi=1&ohak=23100"
+            for i in range(1, 7):
+                url = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno=YJD{classnum}&bb=0{i}&sbb=00&domain=W&startyy=2021&hakgi=2&ohak=23100"
                 req = requests.get(url)
                 html = req.text
                 soup = BeautifulSoup(html, 'html.parser')
@@ -370,7 +373,7 @@ def addition(request):
                         tabletime.append(int(string[0]) + count)
 
                 t = ClassD(title=temptitle, room=temproom, professor=tempprof, time=temptime,
-                              semester='2021-2', number=f"YJD{classnum}", ban=i)
+                              semester='2021-3', number=f"YJD{classnum}", ban=i)
                 t.save()
 
     return render(request, 'addition.html')

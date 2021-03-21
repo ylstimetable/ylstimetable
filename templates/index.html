@@ -13,11 +13,15 @@
     {% endif %}
     <div class="row">
         <div class="col-xs-12 col-md-8">
-            <form class="search" method="POST" action="{% url 'timetable:result' %}">
-                {% csrf_token %}
-                <input type="text" name="classname" placeholder="검색어를 입력해 주세요." size="22">
-                <button type="submit" class="btn btn-primary">검색</button>
-            </form>
+            <div class="searchbar">
+                <form method="POST" action="{% url 'timetable:result' %}">
+                    {% csrf_token %}
+                <input id="search" type="text" name="classname" placeholder="검색어를 입력해 주세요.">
+                <button id="searchbutton" type="submit">
+                    <i class="fas fa-search fa-lg"></i>
+                </button>
+                </form>
+            </div>
             <div class="containers">
                 <a class="btnn" id="contents">직접 추가</a>
                 <div id="popup">
@@ -35,15 +39,15 @@
             </div>
             <table class="table table-bordered">
                 <tbody>
-                <tr class="text-center" style="background-color:#AEB9C6">
+                <tr class="text-center">
                     <th width="5%"></th>
-                    <th width="15.6%"><span style = "font-size:14px;">월</span></th>
-                    <th width="15.6%"><span style = "font-size:14px;">화</span></th>
-                    <th width="15.6%"><span style = "font-size:14px;">수</span></th>
-                    <th width="15.6%"><span style = "font-size:14px;">목</span></th>
-                    <th width="15.6%"><span style = "font-size:14px;">금</span></th>
+                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">월</span></th>
+                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">화</span></th>
+                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">수</span></th>
+                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">목</span></th>
+                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">금</span></th>
                     {% if saturday == 1 %}
-                    <th width="15.6%"><span style = "font-size:14px;">토</span></th>
+                    <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">토</span></th>
                     {% endif %}
                 </tr>
                 {% for i in ran %}
@@ -136,30 +140,29 @@
                 {% endfor %}
                 </tbody>
             </table>
+
         </div>
 
         <!-- 시간표 -->
         <div class="col-xs-12 col-md-4">
             2021학년도 1학기 <br>신청학점: {{ credit }}
             {% if tabletime %}
-                <table class="table-sm table-striped table-condensed">
+                <table id="classmenu" class="table table-hover">
                     <tbody>
-                    <tr class="text-center">
-                        <th style="width: 50%">과목명</th>
-                        <th>교수</th>
-                        <th></th>
-                    </tr>
                     {% for i in list %}
-                    <tr class = "text-center" height="30px">
-                        <td><p style = "font-size:14px;">{{ i.title }}</p></td>
-                        <td><p style = "font-size:14px;">{{ i.professor }}</p></td>
-                        <td><h6>
-                            <form method="POST" action="{% url 'timetable:delete' i.id %}">
+                    <tr>
+                        <td>
+                            <p class="title" style="font-weight: bold">{{ i.title }}</p>
+                            <p class="prof">{{ i.professor }}/ {{ i.room }}</p>
+                            <div class="reg">
+                                <form id="forminline" method="POST" action="{% url 'timetable:delete' i.id %}">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">삭제</button>
-                            </form>
-                        </h6></td>
-                        </tr>
+                                <button type="submit" class="btnnb">삭제</button>
+                                </form>
+                                <a class="btnnn" href="{% url 'timetable:address' i.number i.ban %}">실라버스</a>
+                            </div>
+                        </td>
+                    </tr>
                     {% endfor %}
                     </tbody>
                 </table>
@@ -202,5 +205,14 @@ $(document).ready(function() {
             $("#popup").fadeOut();
         });
     });
+
+$(function(){
+  $('table tbody td').mouseenter(function(){
+    $(this).find('.reg').show();
+  });
+  $('table tbody td').mouseleave(function(){
+    $(this).find('.reg').hide();
+  });
+});
 </script>
 {% endblock %}

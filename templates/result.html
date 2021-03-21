@@ -2,44 +2,47 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="table-responsive">
             <div class="col-md-12 col xs-12">
                 <table class="table table-hover">
-                    <thead>
-                    <tr class="text-center">
-                        <th width="40%">강의</th>
-                        <th>수강</th>
-                        <th>실라버스</th>
-                        <th>강의평가</th>
-                    </tr>
-                    </thead>
                     <tbody>
                     {% for i in lists %}
                     <tr>
                         <td>
-                            <h4>{{ i.title }}</h4>
-                            <p>
-                                {{ i.professor }}{{ i.room }}
-                            </p>
-                            <p><span>{{ i.time }}</span></p>
-                        <td class="text-center align-middle">
-                            <form method="POST" action="{% url 'timetable:register' i.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary">수강</button>
-                            </form>
+                            <h5>{{ i.title }}</h5>
+                            <p> {{ i.professor }} {{ i.room }}</p>
+                            <p>{{ i.time }}</p>
+                            <div class="reg">
+                                <form id="forminline" method="POST" action="{% url 'timetable:register' i.id %}">
+                                    {% csrf_token %}
+                                <button type="submit" class="btnnb">수강</button>
+                                </form>
+                                <a class="btnnn" href="{% url 'timetable:address' i.number i.ban %}">실라버스</a>
+                            </div>
                         </td>
+                        <!--
                         <td class="text-center align-middle">
-                            <a href="{% url 'timetable:address' i.number i.ban %}" style="color:black;">열기</a>
+                            <a class="btnnn" href="{% url 'board:create' i.id %}">강의평가</a>
                         </td>
-                        <td class="text-center align-middle">
-                            <a href="{% url 'board:create' i.id %}" style="color:black;">강의평가</a>
-                        </td>
+                        -->
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
-        </div>
     </div>
 </div>
+{% endblock %}
+
+
+{% block script %}
+<script type='text/javascript'>
+$(function(){
+  $('table tbody td').mouseenter(function(){
+    $(this).find('.reg').show();
+  });
+  $('table tbody td').mouseleave(function(){
+    $(this).find('.reg').hide();
+  });
+});
+</script>
 {% endblock %}

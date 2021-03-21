@@ -61,18 +61,47 @@ body {
 }
 
 .btnn {
-  background: linear-gradient(to right, rgb(220, 227, 91), rgb(69, 182, 73));
-  padding: 10px 20px;
+  padding: 7px 15px;
   display: inline-block;
+  border: solid #C0C0C0;
+  border-width: 1px;
   border-radius: 25px;
   margin: 5px 0;
-  color: #fff;
+  color: #000;
   position: relative;
   transition: all .4s ease;
   cursor: pointer;
   &:hover {
     box-shadow: 0 3px 15px rgba(0,0,0,0.2);
   }
+}
+
+.btnnn {
+  background: #fff;
+  padding: 7px 15px;
+  display: inline-block;
+  border: solid #C0C0C0;
+  border-width: 1px;
+  border-radius: 25px;
+  margin: 5px 0;
+  color: #000;
+  position: relative;
+}
+
+.btnnb {
+  background: #1974D2;
+  padding: 7px 15px;
+  display: inline-block;
+  border: solid #C0C0C0;
+  border-width: 1px;
+  border-radius: 25px;
+  margin: 5px 0;
+  color: #fff;
+  position: relative;
+}
+
+.reg {
+    display: none;
 }
 
 #popup {
@@ -84,13 +113,14 @@ body {
 }
 
 .exit {
-    background: linear-gradient(to right, rgb(220, 227, 91), rgb(69, 182, 73));
-    padding: 10px 20px;
+    padding: 7px 10px;
     display: inline-block;
+    border: solid #C0C0C0;
+    border-width: 1px;
     border-radius: 25px;
     margin: 5px 0;
     left: 76%;
-    color: #fff;
+    color: #000;
     position: relative;
     transition: all .4s ease;
     cursor: pointer;
@@ -104,7 +134,7 @@ body {
      margin: 30% auto; /* 15% from the top and centered */
      padding: 20px;
      border: 1px solid #888;
-     width: 68%;
+     width: 50%;
  }
 
 
@@ -118,4 +148,52 @@ body {
 
 #inputclass {
     display: block;
+}
+
+#forminline {
+    display: inline;
+}
+
+.title {
+    border: 1px solid transparent;
+    margin: 0;
+    text-align: left;
+}
+
+.prof {
+    border: 1px solid transparent;
+    margin: 0;
+    text-align: left;
+}
+
+#classmenu td{
+    padding: 19px 10px;
+}
+
+.searchbar {
+    border: 1px solid #1974D2;
+    outline: none;
+    padding: 8px;
+    font-size: 14px;
+    width: 65%;
+    margin: 5px 0px;
+
+}
+
+#search {
+    border: transparent;
+    display: inline;
+    outline: none;
+    width: 85%;
+}
+
+#searchbutton {
+    outline: none;
+    border: transparent;
+    background: #fff;
+    margin: 0px;
+    padding: 0px;
+    display: inline;
+    padding: 0px;
+    float: right;
 }

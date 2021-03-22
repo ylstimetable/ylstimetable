@@ -36,7 +36,7 @@ body {
 }
 
 .content_block {
-    padding:20px;
+    padding: 20px;
 }
 
 .table th, .table td {
@@ -44,7 +44,7 @@ body {
 }
 
 #table1 {
-    line-height: 120%;
+    line-height: 100%;
 }
 
 #top_banner {
@@ -191,10 +191,10 @@ body {
 .searchbar {
     border: 1px solid #1974D2;
     outline: none;
-    padding: 8px;
+    padding: 10px;
     font-size: 14px;
     width: 100%;
-    margin: 5px 0px;
+    margin: 1px 0px;
 
 }
 

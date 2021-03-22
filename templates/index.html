@@ -30,7 +30,8 @@
     {% endif %}
     <div class="row my-2">
         <div class="col-xs-12 col-md-4">
-            <p style="font-weight: bold">현재 시간표</p>
+            <p style="font-weight: bold; display: inline;">현재 시간표</p>
+            <p style="font-size: 14px; float: right;">신청학점: {{ credit }}</p>
             {% if tabletime %}
                 <table id="classmenu" class="table table-hover">
                     <tbody>

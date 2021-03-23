@@ -29,10 +29,11 @@
     </div>
     {% endif %}
     <div class="row my-2">
-        <div class="col-xs-12 col-md-4">
-            <p style="font-weight: bold; display: inline;">현재 시간표</p>
-            <p style="font-size: 14px; float: right;">신청학점: {{ credit }}</p>
-            {% if tabletime %}
+        <div class="col-xs-12 col-md-6">
+            <p style="font-weight: bold; display: inline;">신청과목</p>
+            <div class="inbox">
+                <p style="font-size: 12px; float: right;">신청학점: {{ credit }}</p>
+                {% if tabletime %}
                 <table id="classmenu" class="table table-hover">
                     <tbody>
                     {% for i in list %}
@@ -42,8 +43,8 @@
                             <p class="prof">{{ i.professor }}/ {{ i.room }}</p>
                             <div class="reg">
                                 <form id="forminline" method="POST" action="{% url 'timetable:delete' i.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btnnb">삭제</button>
+                                    {% csrf_token %}
+                                    <button type="submit" class="btnnb">삭제</button>
                                 </form>
                                 <a class="btnnn" href="{% url 'timetable:address' i.number i.ban %}">실라버스</a>
                             </div>
@@ -52,168 +53,172 @@
                     {% endfor %}
                     </tbody>
                 </table>
-            {% endif %}
-            <br>
-            {% if listm %}
-            <table class="table-sm table-striped table-condensed">
-                <tbody>
-                <tr class="text-center">
-                    <th style="width: 50%">일정</th>
-                    <th></th>
-                </tr>
-                {% for i in listm %}
-                <tr class = "text-center" height="30px">
-                    <td><p style = "font-size:14px;">{{ i.title }}</p></td>
-                    <td><h6>
-                        <form method="POST" action="{% url 'timetable:manual_delete' i.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">삭제</button>
-                        </form>
-                    </h6></td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            {% endif %}
-        </div>
-
-        <!-- 시간표 -->
-        <div class="col-xs-12 col-md-8">
-            <div id="capture">
-                <table id="table1" class="table">
+                {% endif %}
+                <br>
+                {% if listm %}
+                <table class="table-sm table-striped table-condensed">
                     <tbody>
                     <tr class="text-center">
-                        <th width="5%"></th>
-                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">월</span></th>
-                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">화</span></th>
-                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">수</span></th>
-                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">목</span></th>
-                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">금</span></th>
-                        {% if saturday == 1 %}
-                        <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">토</span></th>
-                        {% endif %}
+                        <th style="width: 50%">일정</th>
+                        <th></th>
                     </tr>
-                    {% for i in ran %}
-                    <tr>
-                        {% time i as p %}
-                        <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}</p></th>
-                        {% for j in rang %}
-                        {% add_str i j as cou %}
-                        {% if cou in tabletime %}
-                        {% subst cou as couu %}
-                        {% location tabletime cou as loca %}
-                        {% content tablename loca as title %}
-                        {% content tablecolor loca as color %}
-                        {% if couu in tabletime %}
-                        {% location tabletime couu as locaa %}
-                        {% content tablecolor locaa as colorsub %}
-                        {% else %}
-                        {% subst color as colorsub %}
-                        {% endif %}
-                        {% content tableroom loca as room %}
-                            {% if color == 1 %}
-                            <th bgcolor="CFE2F8">
-                                {% if color != colorsub %}
-                                <span style = "font-size:12px;">{{ title }}</span><br>
-                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                                {% endif %}
-                            </th>
-                            {% endif %}
-                            {% if color == 2 %}
-                            <th bgcolor="F8CFD2">
-                                {% if color != colorsub %}
-                                <span style = "font-size:12px;">{{ title }}</span><br>
-                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                                {% endif %}
-                            </th>
-                            {% endif %}
-                            {% if color == 3 %}
-                            <th bgcolor="DAF8CF">
-                                {% if color != colorsub %}
-                                <span style = "font-size:12px;">{{ title }}</span><br>
-                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                                {% endif %}
-                            </th>
-                            {% endif %}
-                            {% if color == 4 %}
-                            <th bgcolor="F8E0EC">
-                                {% if color != colorsub %}
-                                <span style = "font-size:12px;">{{ title }}</span><br>
-                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                                {% endif %}
-                            </th>
-                            {% endif %}
-                            {% if color == 5 %}
-                            <th bgcolor="F7F8CF">
-                                {% if color != colorsub %}
-                                <span style = "font-size:12px;">{{ title }}</span><br>
-                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                                {% endif %}
-                            </th>
-                            {% endif %}
-                            {% if color == 6 %}
-                            <th bgcolor="CFF8F6">
-                                {% if color != colorsub %}
-                                <span style = "font-size:12px;">{{ title }}</span><br>
-                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                                {% endif %}
-                            </th>
-                            {% endif %}
-                            {% if color == 7 %}
-                            <th bgcolor="F8DECF">
-                                {% if color != colorsub %}
-                                <span style = "font-size:12px;">{{ title }}</span><br>
-                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                                {% endif %}
-                            </th>
-                            {% endif %}
-                            {% if color == 8 %}
-                            <th bgcolor="F0CFF8">
-                                {% if color != colorsub %}
-                                <span style = "font-size:12px;">{{ title }}</span><br>
-                                <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
-                                {% endif %}
-                            </th>
-                            {% endif %}
-                            {% else %}
-                            <th></th>
-                            {% endif %}
-                        {% endfor %}
+                    {% for i in listm %}
+                    <tr class = "text-center" height="30px">
+                        <td><p style = "font-size:14px;">{{ i.title }}</p></td>
+                        <td><h6>
+                            <form method="POST" action="{% url 'timetable:manual_delete' i.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">삭제</button>
+                            </form>
+                        </h6></td>
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-            </div>
-            <button type="button" class="btnnn" data-toggle="modal" data-target="#myModal">
-                직접추가
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">강의 직접 추가</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="{% url 'timetable:manual' %}">
-                            {% csrf_token %}
-                                <div class="searchbar2">
-                                    <input class="search" type="text" name="title" placeholder="수업명">
-                                </div>
-                                <div class="searchbar2">
-                                    <input class="search" type="text" name="time" placeholder="시간 ex)화5,6,수5">
-                                </div>
-                            <br>
-                            <button type="submit" class="btnnn">등록</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                        </div>
-                    </div>
+                {% endif %}
                 </div>
             </div>
-            <button id="shot" class="btnnn">화면 캡쳐</button>
+
+        <!-- 시간표 -->
+        <div class="col-xs-12 col-md-6">
+            <p style="font-weight: bold; display: inline;">현재 시간표</p>
+            <div id="capture">
+                <div class="inbox">
+                    <table id="table1" class="table">
+                        <tbody>
+                        <tr class="text-center">
+                            <th width="5%"></th>
+                            <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">월</span></th>
+                            <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">화</span></th>
+                            <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">수</span></th>
+                            <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">목</span></th>
+                            <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">금</span></th>
+                            {% if saturday == 1 %}
+                            <th width="15.6%"><span style = "font-size:12px; font-weight:lighter;">토</span></th>
+                            {% endif %}
+                        </tr>
+                        {% for i in ran %}
+                        <tr>
+                            {% time i as p %}
+                            <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}</p></th>
+                            {% for j in rang %}
+                            {% add_str i j as cou %}
+                            {% if cou in tabletime %}
+                            {% subst cou as couu %}
+                            {% location tabletime cou as loca %}
+                            {% content tablename loca as title %}
+                            {% content tablecolor loca as color %}
+                            {% if couu in tabletime %}
+                            {% location tabletime couu as locaa %}
+                            {% content tablecolor locaa as colorsub %}
+                            {% else %}
+                            {% subst color as colorsub %}
+                            {% endif %}
+                            {% content tableroom loca as room %}
+                                {% if color == 1 %}
+                                <th bgcolor="CFE2F8">
+                                    {% if color != colorsub %}
+                                    <span style = "font-size:12px;">{{ title }}</span><br>
+                                    <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                    {% endif %}
+                                </th>
+                                {% endif %}
+                                {% if color == 2 %}
+                                <th bgcolor="F8CFD2">
+                                    {% if color != colorsub %}
+                                    <span style = "font-size:12px;">{{ title }}</span><br>
+                                    <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                    {% endif %}
+                                </th>
+                                {% endif %}
+                                {% if color == 3 %}
+                                <th bgcolor="DAF8CF">
+                                    {% if color != colorsub %}
+                                    <span style = "font-size:12px;">{{ title }}</span><br>
+                                    <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                    {% endif %}
+                                </th>
+                                {% endif %}
+                                {% if color == 4 %}
+                                <th bgcolor="F8E0EC">
+                                    {% if color != colorsub %}
+                                    <span style = "font-size:12px;">{{ title }}</span><br>
+                                    <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                    {% endif %}
+                                </th>
+                                {% endif %}
+                                {% if color == 5 %}
+                                <th bgcolor="F7F8CF">
+                                    {% if color != colorsub %}
+                                    <span style = "font-size:12px;">{{ title }}</span><br>
+                                    <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                    {% endif %}
+                                </th>
+                                {% endif %}
+                                {% if color == 6 %}
+                                <th bgcolor="CFF8F6">
+                                    {% if color != colorsub %}
+                                    <span style = "font-size:12px;">{{ title }}</span><br>
+                                    <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                    {% endif %}
+                                </th>
+                                {% endif %}
+                                {% if color == 7 %}
+                                <th bgcolor="F8DECF">
+                                    {% if color != colorsub %}
+                                    <span style = "font-size:12px;">{{ title }}</span><br>
+                                    <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                    {% endif %}
+                                </th>
+                                {% endif %}
+                                {% if color == 8 %}
+                                <th bgcolor="F0CFF8">
+                                    {% if color != colorsub %}
+                                    <span style = "font-size:12px;">{{ title }}</span><br>
+                                    <span style = "font-size:12px; font-weight:lighter;">{{ room }}</span>
+                                    {% endif %}
+                                </th>
+                                {% endif %}
+                                {% else %}
+                                <th></th>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                        <button type="button" class="btnnn" data-toggle="modal" data-target="#myModal">
+                            직접추가
+                        </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel">강의 직접 추가</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="{% url 'timetable:manual' %}">
+                                    {% csrf_token %}
+                                        <div class="searchbar2">
+                                            <input class="search" type="text" name="title" placeholder="수업명">
+                                        </div>
+                                        <div class="searchbar2">
+                                            <input class="search" type="text" name="time" placeholder="시간 ex)화5,6,수5">
+                                        </div>
+                                    <br>
+                                    <button type="submit" class="btnnn">등록</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="shot" class="btnnn">화면 캡쳐</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

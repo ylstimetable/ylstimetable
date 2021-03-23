@@ -12,8 +12,7 @@ body {
     margin-bottom: 80px;
     font-size:0.9em;
     height: 100%;
-    font-family: 'Nanum Gothic', sans-serif;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .footer {
@@ -231,4 +230,16 @@ body {
 
 .nav-link {
     color: #000;
+}
+
+.back {
+    background-color: #f8f9fa
+}
+
+.inbox {
+    background-color: #fff;
+    padding: 10px;
+    width: 100%;
+    height: 90%;
+    margin: 10px 0px;
 }

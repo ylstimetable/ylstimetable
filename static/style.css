@@ -16,13 +16,12 @@ body {
 }
 
 .footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 50px;
-
-    background-color: #f5f5f5;
+    background-color: #f8f9fa;
 }
 
 #comment_table {
@@ -233,7 +232,7 @@ body {
 }
 
 .back {
-    background-color: #f8f9fa
+    background-color: #f8f9fa;
 }
 
 .inbox {

@@ -12,3 +12,12 @@ class Assess(models.Model):
 
     def __str__(self):
         return self.subject
+
+class ClassA(models.Model):
+    subject = models.CharField(max_length=200)
+    professor = models.CharField(max_length=200)
+    semester = models.CharField(max_length=200)
+    rate = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.subject

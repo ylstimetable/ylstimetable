@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from .models import ClassD, ClassM
 from django.contrib import messages
+from board.models import ClassA
 
 import requests
 from bs4 import BeautifulSoup
@@ -310,22 +311,31 @@ def manual_delete(request, class_id):
 
 
 def addition(request):
-    classlist = {"헌법": 6101, "행정법": 6104, "민사소송법": 6210, "계약법": 6212,
-                 "불법행위법": 6213, "형법": 6301, "형사증거법": 6304, "상거래법": 6401, "회사법": 6402,
-                 "소비자보호법": 6502, "조세법": 6503, "민재실": 7906,
-                 "집단적노사관계법": 6505, "특허법": 6602, "국제법": 6701, "법사회학": 6804, "서양법제사": 6803,
+    classlist = {"헌법1": 6101, "헌법2": 6102, "헌법소송법": 6103, "행정법": 6104, "민사소송법1": 6204, "민사소송법2": 6210,
+                 "계약법1": 6212, "물권법": 6202, "친족상속법": 6209, "계약법2": 6214, "형법2": 6302, "형사소송법": 6303,
+                 "유가증권법": 6403, "보험법": 6404, "독점규제법": 6501, "조세법2": 6504, "사회보장법": 6507, "저작권법": 6604,
+                 "국제통상법": 6703, "국제거래법": 6712, "법철학": 6802, "회계와국제기준": 6805,
+                 "불법행위법": 6213, "형법1": 6301, "형사증거법": 6304, "상거래법": 6401, "회사법": 6402,
+                 "소비자보호법": 6502, "조세법1": 6503, "민재실": 7906, "지방자치법": 7107, "환경법": 7109, "CITIZENSHIP": 7112,
+                 "소송대체적분쟁해결": 7209, "형사특별법": 7303, "자본시장과법": 7404, "CORPORATE": 7414, "경통사": 7417,
+                 "첨단의료": 7620, "협상워크숍": 7807, "LAW POLITICS": 7811, "상응": 7904, "형재실": 7907, "검실1": 7913,
+                 "사실인정론": 7940, "경찰실무": 7943, "법원실무리걸클리닉": 7951, "INTERNATIONAL": 7944, "스타트업": 7958,
+                 "젊은예술인": 7961, "집단적노사관계법": 6505, "특허법": 6602, "국제법": 6701, "법사회학": 6804, "서양법제사": 6803,
                  "법정보": 6901, "법조윤리": 6902, "법문서작성": 6903, "모의재판": 6904, "법사상사": 6801, "배심제": 7304,
                  "실무수습": 6905, "행통사": 7114, "헌통사": 7115, "민통사": 7205, "민소사": 7210, "상통사": 7416,
                  "법인세법": 7503, "생명윤리법": 7601, "문화산업법": 7608, "한국법제사": 7803, "민응": 7902, "공쟁실": 7905,
                  "공익소송리걸클리닉": 7925, "사회적기업청년창업법률지원리걸클리닉": 7937, "기업인수합병의이론과실무": 7938,
-                 "사회배려자법률지원리걸클리닉": 7953, "형법작": 7956, "검찰실무": 7957, "민사리걸클리닉": 7959}
+                 "사회배려자법률지원리걸클리닉": 7953, "형법작": 7956, "검찰실무2": 7957, "민사리걸클리닉": 7959}
+
+    assess = ClassA.objects.all()
+    control = 0
 
     if request.method == 'POST':
         name = request.POST.get("classname")
         if name in classlist:
             classnum = classlist[name]
             for i in range(1, 7):
-                url = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno=YJD{classnum}&bb=0{i}&sbb=00&domain=W&startyy=2021&hakgi=2&ohak=23100"
+                url = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno=YJD{classnum}&bb=0{i}&sbb=00&domain=W&startyy=2021&hakgi=1&ohak=23100"
                 req = requests.get(url)
                 html = req.text
                 soup = BeautifulSoup(html, 'html.parser')
@@ -373,8 +383,20 @@ def addition(request):
                         tabletime.append(int(string[0]) + count)
 
                 t = ClassD(title=temptitle, room=temproom, professor=tempprof, time=temptime,
-                              semester='2021-3', number=f"YJD{classnum}", ban=i)
+                              semester='2021-1', number=f"YJD{classnum}", ban=i)
                 t.save()
+
+                for asses in assess:
+                    if temptitle == asses.subject:
+                        if tempprof == asses.professor:
+                            sem = asses.semester
+                            asses.semester = f"{sem}, 2021-1"
+                            control = 1
+                            asses.save()
+
+                if control == 0:
+                    a = ClassA(subject=temptitle, professor=tempprof, semester = '2021-1', rate = '0')
+                    a.save()
 
     return render(request, 'addition.html')
 

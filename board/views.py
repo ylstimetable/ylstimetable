@@ -15,7 +15,8 @@ def create(request, classa_id):
     content = request.POST.get("content")
     semester = request.POST.get("semester")
 
-    n = ClassA_Post(classinfo=classa, subject=classa.subject, content=content,
+
+    n = ClassA_Post(classinfo=classa, subject=classa.subject, content=content, professor=classa.professor,
                         semester=semester, rate=rate, create_date=timezone.now())
     n.save()
     num = classa.classa_post_set.count()

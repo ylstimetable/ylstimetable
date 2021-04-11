@@ -106,7 +106,6 @@
                             {% num assess.rate as rate %}
                             <div style="margin: 4px 0px;">
                                 <span style="display: block; color: #A9A7A7; font-size: 12px;">{{ assess.semester }} 수강자</span>
-                                <span style="font-size: 14px; margin-right: 2px;">{{ rate }}</span>
                                 {% if rate < 0.5 %}
                                 <i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
                                 {% elif rate < 1 and rate >= 0.5 %}
@@ -131,7 +130,7 @@
                                 <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i>
                                 {% endif %}
                             </div>
-                            <span style="display: block; font-size: 13px;">{{ assess.content }}</span>
+                            <p style="display: block; font-size: 14px;">{{ assess.content }}</p>
                         </td>
                     </tr>
                     {% endfor %}

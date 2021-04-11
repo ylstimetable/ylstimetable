@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+
+<div class="container my-3">
+    <div class="row justify-content-end my-3">
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-2">
+            <nav id="sidebar" class="border-top border-secondary">
+                <div class="list-group">
+                    <ul class="list-group list-group-flush">
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/commonboard/list">공지사항</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/board/list">강의평가</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/freeboard/list">자유게시판</a>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-xs-12 col-md-10 my-4">
+            <div class="searchbar">
+                <form method="POST" action="{% url 'board:result' %}">
+                    {% csrf_token %}
+                    <input class="search" type="text" name="classname" placeholder="과목명/교수명으로 검색">
+                    <button id="searchbutton" type="submit">
+                        <i class="fas fa-search fa-lg"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="assess_border">
+                <table class="table table-hover">
+                    <tbody>
+                        {% if lists %}
+                        {% for list in lists %}
+                        <tr>
+                            <td onclick="location.href='/board/detail/{{ list.id }}'">
+                                {% num list.rate as rate %}
+                                <div style="margin: 10px 0px;">
+                                    <span style="display: block; font-size: 14px; font-weight: bold">{{ list.subject }} / {{ list.professor }}</span>
+                                    <div class="result_star">
+                                        <i class="fas fa-star fa-sm star"></i>
+                                        <span style="font-size: 16px; font-weight: lighter;">{{ rate }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+$(document).on('click', '.alink', function () {
+    var url = "{% url 'board:detail' 123 %}";
+    var id = $(this).attr('list.id');
+
+    // Construct the full URL with "id"
+    document.location.href = url.replace('123', list.id);
+    onclick="location.href='document.location.href'";
+});
+</script>
+{% endblock %}

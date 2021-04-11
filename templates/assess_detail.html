@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
 {% block content %}
 
 <div class="container my-3">
@@ -17,21 +18,130 @@
                 </div>
             </nav>
         </div>
-        <div class="col-xs-12 col-md-10"> <!-- 질문 영역 -->
-            <div class="card">
-                <div class="card-body">
-                    <div id="post_header">
-                        <h3>{{ assess.subject }}</h3>
-                        <span>{{ assess.author.username }} |</span>
-                        {% if assess.modify_date %}
-                        <span>작성일: {{ assess.create_date | date:'Y년 m월d일 H:i' }}</span>
-                        {% else %}
-                        <span>{{ assess.create_date | date:'Y년 m월d일 H:i' }}</span>
-                        {% endif %}
+        <div class="col-xs-12 col-md-10">
+            <div class="assess_border">
+                <span style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 10px;">{{ classinfo.subject }} / {{ classinfo.professor }}</span>
+                <span style="display: inline; color: #A9A7A7; font-size: 12px;">개설학기</span>
+                <span>{{ classinfo.semester }}</span>
+                <button style="display: block;" type="button" class="btnnb" data-toggle="modal" data-target="#myModal">
+                    강의평가하기
+                </button>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span style="font-size: 20px; font-weight: bold;">강의평가 쓰기</span>
+                            </div>
+                            <div class="modal-body">
+                               <form method="POST" action="{% url 'board:create' classinfo.id %}">
+                                    {% csrf_token %}
+                                    <div>
+                                        <label for="rate" style="font-size: 14px; font-weight: bold;">평점</label>
+                                        <select class="assess_select" name="rate" style="display: block;">
+                                            <option value="5">5</option>
+                                            <option value="4.5">4.5</option>
+                                            <option value="4">4</option>
+                                            <option value="3.5">3.5</option>
+                                            <option value="3">3</option>
+                                            <option value="2.5">2.5</option>
+                                            <option value="2">2</option>
+                                            <option value="1.5">1.5</option>
+                                            <option value="1">1</option>
+                                            <option value="0.5">0.5</option>
+                                            <option value="0">0</option>
+                                        </select>
+                                        <label for="rate" style="margin-top: 10px; font-size: 14px; font-weight: bold;">수강학기</label>
+                                        <select class="assess_select" name="semester" style="display: block;">
+                                            <option value="2021-1">2021-1</option>
+                                            <option value="2020년 이전">2020년 이전</option>
+                                        </select>
+                                        <textarea class="assess_text" name="content" cols="50" rows="10" placeholder="여기에 강의평을 작성해주세요."></textarea>
+
+                                    </div>
+                                    <button type="submit" class="btnn">작성완료</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
                     </div>
-                    <br>
-                    <div class="card-text" style="white-space: pre-line;">{{ assess.content }}</div>
                 </div>
+            </div>
+            <div class="assess_border">
+                <div style="margin: 4px;">
+                    <span style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 4px;">강의평가</span>
+                    {% num classinfo.rate as rate %}
+                    <span style="font-size: 25px; font-weight: lighter; margin-top: 0px; margin-right: 5px;">{{ rate }}</span>
+                    {% if rate < 0.5 %}
+                    <i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i>
+                    {% elif rate < 1 and rate >= 0.5 %}
+                    <i class="fas fa-star-half fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i>
+                    {% elif rate < 1.5 and rate >= 1 %}
+                    <i class="fas fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i>
+                    {% elif rate < 2 and rate >= 1.5 %}
+                    <i class="fas fa-star fa-lg star"></i><i class="fas fa-star-half fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i>
+                    {% elif rate < 2.5 and rate >= 2 %}
+                    <i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i>
+                    {% elif rate < 3 and rate >= 2.5 %}
+                    <i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star-half fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i>
+                    {% elif rate < 3.5 and rate >= 3 %}
+                    <i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i>
+                    {% elif rate < 4 and rate >= 3.5 %}
+                    <i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star-half fa-lg star"></i><i class="far fa-star fa-lg star"></i>
+                    {% elif rate < 4.5 and rate >= 4 %}
+                    <i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i>
+                    {% elif rate < 5 and rate >= 4.5 %}
+                    <i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star-half fa-lg star"></i>
+                    {% elif rate == 5 %}
+                    <i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i><i class="fas fa-star fa-lg star"></i>
+                    {% endif %}
+                </div>
+                <table style="margin-top: 30px;" class="table">
+                    <tbody>
+                    {% if assess_list %}
+                    {% for assess in assess_list %}
+                    <tr>
+                        <td>
+                            {% num assess.rate as rate %}
+                            <div style="margin: 4px 0px;">
+                                <span style="display: block; color: #A9A7A7; font-size: 12px;">{{ assess.semester }} 수강자</span>
+                                <span style="font-size: 14px; margin-right: 2px;">{{ rate }}</span>
+                                {% if rate < 0.5 %}
+                                <i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                {% elif rate < 1 and rate >= 0.5 %}
+                                    <i class="fas fa-star-half fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                {% elif rate < 1.5 and rate >= 1 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                {% elif rate < 2 and rate >= 1.5 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star-half fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                {% elif rate < 2.5 and rate >= 2 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                {% elif rate < 3 and rate >= 2.5 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star-half fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                {% elif rate < 3.5 and rate >= 3 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                {% elif rate < 4 and rate >= 3.5 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star-half fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                {% elif rate < 4.5 and rate >= 4 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                {% elif rate < 5 and rate >= 4.5 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star-half fa-xs star"></i>
+                                {% elif rate == 5 %}
+                                <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i>
+                                {% endif %}
+                            </div>
+                            <span style="display: block; font-size: 13px;">{{ assess.content }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="3">최근 강의평가가 없습니다.</td>
+                    </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@
             <div class="searchbar">
                 <form method="POST" action="{% url 'timetable:result' %}">
                     {% csrf_token %}
-                    <input class="search" type="text" name="classname" placeholder="검색어를 입력해 주세요.">
+                    <input class="search" type="text" name="classname" placeholder="과목명/교수명으로 검색">
                     <button id="searchbutton" type="submit">
                         <i class="fas fa-search fa-lg"></i>
                     </button>

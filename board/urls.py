@@ -4,8 +4,10 @@ from . import views
 app_name='board'
 
 urlpatterns = [
-    path('create/<int:class_id>', views.create, name='create'),
+    path('create/<int:classa_id>', views.create, name='create'),
+    path('createtool/<int:classa_id>', views.create_tool, name='create_tool'),
     path('list/', views.list, name='list'),
-    path('detail/<int:assess_id>', views.detail, name='detail'),
-    path('delete/<int:assess_id>', views.delete, name='delete'),
+    path('detail/<int:classa_id>', views.detail, name='detail'),
+    path('result/', views.result, name='result'),
+
 ]

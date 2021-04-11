@@ -37,3 +37,9 @@ def subst(value):
 def divide(value):
     value = value % 10
     return value
+
+@register.simple_tag
+def num(value):
+    value = float(value)
+    value = round(value, 2)
+    return value

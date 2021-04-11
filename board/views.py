@@ -2,62 +2,75 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.utils import timezone
-from .forms import AssessForm
-from .models import Assess
+from django.db.models import Q
+from .models import ClassA, ClassA_Post
 from timetable.models import ClassD
 
 
 @login_required(login_url='common:login')
-def create(request, class_id):
-    classinfo = get_object_or_404(ClassD, pk=class_id)
+def create(request, classa_id):
+    classa = get_object_or_404(ClassA, pk=classa_id)
 
-    if request.method == 'POST':
-        form = AssessForm(request.POST)
-        if form.is_valid():
-            assess = form.save(commit=False)
-            assess.author = request.user
-            assess.classinfo = classinfo
-            assess.create_date = timezone.now()
-            assess.save()
-            return redirect('index')
-    else:
-        form = AssessForm()
+    rate = request.POST.get("rate")
+    content = request.POST.get("content")
+    semester = request.POST.get("semester")
 
-    context = {'form': form, 'classinfo': classinfo}
+    n = ClassA_Post(classinfo=classa, subject=classa.subject, content=content,
+                        semester=semester, rate=rate, create_date=timezone.now())
+    n.save()
+    num = classa.classa_post_set.count()
+    total = classa.classa_post_set.all()
+    sum = 0
+    for tot in total:
+        sum = sum + float(tot.rate)
 
-    return render(request, 'assess_create.html', context)
+    classa.rate = sum/num
+    classa.save()
+
+    return render(request, 'assess_list.html')
+
+
+@login_required(login_url='common:login')
+def create_tool(request, classa_id):
+    classa = get_object_or_404(ClassA, pk=classa_id)
+    context = {'classinfo': classa}
+
+    return render(request, 'assess_createtool.html', context)
 
 
 @login_required(login_url='common:login')
 def list(request):
     page = request.GET.get('page', '1')
 
-    assess_list = Assess.objects.order_by('-create_date')
+    recent_post = ClassA_Post.objects.all()
+    recent_post = recent_post.order_by('-create_date')[:5]
 
-    paginator = Paginator(assess_list, 10)
-    page_obj = paginator.get_page(page)
-
-    context = {'assess_list': page_obj}
+    context = {'assess_list': recent_post}
     return render(request, 'assess_list.html', context)
 
 @login_required(login_url='common:login')
-def detail(request, assess_id):
-    assess = get_object_or_404(Assess, pk=assess_id)
-    context = {'assess': assess}
+def detail(request, classa_id):
+    classinfo = get_object_or_404(ClassA, pk=classa_id)
+    assess = classinfo.classa_post_set.all()
+    assess = assess.order_by('-create_date')
+    context = {'assess_list': assess, 'classinfo': classinfo}
     return render(request, 'assess_detail.html', context)
 
 
 @login_required(login_url='common:login')
-def delete(request, assess_id):
-    assess = get_object_or_404(Assess, pk=assess_id)
+def result(request):
+    if request.method == 'POST':
+        name = request.POST.get("classname")
+        class_list = ClassA.objects.all()
+        classfind = class_list.filter(
+            Q(semester__icontains='2021-1') &
+            Q(subject__icontains=name) |
+            Q(professor__icontains=name)
+        ).distinct
 
-    if request.user != assess.author:
-        messages.error(request, '삭제권한이 없습니다.')
-        return redirect('board:detail', assess_id=assess.id)
+    else:
+        return render(request, 'assess_list.html')
 
-    assess.delete()
-
-    return redirect('index')
-
-
+    context = {'lists': classfind}
+    return render(request, 'assess_result.html', context)
 

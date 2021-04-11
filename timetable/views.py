@@ -335,7 +335,7 @@ def addition(request):
         if name in classlist:
             classnum = classlist[name]
             for i in range(1, 7):
-                url = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno=YJD{classnum}&bb=0{i}&sbb=00&domain=W&startyy=2021&hakgi=1&ohak=23100"
+                url = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno=YJD{classnum}&bb=0{i}&sbb=00&domain=W&startyy=2021&hakgi=2&ohak=23100"
                 req = requests.get(url)
                 html = req.text
                 soup = BeautifulSoup(html, 'html.parser')
@@ -383,19 +383,19 @@ def addition(request):
                         tabletime.append(int(string[0]) + count)
 
                 t = ClassD(title=temptitle, room=temproom, professor=tempprof, time=temptime,
-                              semester='2021-1', number=f"YJD{classnum}", ban=i)
+                              semester='2021-3', number=f"YJD{classnum}", ban=i)
                 t.save()
 
                 for asses in assess:
                     if temptitle == asses.subject:
                         if tempprof == asses.professor:
                             sem = asses.semester
-                            asses.semester = f"{sem}, 2021-1"
+                            asses.semester = f"2021-2, {sem}"
                             control = 1
                             asses.save()
 
                 if control == 0:
-                    a = ClassA(subject=temptitle, professor=tempprof, semester = '2021-1', rate = '0')
+                    a = ClassA(subject=temptitle, professor=tempprof, semester = '2021-2', rate = '0')
                     a.save()
 
     return render(request, 'addition.html')

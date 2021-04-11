@@ -21,3 +21,15 @@ class ClassA(models.Model):
 
     def __str__(self):
         return self.subject
+
+class ClassA_Post(models.Model):
+    classinfo = models.ForeignKey(ClassA, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=200, null=True)
+    professor = models.CharField(max_length=200, null=True)
+    content = models.TextField()
+    semester = models.CharField(max_length=200)
+    create_date = models.DateTimeField(null=True)
+    rate = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.subject

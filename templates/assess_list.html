@@ -4,14 +4,7 @@
 
 <div class="container my-3">
     <div class="row justify-content-end my-3">
-        <div class="col-4 input-group">
-            <input type="text" class="form-control kw"
-                   value="{{ kw|default_if_none:''}}">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary"
-                        type="button" id="btn_search">찾기</button>
-            </div>
-        </div>
+
     </div>
     <div class="row">
         <div class="col-xs-12 col-md-2">
@@ -29,90 +22,64 @@
             </nav>
         </div>
         <div class="col-xs-12 col-md-10 my-4">
-            <table class="table">
-                <thead>
-                <tr class="text-center thead-dark">
-                    <th>과목</th>
-                    <th>교수</th>
-                    <th style="width:50%">제목</th>
-                    <th>글쓴이</th>
-                </tr>
-                </thead>
-                <tbody>
-                <h4 class="border-bottom pb-2 mb-3">강의평가</h4>
-                {% if assess_list %}
-                {% for assess in assess_list %}
-                <tr class="text-center">
-                    <td class="align-middle">{{ assess.classinfo.title }}</td>
-                    <td class="align-middle">{{ assess.classinfo.professor }}</td>
-                    <td class="align-middle">
-                        <a href="{% url 'board:detail' assess.id %}" style="color:black;">
-                            {{ assess.subject }}
-                        </a>
-                    </td>
-                    <td class="align-middle">{{ assess.author.username }}</td>
-                </tr>
-                {% endfor %}
-                {% else %}
-                <tr>
-                    <td colspan="3">강의평가가 없습니다.</td>
-                </tr>
-                {% endif %}
-                </tbody>
-            </table>
+            <div class="searchbar">
+                <form method="POST" action="{% url 'board:result' %}">
+                    {% csrf_token %}
+                    <input class="search" type="text" name="classname" placeholder="과목명/교수명으로 검색">
+                    <button id="searchbutton" type="submit">
+                        <i class="fas fa-search fa-lg"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="assess_border">
+                <span style="font-size: 18px; font-weight: bold; margin: 3px;">최근 강의평</span>
+                <table style="margin-top: 20px;" class="table table-hover">
+                    <tbody>
+                        {% if assess_list %}
+                        {% for assess in assess_list %}
+                        <tr>
+                            <td onclick="location.href='/board/detail/{{ assess.classinfo.id }}'">
+                                <div style="margin: 5px 0px;">
+                                     <span style="display: block; font-size: 14px; font-weight: bold">{{ assess.classinfo }} / {{ assess.professor }}</span>
+                                    {% num assess.rate as rate %}
+                                    {% if rate < 0.5 %}
+                                    <i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                    {% elif rate < 1 and rate >= 0.5 %}
+                                    <i class="fas fa-star-half fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                    {% elif rate < 1.5 and rate >= 1 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                    {% elif rate < 2 and rate >= 1.5 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star-half fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                    {% elif rate < 2.5 and rate >= 2 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                    {% elif rate < 3 and rate >= 2.5 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star-half fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                    {% elif rate < 3.5 and rate >= 3 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                    {% elif rate < 4 and rate >= 3.5 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star-half fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                    {% elif rate < 4.5 and rate >= 4 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="far fa-star fa-xs star"></i>
+                                    {% elif rate < 5 and rate >= 4.5 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star-half fa-xs star"></i>
+                                    {% elif rate == 5 %}
+                                    <i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i><i class="fas fa-star fa-xs star"></i>
+                                    {% endif %}
+                                    <span style="display: block; color: #A9A7A7; font-size: 12px;">{{ assess.semester }} 수강자</span>
+                                    <span style="font-size: 14px;">{{ assess.content }}</span>
+                                </div>
 
-            <!-- 페이징 처리 시작 -->
-            <ul class="pagination justify-content-center">
-                {% if assess_list.has_previous %}
-                <li class="page-item">
-                    <a class="page-link"
-                       href="?page={{ assess_list.previous_page_number }}">
-                        이전
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
-                        이전
-                    </a>
-                </li>
-                {% endif %}
-
-                <!-- 페이지 리스트 -->
-                {% for page_number in assess_list.paginator.page_range %}
-                {% if page_number >= assess_list.number|add:-5 and page_number <= assess_list.number|add:5 %}
-                {% if page_number == assess_list.number %}
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="?page={{ page_number }}">
-                        {{ page_number }}
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_number }}">
-                        {{ page_number }}
-                    </a>
-                </li>
-                {% endif %}
-                {% endif %}
-                {% endfor %}
-
-                <!-- 다음페이지 -->
-                {% if assess_list.has_next %}
-                <li class="page-item">
-                    <a class="page-link"
-                       href="?page={{ assess_list.next_page_number }}">
-                        다음
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
-                        다음
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="3">최근 강의평가가 없습니다.</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

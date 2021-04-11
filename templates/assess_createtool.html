@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <div class="row my-2">
+         <div class="col-xs-12 col-md-2">
+             <nav id="sidebar" class="border-top border-secondary">
+                <div class="list-group">
+                    <ul class="list-group list-group-flush">
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/commonboard/list">공지사항</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/board/list">강의평가</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/freeboard/list">자유게시판</a>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-xs-12 col-md-10"> <!-- 질문 영역 -->
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h3>{{ classinfo.subject }}</h3>
+                        <span>{{ classinfo.professor }}</span>
+                        <span>{{ classinfo.rate }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="{% url 'board:create' classinfo.id %}">
+                    {% csrf_token %}
+                    <div>
+                        <label for="rate" style="font-size: 14px; font-weight: bold;">평점</label>
+                        <select class="assess_select" name="rate" style="display: block;">
+                            <option value="5">5</option>
+                            <option value="4.5">4.5</option>
+                            <option value="4">4</option>
+                            <option value="3.5">3.5</option>
+                            <option value="3">3</option>
+                            <option value="2.5">2.5</option>
+                            <option value="2">2</option>
+                            <option value="1.5">1.5</option>
+                            <option value="1">1</option>
+                            <option value="0.5">0.5</option>
+                            <option value="0">0</option>
+                        </select>
+                        <label for="rate" style="margin-top: 10px; font-size: 14px; font-weight: bold;">수강학기</label>
+                        <select class="assess_select" name="semester" style="display: block;">
+                            <option value="2021-1">2021-1</option>
+                            <option value="2020년 이전">2020년 이전</option>
+                        </select>
+                        <textarea class="assess_text" name="content" cols="50" rows="10" placeholder="여기에 강의평을 작성해주세요."></textarea>
+
+                    </div>
+                    <button type="submit" class="btnn">작성완료</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -28,7 +28,7 @@ def create(request, classa_id):
     classa.rate = sum/num
     classa.save()
 
-    return render(request, 'assess_list.html')
+    return redirect('board:list')
 
 
 @login_required(login_url='common:login')

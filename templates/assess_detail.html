@@ -72,7 +72,7 @@
                 <div style="margin: 4px;">
                     <span style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 4px;">강의평가</span>
                     {% num classinfo.rate as rate %}
-                    <span style="font-size: 25px; font-weight: lighter; margin-top: 0px; margin-right: 5px;">{{ rate }}</span>
+                    <span style="font-size: 25px; margin-top: 0px; margin-right: 5px;">{{ rate }}</span>
                     {% if rate < 0.5 %}
                     <i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i><i class="far fa-star fa-lg star"></i>
                     {% elif rate < 1 and rate >= 0.5 %}

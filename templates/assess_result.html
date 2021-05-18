@@ -37,7 +37,7 @@
                         {% if lists %}
                         {% for list in lists %}
                         <tr>
-                            <td onclick="location.href='/board/detail/{{ list.id }}'">
+                            <td onclick="window.open('/board/detail/{{ list.id }}')">
                                 {% num list.rate as rate %}
                                 <div style="margin: 10px 0px;">
                                     <span style="display: block; font-size: 14px; font-weight: bold">{{ list.subject }} / {{ list.professor }}</span>

@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('freeboard/', include('freeboard.urls')),
     path('commonboard/', include('commonboard.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 handler404 = 'common.views.page_not_found'

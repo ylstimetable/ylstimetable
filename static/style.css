@@ -285,5 +285,12 @@ body {
     border-width: 1px;
     border-radius: 25px;
     width: 61px;
+}
 
+.sm_select {display: block;}
+
+.sm_select select {
+    width: 20%;
+    height: 30px;
+    border: 0px;
 }

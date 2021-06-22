@@ -12,9 +12,8 @@ from bs4 import BeautifulSoup
 def result(request):
     if request.method == 'POST':
         name = request.POST.get("classname")
-        class_list = ClassD.objects.all()
+        class_list = ClassD.objects.filter(semester='2021-3')
         classfind = class_list.filter(
-            Q(semester__icontains='2021-3') &
             Q(title__icontains=name) |
             Q(professor__icontains=name) |
             Q(number__icontains=name)

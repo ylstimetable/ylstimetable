@@ -64,7 +64,6 @@ def result(request):
         name = request.POST.get("classname")
         class_list = ClassA.objects.all()
         classfind = class_list.filter(
-            Q(semester__icontains='2021-1') &
             Q(subject__icontains=name) |
             Q(professor__icontains=name)
         ).distinct

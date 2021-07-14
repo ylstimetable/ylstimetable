@@ -405,6 +405,11 @@ def address(request, number, ban):
     addr = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno={number}&bb=0{ban}&sbb=00&domain=W&startyy=2021&hakgi=2&ohak=23100"
     return redirect(addr)
 
+@login_required(login_url='common:login')
+def privacy(request):
+    return render(request, 'privacy.html')
+
+
 
 @login_required(login_url='common:login')
 def manual_register(request):

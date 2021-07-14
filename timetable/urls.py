@@ -12,4 +12,5 @@ urlpatterns = [
     path('address/<str:number>/<int:ban>', views.address, name='address'),
     path('manual/', views.manual_register, name='manual'),
     path('manual/delete/<int:class_id>', views.manual_delete, name='manual_delete'),
+    path('privacy/', views.privacy, name='privacy'),
 ]

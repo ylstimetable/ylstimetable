@@ -410,7 +410,6 @@ def privacy(request):
     return render(request, 'privacy.html')
 
 
-
 @login_required(login_url='common:login')
 def manual_register(request):
     if request.method == 'POST':

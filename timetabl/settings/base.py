@@ -70,6 +70,8 @@ CRONJOBS = [
     ('*/1 * * * *', 'studyroom.cron.schedule_every_sunday' '>> schedule.log'),
 ]
 
+CRONTAB_DJANGO_SETTINGS_MODULE = 'timetabl.settings.prod'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -28,33 +28,32 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="{% url 'board:create' classinfo.id %}">
-                    {% csrf_token %}
-                    <div>
-                        <label for="rate" style="font-size: 14px; font-weight: bold;">평점</label>
-                        <select class="assess_select" name="rate" style="display: block;">
-                            <option value="5">5</option>
-                            <option value="4.5">4.5</option>
-                            <option value="4">4</option>
-                            <option value="3.5">3.5</option>
-                            <option value="3">3</option>
-                            <option value="2.5">2.5</option>
-                            <option value="2">2</option>
-                            <option value="1.5">1.5</option>
-                            <option value="1">1</option>
-                            <option value="0.5">0.5</option>
-                            <option value="0">0</option>
-                        </select>
-                        <label for="rate" style="margin-top: 10px; font-size: 14px; font-weight: bold;">수강학기</label>
-                        <select class="assess_select" name="semester" style="display: block;">
-                            <option value="2021-1">2021-1</option>
-                            <option value="2020년 이전">2020년 이전</option>
-                        </select>
-                        <textarea class="assess_text" name="content" cols="50" rows="10" placeholder="작성자 정보가 서버에 저장되지 않아 한번 작성하신 후에는 삭제나 수정이 불가능하므로 유의해주세요."></textarea>
-
-                    </div>
-                    <button type="submit" class="btnn">작성완료</button>
-                </form>
+                        <form method="POST" action="{% url 'board:create' classinfo.id %}">
+                        {% csrf_token %}
+                        <div>
+                            <label for="rate" style="font-size: 14px; font-weight: bold;">평점</label>
+                            <select class="assess_select" name="rate" style="display: block;">
+                                <option value="5">5</option>
+                                <option value="4.5">4.5</option>
+                                <option value="4">4</option>
+                                <option value="3.5">3.5</option>
+                                <option value="3">3</option>
+                                <option value="2.5">2.5</option>
+                                <option value="2">2</option>
+                                <option value="1.5">1.5</option>
+                                <option value="1">1</option>
+                                <option value="0.5">0.5</option>
+                                <option value="0">0</option>
+                            </select>
+                            <label for="rate" style="margin-top: 10px; font-size: 14px; font-weight: bold;">수강학기</label>
+                            <select class="assess_select" name="semester" style="display: block;">
+                                <option value="2021-1">2021-1</option>
+                                <option value="2020년 이전">2020년 이전</option>
+                            </select>
+                            <textarea class="assess_text" name="content" cols="50" rows="10" placeholder="작성자 정보가 서버에 저장되지 않아 한번 작성하신 후에는 삭제나 수정이 불가능하므로 유의해주세요."></textarea>
+                        </div>
+                        <button type="submit" class="btnn">작성완료</button>
+                        </form>
                 </div>
             </div>
         </div>

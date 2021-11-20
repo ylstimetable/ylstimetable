@@ -46,10 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'timetable.apps.TimetableConfig',
+    'django_crontab',
     'common.apps.CommonConfig',
     'board.apps.BoardConfig',
     'freeboard.apps.FreeboardConfig',
     'commonboard.apps.CommonboardConfig',
+    'studyroom.apps.StudyroomConfig',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +65,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'timetabl.urls'
+
+CRONJOBS = [
+    ('*/1 * * * *', 'studyroom.cron.schedule_every_sunday' '>> schedule.log'),
+]
 
 TEMPLATES = [
     {
@@ -79,7 +85,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = 'timetabl.wsgi.application'
 

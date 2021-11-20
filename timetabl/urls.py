@@ -7,6 +7,7 @@ urlpatterns = [
     path('timetable/', include('timetable.urls')),
     path('common/', include('common.urls')),
     path('board/', include('board.urls')),
+    path('studyroom/', include('studyroom.urls')),
     path('', views.index, name='index'),
     path('freeboard/', include('freeboard.urls')),
     path('commonboard/', include('commonboard.urls')),

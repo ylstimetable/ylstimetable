@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+<div class="back">
+    <div class="container">
+        {% if messages %}
+        <div class = "alert alert-danger my-3" role="alert">
+            {% for message in messages %}
+                <strong>{{ message.tags }}</strong>
+                <ul><li>{{ message.message }}</li></ul>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="row">
+         <div class="col-xs-12 col-md-2">
+            <nav id="sidebar" class="border-top border-secondary">
+                <div class="list-group">
+                    <ul class="list-group list-group-flush">
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/studyroom/1">B106</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/studyroom/2">B107</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/studyroom/3">210A</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/studyroom/4">210B</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/studyroom/5">210C</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/studyroom/6">210D</a>
+                    </ul>
+                </div>
+            </nav>
+         </div>
+
+        <div class="col-xs-12 col-md-10">
+        <button style="display: block;" type="button" class="btnnb" data-toggle="modal" data-target="#myModal">
+            스터디룸 예약하기
+        </button>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span style="font-size: 20px; font-weight: bold;">강의평가 쓰기</span>
+                    </div>
+                    <div class="modal-body">
+                    <form method="POST" action="{% url 'studyroom:register' %}">
+                        {% csrf_token %}
+                        <div>
+                            <label for="room_num" style="font-size: 14px; font-weight: bold;">강의실</label>
+                            <select class="assess_select" name="room_num" style="display: block;">
+                                <option value="1">B106</option>
+                                <option value="2">B107</option>
+                                <option value="3">210A</option>
+                                <option value="4">210B</option>
+                                <option value="5">210C</option>
+                                <option value="6">210D</option>
+                                <option value="7">210E</option>
+                            </select>
+                            <label for="date" style="font-size: 14px; font-weight: bold;">요일</label>
+                            <select class="assess_select" name="date" style="display: block;">
+                                <option value="월">월요일</option>
+                                <option value="화">화요일</option>
+                                <option value="수">수요일</option>
+                                <option value="목">목요일</option>
+                                <option value="금">금요일</option>
+                                <option value="토">토요일</option>
+                                <option value="일">일요일</option>
+                            </select>
+                            <label for="start_time" style="font-size: 14px; font-weight: bold;">시작시간</label>
+                            <select class="assess_select" name="start_time" style="display: block;">
+                                <option value="1">9시</option>
+                                <option value="2">10시</option>
+                                <option value="3">11시</option>
+                                <option value="4">12시</option>
+                                <option value="5">1시</option>
+                                <option value="6">2시</option>
+                                <option value="7">3시</option>
+                                <option value="8">4시</option>
+                                <option value="9">5시</option>
+                                <option value="10">6시</option>
+                                <option value="11">7시</option>
+                                <option value="12">8시</option>
+                                <option value="13">9시</option>
+                                <option value="14">10시</option>
+                            </select>
+                            <label for="end_time" style="font-size: 14px; font-weight: bold;">종료시간</label>
+                            <select class="assess_select" name="end_time" style="display: block;">
+                                <option value="1">9시</option>
+                                <option value="2">10시</option>
+                                <option value="3">11시</option>
+                                <option value="4">12시</option>
+                                <option value="5">1시</option>
+                                <option value="6">2시</option>
+                                <option value="7">3시</option>
+                                <option value="8">4시</option>
+                                <option value="9">5시</option>
+                                <option value="10">6시</option>
+                                <option value="11">7시</option>
+                                <option value="12">8시</option>
+                                <option value="13">9시</option>
+                                <option value="14">10시</option>
+                            </select>
+                            </div>
+                            <button type="submit" class="btnn">작성완료</button>
+                            </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+            <!-- 시간표 -->
+                    <div class="inbox">
+                        <table id="table1" class="table">
+                            <tbody>
+                            <tr class="text-center">
+                                <th width="5%"></th>
+                                <th width="11%"><span style = "font-size:12px; font-weight:lighter;">월</span></th>
+                                <th width="11%"><span style = "font-size:12px; font-weight:lighter;">화</span></th>
+                                <th width="11%"><span style = "font-size:12px; font-weight:lighter;">수</span></th>
+                                <th width="11%"><span style = "font-size:12px; font-weight:lighter;">목</span></th>
+                                <th width="11%"><span style = "font-size:12px; font-weight:lighter;">금</span></th>
+                                <th width="11%"><span style = "font-size:12px; font-weight:lighter;">토</span></th>
+                                <th width="11%"><span style = "font-size:12px; font-weight:lighter;">일</span></th>
+                            </tr>
+                            {% for i in ran %}
+                            <tr>
+                                {% time i as p %}
+                                <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}</p></th>
+                                {% for j in rang %}
+                                {% add_str i j as cou %}
+                                {% if cou in tabletime %}
+                                    <th bgcolor="CFE2F8">
+                                    </th>
+                                {% else %}
+                                <th></th>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

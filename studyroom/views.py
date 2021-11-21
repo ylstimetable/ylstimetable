@@ -208,6 +208,7 @@ def delete(request, class_id):
     reg.delete()
     return redirect('index')
 
+
 def delete_everything(request):
     q = Reserve.objects.all()
     q.delete()

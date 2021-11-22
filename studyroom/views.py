@@ -209,6 +209,6 @@ def delete(request, class_id):
     return redirect('index')
 
 
-def delete_everything(request):
+def delete_everything():
     q = Reserve.objects.all()
     q.delete()

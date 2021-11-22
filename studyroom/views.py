@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Room, Reserve
+import datetime
 
 
 @login_required(login_url='common:login')
@@ -12,6 +13,10 @@ def index(request, room_num):
     ran = range(1, 13)
     rang = range(0, 7)
     tabletime = []
+    day_start = 0
+    day_end = 0
+
+
 
     for temp in q:
         temptime = temp.time

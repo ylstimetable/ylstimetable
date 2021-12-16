@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 def result(request):
     if request.method == 'POST':
         name = request.POST.get("classname")
-        class_list = ClassD.objects.filter(semester='2021-3')
+        class_list = ClassD.objects.filter(semester='2022-1')
         classfind = class_list.filter(
             Q(title__icontains=name) |
             Q(professor__icontains=name) |
@@ -29,7 +29,7 @@ def result(request):
 def index(request):
     user = request.user
     q_all = user.class_voter.all()
-    q = q_all.filter(semester='2021-3')
+    q = q_all.filter(semester='2022-1')
     m = user.class_author.all()
     ran = range(1, 13)
     rang = range(0, 5)
@@ -175,7 +175,7 @@ def index(request):
 @login_required(login_url='common:login')
 def register(request, class_id):
     q_all = request.user.class_voter.all()
-    q = q_all.filter(semester='2021-3')
+    q = q_all.filter(semester='2022-1')
 
     reg = get_object_or_404(ClassD, pk=class_id)
 
@@ -311,9 +311,10 @@ def addition(request):
     classlist = {"헌법1": 6101, "헌법2": 6102, "헌법소송법": 6103, "행정법": 6104, "민사소송법1": 6204, "민사소송법2": 6210,
                  "계약법1": 6212, "물권법": 6202, "친족상속법": 6209, "계약법2": 6214, "형법2": 6302, "형사소송법": 6303,
                  "유가증권법": 6403, "보험법": 6404, "독점규제법": 6501, "조세법2": 6504, "사회보장법": 6507, "저작권법": 6604,
-                 "국제통상법": 6703, "국제거래법": 6712, "법철학": 6802, "회계와국제기준": 6805,
-                 "불법행위법": 6213, "형법1": 6301, "형사증거법": 6304, "상거래법": 6401, "회사법": 6402,
+                 "국제통상법": 6703, "국제거래법": 6712, "법철학": 6802, "회계와국제기준": 6805, "형사정책": 6305,
+                 "불법행위법": 6213, "형법1": 6301, "형사증거법": 6304, "상거래법": 6401, "회사법": 6402, "사이버법": 7610,
                  "소비자보호법": 6502, "조세법1": 6503, "민재실": 7906, "지방자치법": 7107, "환경법": 7109, "CITIZENSHIP": 7112,
+                 "지적재산권법개론": 7612, "노동법사례연구": 7505, "INT": 7720,
                  "소송대체적분쟁해결": 7209, "형사특별법": 7303, "자본시장과법": 7404, "CORPORATE": 7414, "경통사": 7417,
                  "첨단의료": 7620, "협상워크숍": 7807, "LAW POLITICS": 7811, "상응": 7904, "형재실": 7907, "검실1": 7913,
                  "사실인정론": 7940, "경찰실무": 7943, "법원실무리걸클리닉": 7951, "INTERNATIONAL": 7944, "스타트업": 7958,
@@ -334,7 +335,7 @@ def addition(request):
             control = 0
             classnum = classlist[name]
             for i in range(1, 7):
-                url = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno=YJD{classnum}&bb=0{i}&sbb=00&domain=W&startyy=2021&hakgi=2&ohak=23100"
+                url = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno=YJD{classnum}&bb=0{i}&sbb=00&domain=W&startyy=2022&hakgi=1&ohak=23100"
                 req = requests.get(url)
                 html = req.text
                 soup = BeautifulSoup(html, 'html.parser')
@@ -382,19 +383,19 @@ def addition(request):
                         tabletime.append(int(string[0]) + count)
 
                 t = ClassD(title=temptitle, room=temproom, professor=tempprof, time=temptime,
-                              semester='2021-3', number=f"YJD{classnum}", ban=i)
+                              semester='2022-1', number=f"YJD{classnum}", ban=i)
                 t.save()
 
                 for asses in assess:
                     if temptitle == asses.subject:
                         if tempprof == asses.professor:
                             sem = asses.semester
-                            asses.semester = f"2021-2, {sem}"
+                            asses.semester = f"2022-1, {sem}"
                             control = 1
                             asses.save()
 
                 if control == 0:
-                    a = ClassA(subject=temptitle, professor=tempprof, semester = '2021-2', rate = '0')
+                    a = ClassA(subject=temptitle, professor=tempprof, semester = '2022-1', rate = '0')
                     a.save()
 
     return render(request, 'addition.html')
@@ -402,7 +403,7 @@ def addition(request):
 
 @login_required(login_url='common:login')
 def address(request, number, ban):
-    addr = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno={number}&bb=0{ban}&sbb=00&domain=W&startyy=2021&hakgi=2&ohak=23100"
+    addr = f"http://ysweb.yonsei.ac.kr:8888/curri120601/curri_pop2.jsp?&hakno={number}&bb=0{ban}&sbb=00&domain=W&startyy=2022&hakgi=1&ohak=23100"
     return redirect(addr)
 
 @login_required(login_url='common:login')

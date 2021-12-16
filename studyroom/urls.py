@@ -6,4 +6,5 @@ app_name = 'studyroom'
 urlpatterns = [
     path('<int:room_num>/', views.index, name='index'),
     path('register/', views.register, name='register'),
+    path('delete/<int:reserve_id>/', views.delete, name='delete'),
 ]

@@ -67,7 +67,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'timetabl.urls'
 
 CRONJOBS = [
-    ('0 22 * * 6', 'studyroom.cron.schedule_every_sunday'),
+    ('0 0 * * *', 'studyroom.cron.schedule_everyday'),
 ]
 
 CRONTAB_DJANGO_SETTINGS_MODULE = 'timetabl.settings.prod'

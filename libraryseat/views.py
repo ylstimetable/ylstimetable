@@ -6,7 +6,6 @@ from .models import Receipt, Reserve, Result
 from random import shuffle
 
 
-
 @login_required(login_url='common:login')
 def create_receive(request):
     sem = request.POST.get("semester")

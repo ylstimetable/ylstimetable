@@ -3,7 +3,7 @@ import datetime
 
 def schedule_every_ten_minutes():
     today = datetime.datetime.now()
-    day_standard = datetime.datetime(2022, 3, 2, 10, 0, 0)
+    day_standard = datetime.datetime(2022, 3, 1, 0, 0, 0)
     diff_hours = datetime.timedelta(hours=10)
     result = Result.objects.filter(semester='2022-2')
     for a in result:

@@ -1,5 +1,5 @@
 from .models import Reserve, Result
-from datetime import datetime, timedelta
+import datetime
 
 def schedule_every_ten_minutes():
     today = datetime.datetime.now()
@@ -9,7 +9,6 @@ def schedule_every_ten_minutes():
     for a in result:
         result = a
 
-    reserve_all = Reserve.objects.all()
     random_result = Result.objects.filter(semester='2022-2')
     for random in random_result:
         random_result = random

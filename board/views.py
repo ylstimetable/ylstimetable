@@ -41,6 +41,12 @@ def create_tool(request, classa_id):
 
 @login_required(login_url='common:login')
 def list(request):
+
+    user = request.user
+
+    if user.student_auth == False:
+        return render(request, 'unauth.html')
+
     page = request.GET.get('page', '1')
 
     recent_post = ClassA_Post.objects.all()

@@ -8,6 +8,12 @@ from datetime import datetime, timedelta
 
 @login_required(login_url='common:login')
 def index(request, room_num):
+
+    user = request.user
+
+    if user.student_auth == False:
+        return render(request, 'unauth.html')
+
     my_reserve = Reserve.objects.filter(author = request.user)
     ran = range(1, 15)
     rang = range(0, 7)
@@ -52,7 +58,9 @@ def register(request):
     delta_date = int(date)
     object_date = temp + timedelta(days=delta_date)
     q = Reserve.objects.filter(room = room_num)
+    already_reserve = Reserve.objects.filter(author=request.user)
     check = 0
+    total_time = 0
     start_time_i = int(start_time)
     end_time_i = int(end_time)
     time_check = end_time_i - start_time_i
@@ -60,11 +68,19 @@ def register(request):
 
     if time_check > 3:
         messages.error(request, '한 예약에 3시간을 초과하여 예약하실 수 없습니다.')
-        return redirect('index')
+        return redirect('studyroom:index', room)
 
     if time_check < 1:
         messages.error(request, '잘못된 시간 선택입니다.')
-        return redirect('index')
+        return redirect('studyroom:index', room)
+
+    for reserve in already_reserve:
+        reserve_string = reserve.time.split(',')
+        total_time = total_time + len(reserve_string)
+
+    if total_time > 7:
+        messages.error(request, '한 주에 예약하실 수 있는 최대 시간은 7시간입니다.')
+        return redirect('studyroom:index', room)
 
     for i in range(start_time_i, end_time_i):
         studytime.append(str(i))
@@ -93,6 +109,7 @@ def register(request):
 @login_required(login_url='common:login')
 def delete(request, reserve_id):
     reg = get_object_or_404(Reserve, pk=reserve_id)
+    room = reg.room
     reg.delete()
-    return redirect('index')
+    return redirect('studyroom:index', room)
 

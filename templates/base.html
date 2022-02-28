@@ -19,7 +19,7 @@
     </script>
 </head>
 <body>
-{% if user.is_authenticated %}
+{% if user.student_auth %}
 {% include "navbar.html" %}
 {% endif %}
 {% block content %}

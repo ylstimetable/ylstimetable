@@ -58,78 +58,86 @@
                                 <form method="POST" action="{% url 'studyroom:register' %}">
                                     {% csrf_token %}
                                     <div>
-                                        <label for="room_num" style="font-size: 14px; font-weight: bold;">강의실</label>
-                                        <select class="assess_select" name="room_num" style="display: block;">
-                                            <option value="1">B106</option>
-                                            <option value="2">B107</option>
-                                            <option value="3">B108</option>
-                                            <option value="4">B109</option>
-                                            <option value="5">210A</option>
-                                            <option value="6">210B</option>
-                                            <option value="7">210C</option>
-                                            <option value="8">210D</option>
-                                            <option value="9">210E</option>
-                                            <option value="10">210F</option>
-                                        </select>
-                                        <label for="date" style="font-size: 14px; font-weight: bold;">날짜</label>
-                                        <select class="assess_select" name="date" style="display: block;">
-                                            {% next daytable 0 as i %}
-                                            {% date i.weekday as weekday %}
-                                            <option value="0">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
-                                            {% next daytable 1 as i %}
-                                            {% date i.weekday as weekday %}
-                                            <option value="1">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
-                                            {% next daytable 2 as i %}
-                                            {% date i.weekday as weekday %}
-                                            <option value="2">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
-                                            {% next daytable 3 as i %}
-                                            {% date i.weekday as weekday %}
-                                            <option value="3">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
-                                            {% next daytable 4 as i %}
-                                            {% date i.weekday as weekday %}
-                                            <option value="4">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
-                                            {% next daytable 5 as i %}
-                                            {% date i.weekday as weekday %}
-                                            <option value="5">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
-                                            {% next daytable 6 as i %}
-                                            {% date i.weekday as weekday %}
-                                            <option value="6">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
-                                        </select>
-                                        <label for="start_time" style="font-size: 14px; font-weight: bold;">시작시간</label>
-                                        <select class="assess_select" name="start_time" style="display: block;">
-                                            <option value="1">9시</option>
-                                            <option value="2">10시</option>
-                                            <option value="3">11시</option>
-                                            <option value="4">12시</option>
-                                            <option value="5">1시</option>
-                                            <option value="6">2시</option>
-                                            <option value="7">3시</option>
-                                            <option value="8">4시</option>
-                                            <option value="9">5시</option>
-                                            <option value="10">6시</option>
-                                            <option value="11">7시</option>
-                                            <option value="12">8시</option>
-                                            <option value="13">9시</option>
-                                            <option value="14">10시</option>
-                                        </select>
-                                        <label for="end_time" style="font-size: 14px; font-weight: bold;">종료시간</label>
-                                        <select class="assess_select" name="end_time" style="display: block;">
-                                            <option value="1">9시</option>
-                                            <option value="2">10시</option>
-                                            <option value="3">11시</option>
-                                            <option value="4">12시</option>
-                                            <option value="5">1시</option>
-                                            <option value="6">2시</option>
-                                            <option value="7">3시</option>
-                                            <option value="8">4시</option>
-                                            <option value="9">5시</option>
-                                            <option value="10">6시</option>
-                                            <option value="11">7시</option>
-                                            <option value="12">8시</option>
-                                            <option value="13">9시</option>
-                                            <option value="14">10시</option>
-                                        </select>
-                                    </div>
+                                        <div style="display: block;">
+                                            <label for="room_num" style="font-size: 14px; font-weight: bold;">강의실</label>
+                                            <select class="assess_select" name="room_num" style="display: in-line;">
+                                                <option value="1">B106</option>
+                                                <option value="2">B107</option>
+                                                <option value="3">B108</option>
+                                                <option value="4">B109</option>
+                                                <option value="5">210A</option>
+                                                <option value="6">210B</option>
+                                                <option value="7">210C</option>
+                                                <option value="8">210D</option>
+                                                <option value="9">210E</option>
+                                                <option value="10">210F</option>
+                                            </select>
+                                        </div>
+                                        <div style="display: block;">
+                                            <label for="date" style="font-size: 14px; font-weight: bold;">날짜</label>
+                                            <select class="assess_select" name="date" style="display: in-line;">
+                                                {% next daytable 0 as i %}
+                                                {% date i.weekday as weekday %}
+                                                <option value="0">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
+                                                {% next daytable 1 as i %}
+                                                {% date i.weekday as weekday %}
+                                                <option value="1">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
+                                                {% next daytable 2 as i %}
+                                                {% date i.weekday as weekday %}
+                                                <option value="2">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
+                                                {% next daytable 3 as i %}
+                                                {% date i.weekday as weekday %}
+                                                <option value="3">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
+                                                {% next daytable 4 as i %}
+                                                {% date i.weekday as weekday %}
+                                                <option value="4">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
+                                                {% next daytable 5 as i %}
+                                                {% date i.weekday as weekday %}
+                                                <option value="5">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
+                                                {% next daytable 6 as i %}
+                                                {% date i.weekday as weekday %}
+                                                <option value="6">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
+                                            </select>
+                                        </div>
+                                        <div style="display: block;">
+                                            <label for="start_time" style="font-size: 14px; font-weight: bold;">시작시간</label>
+                                            <select class="assess_select" name="start_time" style="display: in-line;">
+                                                <option value="1">9시</option>
+                                                <option value="2">10시</option>
+                                                <option value="3">11시</option>
+                                                <option value="4">12시</option>
+                                                <option value="5">1시</option>
+                                                <option value="6">2시</option>
+                                                <option value="7">3시</option>
+                                                <option value="8">4시</option>
+                                                <option value="9">5시</option>
+                                                <option value="10">6시</option>
+                                                <option value="11">7시</option>
+                                                <option value="12">8시</option>
+                                                <option value="13">9시</option>
+                                                <option value="14">10시</option>
+                                            </select>
+                                        </div>
+                                        <div style="display: block;">
+                                            <label for="end_time" style="font-size: 14px; font-weight: bold;">종료시간</label>
+                                            <select class="assess_select" name="end_time" style="display: in-line;">
+                                                <option value="1">9시</option>
+                                                <option value="2">10시</option>
+                                                <option value="3">11시</option>
+                                                <option value="4">12시</option>
+                                                <option value="5">1시</option>
+                                                <option value="6">2시</option>
+                                                <option value="7">3시</option>
+                                                <option value="8">4시</option>
+                                                <option value="9">5시</option>
+                                                <option value="10">6시</option>
+                                                <option value="11">7시</option>
+                                                <option value="12">8시</option>
+                                                <option value="13">9시</option>
+                                                <option value="14">10시</option>
+                                            </select>
+                                        </div>
+                                        </div>
                                     <button type="submit" class="btnn">작성완료</button>
                                 </form>
                                     <div class="modal-footer">
@@ -146,24 +154,27 @@
                             {% for reserve in my_reserve %}
                             {% start_time reserve.time as start_show_time %}
                             {% end_time reserve.time as end_show_time %}
+                            {% room reserve.room as room_num %}
                             <tr>
                                 <td>
                                     <div style="margin: 5px 0px;">
                                         {% date reserve.date as reserve_weekday %}
-                                        <span style="display: in-line; font-size: 14px;">{{ reserve.month }}/{{ reserve.day }}({{ reserve_weekday }})</span>
-                                        <span style="display: in-line; font-size: 14px;">{{ num }}</span>
+                                        <span style="display: in-line; font-size: 14px;">{{ reserve.month }}월 {{ reserve.day }}일({{ reserve_weekday }}요일)</span>
+                                        <span style="display: in-line; font-size: 14px;"> / {{ room_num }} / </span>
                                         <span style="display: in-line; font-size: 14px;">{{ start_show_time }}:00-{{ end_show_time }}:00</span>
-                                        <form method="POST" action="{% url 'studyroom:delete' reserve.id %}" style="display: in-line;">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btnnb">삭제</button>
-                                        </form>
+                                        <div class="reg">
+                                            <form method="POST" action="{% url 'studyroom:delete' reserve.id %}" style="display: in-line;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btnnb">삭제</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
                             {% endfor %}
                             {% else %}
                             <tr>
-                                <td colspan="3">나의 예약이 없습니다.</td>
+                                <td colspan="3">예약 내역이 없습니다.</td>
                             </tr>
                             {% endif %}
                         </tbody>
@@ -204,4 +215,18 @@
     </div>
 </div>
 
+{% endblock %}
+{% block script %}
+<script type='text/javascript'>
+
+$(function(){
+  $('table tbody td').mouseenter(function(){
+    $(this).find('.reg').show();
+  });
+  $('table tbody td').mouseleave(function(){
+    $(this).find('.reg').hide();
+  });
+});
+
+</script>
 {% endblock %}

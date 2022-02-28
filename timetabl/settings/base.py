@@ -49,9 +49,11 @@ INSTALLED_APPS = [
     'django_crontab',
     'common.apps.CommonConfig',
     'board.apps.BoardConfig',
+    'CustomUser.apps.CustomuserConfig',
     'freeboard.apps.FreeboardConfig',
     'commonboard.apps.CommonboardConfig',
     'studyroom.apps.StudyroomConfig',
+    'libraryseat.apps.LibraryseatConfig',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +69,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'timetabl.urls'
 
 CRONJOBS = [
-    ('0 0 * * *', 'studyroom.cron.schedule_everyday'),
+    ('* 0 * * *', 'studyroom.cron.schedule_everyday'),
+    ('/10 * * * *', 'libraryseat.cron.schedule_every_ten_minutes')
 ]
 
 CRONTAB_DJANGO_SETTINGS_MODULE = 'timetabl.settings.prod'
@@ -100,6 +103,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+AUTH_USER_MODEL = 'CustomUser.User'
 
 
 # Password validation

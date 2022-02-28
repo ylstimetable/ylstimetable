@@ -29,94 +29,107 @@
             </nav>
         </div>
         <div class="col-xs-12 col-md-10 my-4">
-            <table class="table">
-                <thead>
-                <tr class="text-center thead-dark">
-                    <th>번호</th>
-                    <th style="width:50%">제목</th>
-                    <th>글쓴이</th>
-                    <th>시간</th>
-                </tr>
-                </thead>
-                <tbody>
-                <h4 class="border-bottom pb-2 mb-3">자유게시판</h4>
-                {% if post_list %}
-                {% for post in post_list %}
-                <tr>
-                    <td class="text-center">{{ post.id }}</td>
-                    <td class="align-middle">
-                        <a href="{% url 'freeboard:detail' post.id %}" style="color:black;">
-                            {{ post.subject }}
-                        </a>
+            <div class="assess_border">
+                <span style="font-size: 18px; font-weight: bold; margin: 3px;">자유게시판</span>
+                <a href="{% url 'freeboard:create' %}">
+                    <button style="display: in-line;" type="button" class="btnnb">
+                        글쓰기
+                    </button>
+                </a>
+                <table style="margin-top: 20px;" class="table table-hover">
+                    <tbody>
+                    {% if post_list %}
+                    {% for post in post_list %}
+                    <tr>
+                        <td onclick="location.href='/freeboard/detail/{{ post.id }}'">
+                            <div style="margin: 5px 0px;">
+                                <span style="float: right; color: #808080; font-size: 12px;">
+                                    {{ post.create_date | date:'Y.m.d. H:i' }}
+                                </span>
+                                {% if post.delete_unavailable == 1 %}
+                                <span style="display: block; font-size: 14px; color: #2480E2;">
+                                    {{ post.subject }}
+                                </span>
+                                {% else %}
+                                <span style="display: block; font-size: 14px;">
+                                    {{ post.subject }}
+                                </span>
+                                {% endif %}
+                                <i class="far fa-heart"></i>
+                                {{ post.voter.all.count }}
+                                <i class="fas fa-comment"></i>
+                                {{ post.comment_set.count }}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="3">글이 없습니다.</td>
+                    </tr>
+                    {% endif %}
+                    </tbody>
+                    <td>
+
+                        <!-- 페이징 처리 시작 -->
+                    <ul class="pagination justify-content-center">
+                        {% if post_list.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="?page={{ post_list.previous_page_number }}">
+                                이전
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+                                이전
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <!-- 페이지 리스트 -->
+                        {% for page_number in post_list.paginator.page_range %}
+                        {% if page_number >= post_list.number|add:-5 and page_number <= post_list.number|add:5 %}
+                        {% if page_number == post_list.number %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="?page={{ page_number }}">
+                                {{ page_number }}
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_number }}">
+                                {{ page_number }}
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+
+                        <!-- 다음페이지 -->
+                        {% if post_list.has_next %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="?page={{ post_list.next_page_number }}">
+                                다음
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+                                다음
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
                     </td>
-                    <td class="text-center">{{ post.author.username }}</td>
-                    <td class="text-center">{{ post.create_date | date:'Y년 m월d일 H:i' }}</td>
-                </tr>
-                {% endfor %}
-                {% else %}
-                <tr>
-                    <td colspan="3">글이 없습니다.</td>
-                </tr>
-                {% endif %}
-                </tbody>
-            </table>
-
-            <!-- 페이징 처리 시작 -->
-            <ul class="pagination justify-content-center">
-                {% if post_list.has_previous %}
-                <li class="page-item">
-                    <a class="page-link"
-                       href="?page={{ post_list.previous_page_number }}">
-                        이전
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
-                        이전
-                    </a>
-                </li>
-                {% endif %}
-
-                <!-- 페이지 리스트 -->
-                {% for page_number in post_list.paginator.page_range %}
-                {% if page_number >= post_list.number|add:-5 and page_number <= post_list.number|add:5 %}
-                {% if page_number == post_list.number %}
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="?page={{ page_number }}">
-                        {{ page_number }}
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_number }}">
-                        {{ page_number }}
-                    </a>
-                </li>
-                {% endif %}
-                {% endif %}
-                {% endfor %}
-
-                <!-- 다음페이지 -->
-                {% if post_list.has_next %}
-                <li class="page-item">
-                    <a class="page-link"
-                       href="?page={{ post_list.next_page_number }}">
-                        다음
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
-                        다음
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-            <a href="{% url 'freeboard:create' %}" style="color:black;">글쓰기</a>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
 <form id="searchForm" method="get" action="{% url 'index' %}">
     <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:''">
     <input type="hidden" id="page" name="page" value="{{ page }}">

@@ -52,37 +52,30 @@
                             </td>
                         </tr>
                         {% endfor %}
-                        </tbody>
-                    </table>
-                    {% endif %}
-                    <br>
-                    {% if listm %}
-                    <table class="table-sm table-striped table-condensed">
-                        <tbody>
-                        <tr class="text-center">
-                            <th style="width: 50%">일정</th>
-                            <th></th>
-                        </tr>
                         {% for i in listm %}
-                        <tr class = "text-center" height="30px">
-                            <td><p style = "font-size:14px;">{{ i.title }}</p></td>
-                            <td><h6>
-                                <form method="POST" action="{% url 'timetable:manual_delete' i.id %}">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-primary">삭제</button>
-                                </form>
-                            </h6></td>
+                        <tr>
+                            <td>
+                                <p style = "font-size:14px;">{{ i.title }}</p>
+                                <div class="reg">
+                                    <form id="forminline" method="POST" action="{% url 'timetable:manual_delete' i.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btnnb">삭제</button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                         {% endfor %}
                         </tbody>
                     </table>
                     {% endif %}
-                    </div>
+                    <br>
                 </div>
-
+            </div>
             <!-- 시간표 -->
             <div class="col-xs-12 col-md-6">
-                <p style="font-weight: bold; display: inline;">현재 시간표</p>
+                <div class="second">
+                    <p style="font-weight: bold;">현재 시간표</p>
+                </div>
                 <div id="capture">
                     <div class="inbox">
                         <table id="table1" class="table">

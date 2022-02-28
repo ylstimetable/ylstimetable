@@ -18,61 +18,91 @@
             </nav>
         </div>
         <div class="col-xs-12 col-md-10"> <!-- 글 영역 -->
-            <div class="card">
-                <div class="card-body">
-                    <div id="post_header">
-                        <h3>{{ post.subject }}</h3>
-                        <span>{{ post.author.username }} |</span>
-                        {% if post.modify_date %}
-                        <span>작성일: {{ post.modify_date | date:'Y년 m월d일 H:i' }}</span>
-                        {% else %}
-                        <span>{{ post.create_date | date:'Y년 m월d일 H:i' }}</span>
-                        {% endif %}
-                    </div>
-                    <br>
-                    <div class="card-text" style="white-space: pre-line;">{{ post.content }}</div>
-                </div>
-            </div>
-
-            {% for comment in post.comment_set.all %}
-            <div class="card">
-            <ul class="my-2" id="comment_table">
-                <li>
-                    <div id="comment_header">
-                        <span>{{ comment.author.username }} |</span>
-                        {% if post.modify_date %}
-                        <span>{{ comment.modify_date | date:'Y년 m월d일 H:i' }}</span>
-                        {% else %}
-                        <span>{{ comment.create_date | date:'Y년 m월d일 H:i'}}</span>
-                        {% endif %}
-                    </div>
-                    <div class="card-text" style="white-space: pre-line;">{{ comment.content }}</div>
-
-                </li>
-            </ul>
-            </div>
-            {% endfor %}
-
-            <form action="{% url 'freeboard:comment_create' post.id %}"
-                  method="post" class="my-3" id="comment_input">
-                {% csrf_token %}
-                {% if form.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {% for field in form %}
-                    {% if field.errors %}
-                    <strong>{{ field.label }}</strong>
-                    {{ field.errors }}
+            <div class="assess_border">
+                <div id="post_header">
+                    <span style="font-size: 20px; display: block;">{{ post.subject }}</span>
+                    <span>{{ post.author.student_name }} |</span>
+                    {% if post.modify_date %}
+                    <span>작성일: {{ post.modify_date | date:'Y년 m월d일 H:i' }}</span>
+                    {% else %}
+                    <span>{{ post.create_date | date:'Y년 m월d일 H:i' }}</span>
                     {% endif %}
-                    {% endfor %}
                 </div>
-                {% endif %}
-                <div class="form-group">
-                    <textarea name="content" id="content"
-                              {% if not user.is_authenticated %}disabled{% endif %}
-                              class="form-control" rows="10"></textarea>
+                <br>
+                <div>
+                    {% if post.delete_unavailable == 1 %}
+                    <span style="color: #E22458">(본인삭제금지 게시물입니다.)</span>
+                    {% endif %}
+                    <div style="white-space: pre-line;">{{ post.content }}</div>
+                    <div style="margin: 5px auto 5px;">
+                        <form id="forminline" method="POST" action="{% url 'freeboard:vote' post.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btnnn">
+                                <i class="far fa-heart"></i> {{ post.voter.count }}
+                            </button>
+                        </form>
+                        {% if request.user == post.author %}
+                        {% if post.delete_unavailable != 1 %}
+                        <form id="forminline" method="POST" action="{% url 'freeboard:delete' post.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btnnb">글 삭제</button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
-                <input type="submit" value="댓글달기" class="btn btn-primary">
-            </form>
+            </div>
+                <div class="assess_border">
+                    <table class="table">
+                        <tbody>
+                            {% for comment in post.comment_set.all %}
+                            <tr style="margin: 5px;">
+                                <td>
+                                    <div id="comment_header">
+                                    {% if post.modify_date %}
+                                    <span style="float: right; font-size: 12px;">{{ comment.modify_date | date:'Y.m.d. H:i' }}</span>
+                                    {% else %}
+                                    <span style="float: right; font-size: 12px;">{{ comment.create_date | date:'Y.m.d. H:i'}}</span>
+                                    {% endif %}
+                                    <span style="font-weight: bold;">익명</span>
+                                    </div>
+                                    <div style="white-space: pre-line;">{{ comment.content }}</div>
+                                    {% if comment.author == request.user %}
+                                    <form id="forminline" method="POST" action="{% url 'freeboard:comment_delete' comment.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btnnb">삭제</button>
+                                    </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td>
+                                    <form action="{% url 'freeboard:comment_create' post.id %}"
+                                      method="post" class="my-3" id="comment_input">
+                                        {% csrf_token %}
+                                        {% if form.errors %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {% for field in form %}
+                                            {% if field.errors %}
+                                            <strong>{{ field.label }}</strong>
+                                            {{ field.errors }}
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                        <div class="form-group">
+                                            <textarea name="content" id="content"
+                                                      {% if not user.is_authenticated %}disabled{% endif %}
+                                                      class="form-control" rows="10"></textarea>
+                                        </div>
+                                        <input type="submit" value="댓글달기" class="btnnb" style="float: right;">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

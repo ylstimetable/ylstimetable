@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from CustomUser.models import User
 from timetable.models import ClassD
 
 class Assess(models.Model):

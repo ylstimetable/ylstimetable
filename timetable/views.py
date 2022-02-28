@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from .models import ClassD, ClassM
 from django.contrib import messages
 from board.models import ClassA
@@ -28,6 +29,10 @@ def result(request):
 @login_required(login_url='common:login')
 def index(request):
     user = request.user
+
+    if user.student_auth == False:
+        return render(request, 'unauth.html')
+
     q_all = user.class_voter.all()
     q = q_all.filter(semester='2022-1')
     m = user.class_author.all()
@@ -307,6 +312,8 @@ def manual_delete(request, class_id):
     reg.delete()
     return redirect('index')
 
+
+@staff_member_required(login_url='common:login')
 def addition(request):
     classlist = {"헌법1": 6101, "헌법2": 6102, "헌법소송법": 6103, "행정법": 6104, "민사소송법1": 6204, "민사소송법2": 6210,
                  "계약법1": 6212, "물권법": 6202, "친족상속법": 6209, "계약법2": 6214, "형법2": 6302, "형사소송법": 6303,
@@ -323,12 +330,17 @@ def addition(request):
                  "실무수습": 6905, "행통사": 7114, "헌통사": 7115, "민통사": 7205, "민소사": 7210, "상통사": 7416,
                  "법인세법": 7503, "생명윤리법": 7601, "문화산업법": 7608, "한국법제사": 7803, "민응": 7902, "공쟁실": 7905,
                  "공익소송리걸클리닉": 7925, "사회적기업청년창업법률지원리걸클리닉": 7937, "기업인수합병의이론과실무": 7938,
-                 "사회배려자법률지원리걸클리닉": 7953, "형법작": 7956, "검찰실무2": 7957, "민사리걸클리닉": 7959,
+                 "사회배려자법률지원리걸클리닉": 7953, "형법작": 7956,  "민사리걸클리닉": 7959, "검찰실무2": 7957,
                  "행정구제법": 6106, "채권담보권": 6205, "민사집행법": 6211, "물권법판례연습": 6215, "개별적근로관계법": 6506,
                  "상표법": 6603, "요건사실론": 7211, "스포츠엔터": 7609, "법의학": 7621,
                  "국제환경법": 7705, "국제분쟁해결제도": 7706, "지역주민": 7936, "주요대법원": 7962, "형통사": 6307}
 
     assess = ClassA.objects.all()
+
+    user = request.user
+
+    if user.student_auth == False:
+        return render(request, 'unauth.html')
 
     if request.method == 'POST':
         for name in classlist:

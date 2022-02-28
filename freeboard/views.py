@@ -9,6 +9,11 @@ from .models import Post, Comment
 
 @login_required(login_url='common:login')
 def list(request):
+    user = request.user
+
+    if user.student_auth == False:
+        return render(request, 'unauth.html')
+
     page = request.GET.get('page', '1')
 
     post_list = Post.objects.order_by('-create_date')
@@ -31,9 +36,11 @@ def detail(request, post_id):
 def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
+        delete_unavailable = request.POST.get("delete_unavailable")
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+            post.delete_unavailable = delete_unavailable
             post.create_date = timezone.now()
             post.save()
             return redirect('freeboard:list')
@@ -44,6 +51,19 @@ def post_create(request):
 
     return render(request, 'freeboard_create.html', context)
 
+@login_required(login_url='common:login')
+def post_vote(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    already = post.voter.all()
+
+    if request.user in already:
+        post.voter.remove(request.user)
+    else:
+        post.voter.add(request.user)
+
+    return redirect('freeboard:detail', post_id=post.id)
+
+
 
 @login_required(login_url='common:login')
 def post_modify(request, post_id):
@@ -51,7 +71,7 @@ def post_modify(request, post_id):
 
     if request.user != post.author:
         messages.error(request, '수정권한이 없습니다.')
-        return redirect('freeboard:list', post_id=post_id)
+        return redirect('freeboard:detail', post_id=post_id)
 
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
@@ -74,7 +94,7 @@ def post_delete(request, post_id):
 
     if request.user != post.author:
         messages.error(request, '삭제권한이 없습니다.')
-        return redirect('freeboard:list', post_id=post.id)
+        return redirect('freeboard:detail', post_id=post.id)
 
     post.delete()
 

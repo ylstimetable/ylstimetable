@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+
+<table id="table1" class="table">
+    <thead style="text-align: center; ">
+        <td>이메일</td>
+        <td>이름</td>
+        <td>학번</td>
+        <td>가입여부</td>
+        <td>인증</td>
+    </thead>
+    <tbody>
+        {% for user in unauthusers %}
+        {% pull existence as value %}
+        {% change value as letter %}
+        <tr style="text-align: center;">
+            <td>{{ user.email }}</td>
+            <td>{{ user.student_name }}</td>
+            <td>{{ user.student_number }}</td>
+            <td>{{ letter }}</td>
+            <td>
+            <form method="POST" action="{% url 'studentauth:register' user.id %}">
+                {% csrf_token %}
+                <button class="btnnb">인증</button>
+            </form>
+            </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+{% endblock %}

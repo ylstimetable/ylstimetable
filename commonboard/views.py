@@ -9,6 +9,11 @@ from .models import Announce
 
 @login_required(login_url='common:login')
 def list(request):
+    user = request.user
+
+    if user.student_auth == False:
+        return render(request, 'unauth.html')
+
     page = request.GET.get('page', '1')
 
     announce_list = Announce.objects.order_by('-create_date')

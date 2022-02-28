@@ -4,17 +4,27 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from common.forms import UserForm
 from django.urls import reverse_lazy
-from django.shortcuts import resolve_url
-from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.decorators import method_decorator
-from django.utils.http import is_safe_url, urlsafe_base64_decode
-from django.views.decorators.debug import sensitive_post_parameters
-from django.views.decorators.cache import never_cache
-from django.utils.translation import gettext_lazy as _
+from django.contrib import messages
+from CustomUser.models import User
 
 INTERNAL_RESET_URL_TOKEN = 'set-password'
 INTERNAL_RESET_SESSION_TOKEN = '_password_reset_token'
+
+def logininto(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(email=username, password=password)
+        if not user:
+            messages.error(request, '존재하지 않는 계정이거나 비밀번호가 틀렸습니다.')
+            return render(request, 'common/login.html')
+
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+    else:
+        return render(request, 'common/login.html')
 
 
 def signup(request):
@@ -22,9 +32,12 @@ def signup(request):
         form = UserForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            student_number = form.cleaned_data.get('student_number')
+            student_name = form.cleaned_data.get('student_name')
+            user = authenticate(email=email, password=raw_password, student_number=student_number,
+                                student_name=student_name)
             login(request, user)
             return redirect('index')
     else:

@@ -7,6 +7,21 @@ def add_str(left, right):
     return left + right*20
 
 @register.simple_tag
+def change(value):
+    if value == True:
+        a = 'O'
+        return a
+    else:
+        a = 'X'
+        return a
+
+@register.simple_tag
+def pull(list):
+    list.reverse()
+    value = list.pop()
+    return value
+
+@register.simple_tag
 def location(list, loc):
     a = list.index(loc)
     return a

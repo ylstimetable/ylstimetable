@@ -8,34 +8,42 @@
                     <div style="text-align : center;">
                         <img src="/static/images/front_logo.jpg" alt="로고" width="150">
                     </div>
+                    {% if messages %}
+                    <div class = "alert alert-danger my-3" role="alert">
+                        {% for message in messages %}
+                            <strong>{{ message.tags }}</strong>
+                            <ul><li>{{ message.message }}</li></ul>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                       <form method="post" class="post-form" action="{% url 'common:login' %}">
                         {% csrf_token %}
                         <!-- 로그인 성공 후 이동되는 URL -->
                         <input type="hidden" name="next" value="{{ next }}">
-
                         {% include "form_errors.html" %}
-                        <div class="form-group">
+                        <div class="searchbar">
                             <br>
-                            <input type="text" class="form-control" placeholder="ID" name="username" id="username"
+                            <input type="text" class="search" placeholder="E-mail" name="username" id="username"
                                    value="{{ form.username.value|default_if_none:'' }}">
                         </div>
-                        <div class="form-group">
-
-                            <input type="password" class="form-control" placeholder="비밀번호" name="password" id="password"
+                        <div class="searchbar" style="margin-top: 5px;">
+                            <input type="password" class="search" placeholder="비밀번호" name="password" id="password"
                                    value="{{ form.password.value|default_if_none:'' }}">
                         </div>
-                            <button type="submit" class="btn btn-primary">로그인</button>
+                          <div style="margin-left: 10%; margin-top: 5px;">
+                            <button type="submit" class="btnnb">로그인</button>
+                          </div>
                     </form>
-                </div>
-                <div id="side_right" class="col-xs-3 col-md-4">
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-xs-3 col-md-4"></div>
                 <div class="col-xs-3 col-md-4">
-                    <a href="{% url 'common:signup' %}">회원가입</a>
-                    <a style="float:right; " href="{% url 'common:password_reset' %}" target="_blank">아이디/비밀번호 찾기</a>
+                    <div style="width: 80%; margin: 0 auto;">
+                        <a href="{% url 'common:signup' %}">회원가입</a>
+                        <a style="float:right; " href="{% url 'common:password_reset' %}" target="_blank">아이디/비밀번호 찾기</a>
+                    </div>
                 </div>
                 <div class="col-xs-3 col-md-4"></div>
             </div>

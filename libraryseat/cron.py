@@ -2,7 +2,6 @@ from .models import Reserve, Result
 from datetime import datetime, timedelta
 
 def schedule_every_ten_minutes():
-
     today = datetime.now()
     day_standard = datetime.date(2022, 3, 2, 10, 0, 0)
     diff_hours = timedelta(hours=10)

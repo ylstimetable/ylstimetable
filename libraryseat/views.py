@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Receipt, Reserve, Result
 from random import shuffle
-from datetime import datetime, timedelta
+import datetime
+
+
 
 @login_required(login_url='common:login')
 def create_receive(request):

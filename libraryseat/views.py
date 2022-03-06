@@ -99,10 +99,8 @@ def index(request):
     else:
         for re in result:
             result = re
-
         list = result.sequence.split(',')
         random_start = 1
-
 
         if request.user.student_number in list:
             location = list.index(request.user.student_number)
@@ -148,10 +146,15 @@ def seat_register(request):
             messages.error(request, '이미 예약된 좌석입니다.')
             return redirect('libraryseat:reserve_status')
         else:
-            reserve = Reserve(author=request.user, room=requested_seat)
-            reserve.save()
-            messages.success(request, '예약이 완료되었습니다.')
-            return redirect('libraryseat:reserve_status')
+            already_reserve = len(Reserve.objects.filter(author=request.user))
+            if already_reserve == 0:
+                reserve = Reserve(author=request.user, room=requested_seat)
+                reserve.save()
+                messages.success(request, '예약이 완료되었습니다.')
+                return redirect('libraryseat:reserve_status')
+            else:
+                messages.error(request, '이미 예약하셨습니다.')
+                return redirect('libraryseat:reserve_status')
     else:
         messages.error(request, '현재 예약 순번이 아닙니다.')
         return redirect('libraryseat:reserve_status')

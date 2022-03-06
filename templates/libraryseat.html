@@ -8,9 +8,20 @@
         <button type="submit" class="btnnb">작성완료</button>
     </form>
 </div>
+    {% if messages %}
+    <div class = "alert alert-danger my-3" role="alert">
+    {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul><li>{{ message.message }}</li></ul>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <a href="{% url 'libraryseat:receive' %}" class="btnnb">접수</a>
     <a href="{% url 'libraryseat:random' %}" class="btnnb">랜덤빵</a>
+    <a href="{% url 'libraryseat:reserve_status' %}" class="btnnb">예약 상태</a>
 
+{{ test }}
 
 
 

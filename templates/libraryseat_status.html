@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        <table class="table">
+            <tbody>
+            {% for i in ran %}
+            <tr style="text-align: center;">
+                {% for j in rang %}
+                {% seatnum_cal i j as seatnum %}
+                {% if seatnum in seat_num %}
+                {% location seat_num seatnum as loc %}
+                {% content seat_name loc as seatname %}
+                <td bgcolor="CFE2F8">
+                    <span style="display: block;">{{ seatnum }}</span>
+                    <span>{{ seatname }}</span>
+                </td>
+                {% else %}
+                <td>
+                    <span>{{ seatnum }}</span>
+                </td>
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-md-6">
+        {% if messages %}
+        <div class = "alert alert-danger my-3" role="alert">
+            {% for message in messages %}
+            <strong>{{ message.tags }}</strong>
+            <ul><li>{{ message.message }}</li></ul>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form method="POST" action="{% url 'libraryseat:seat_register' %}">
+            {% csrf_token %}
+            <input class="search" type="text" name="seat_number">
+        <button type="submit" class="btnnb">작성완료</button>
+    </form>
+    </div>
+</div>
+
+{% endblock %}

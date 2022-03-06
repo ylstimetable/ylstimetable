@@ -22,6 +22,11 @@ def pull(list):
     return value
 
 @register.simple_tag
+def seatnum_cal(i, j):
+    value = int(i*5+j)
+    return value
+
+@register.simple_tag
 def location(list, loc):
     a = list.index(loc)
     return a

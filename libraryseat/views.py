@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Receipt, Reserve, Result
 from random import shuffle
-
+import datetime
 
 @login_required(login_url='common:login')
 def create_receive(request):
@@ -25,9 +25,20 @@ def receive(request):
     return redirect('libraryseat:index')
 
 
-
 @login_required(login_url='common:login')
 def random(request):
+    r_all = Result.objects.all()
+    next_semester = '2022-2'
+
+    semester_list = []
+
+    for r in r_all:
+        semester_list.append(r.semester)
+
+    if next_semester in semester_list:
+        messages.error(request, '이미 랜덤배정이 완료되었습니다.')
+        return redirect('libraryseat:index')
+
     applicant_list = Receipt.objects.filter(semester='2022-2')
     for obj in applicant_list:
         q = obj
@@ -67,13 +78,55 @@ def register(request):
 
     return redirect('libraryseat:index')
 
-
-
 @login_required(login_url='common:login')
 def index(request):
     return render(request, 'libraryseat.html')
 
+@login_required(login_url='common:login')
+def reserve_status(request):
+    q_all = Reserve.objects.all()
 
+    seat_num = []
+    seat_name = []
+    ran = range(0,60)
+    rang = range(1,6)
+
+    for q in q_all:
+        seat_name.append(q.author.student_name)
+        seat_num.append(int(q.room))
+
+
+    return render(request, 'libraryseat_status.html', {"seat_num": seat_num,
+                                                       "seat_name": seat_name, "ran": ran, "rang": rang})
+
+@login_required(login_url='common:login')
+def seat_register(request):
+    requested_seat = int(request.POST.get("seat_number"))
+    current_queue = Result.objects.filter(semester='2022-2')
+    for q in current_queue:
+        current_queue = q
+
+    q_all = Reserve.objects.all()
+    reserved_seat = []
+    reserved_user = []
+
+    for q in q_all:
+        reserved_seat.append(int(q.room))
+
+    if request.user == current_queue.current:
+        if request.user in reserved_user:
+            messages.error()
+        if requested_seat in reserved_seat:
+            messages.error(request, '이미 예약된 좌석입니다.')
+            return redirect('libraryseat:reserve_status')
+        else:
+            reserve = Reserve(author=request.user, room=requested_seat)
+            reserve.save()
+            messages.success(request, '예약이 완료되었습니다.')
+            return redirect('libraryseat:reserve_status')
+    else:
+        messages.error(request, '현재 예약 순번이 아닙니다.')
+        return redirect('libraryseat:reserve_status')
 
 
 

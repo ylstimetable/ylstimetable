@@ -18,7 +18,7 @@
                 {% if location == 10000 %}
                 <span style="display: block;">2022년 2학기 좌석배정절차가 시작되지 않았습니다.</span>
                 {% else %}
-                {% date location as time %}
+                {% date_start location as time %}
                 {% date_ten_minutes location as time_ten_minutes %}
                 <span style="display: block;">{{ request.user.student_number }}님의 예약시간은
                     {{ time | date:'Y.m.d. H:i' }}부터 {{ time_ten_minutes | date:'Y.m.d. H:i' }}까지입니다.</span>

@@ -91,7 +91,7 @@ def num(value):
     return value
 
 @register.simple_tag
-def date(value):
+def date_start(value):
     day_standard = datetime.datetime(2022, 3, 6, 12, 0, 0)
     diff_minutes = datetime.timedelta(minutes=10)
     diff_days = datetime.timedelta(days=1)

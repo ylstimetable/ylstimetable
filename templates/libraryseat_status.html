@@ -19,7 +19,10 @@
                 </td>
                 {% else %}
                 <td>
-                    <span>{{ seatnum }}</span>
+                    <a href="{% url 'libraryseat:seat_register' seatnum %}"
+                       onclick="if(!confirm('{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
+                            style="display: block;">{{ seatnum }}</a>
+                    <span>공석</span>
                 </td>
                 {% endif %}
                 {% endfor %}
@@ -37,13 +40,9 @@
             {% endfor %}
         </div>
         {% endif %}
-        <div class="searchbar">
-            <form method="POST" action="{% url 'libraryseat:seat_register' %}">
-                {% csrf_token %}
-                <input class="search" type="text" name="seat_number" placeholder="좌석번호를 입력해주세요.">
-                <button type="submit" id="searchbutton">제출</button>
-            </form>
-        </div>
+        <p>
+            신청하시려는 좌석 번호를 클릭해주세요.
+        </p>
     </div>
 </div>
 

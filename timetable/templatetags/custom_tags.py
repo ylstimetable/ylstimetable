@@ -92,25 +92,25 @@ def num(value):
 
 @register.simple_tag
 def date_start(value):
-    day_standard = datetime.datetime(2022, 3, 6, 19, 0, 0)
-    diff_minutes = datetime.timedelta(minutes=10)
+    day_standard = datetime.datetime(2022, 3, 6, 0, 0, 0)
+    diff_minutes = datetime.timedelta(minutes=5)
     diff_days = datetime.timedelta(days=1)
-    if int(value) < 61:
+    if int(value) < 169:
         reserve_time = day_standard + diff_minutes*int(value)
     else:
-        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-61)
+        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-169)
 
     return reserve_time
 
 @register.simple_tag
 def date_ten_minutes(value):
-    day_standard = datetime.datetime(2022, 3, 6, 19, 0, 0)
-    diff_minutes = datetime.timedelta(minutes=10)
+    day_standard = datetime.datetime(2022, 3, 6, 0, 0, 0)
+    diff_minutes = datetime.timedelta(minutes=5)
     diff_days = datetime.timedelta(days=1)
-    if int(value) < 61:
+    if int(value) < 169:
         reserve_time = day_standard + diff_minutes*(int(value)+1)
     else:
-        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-60)
+        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-168)
 
     return reserve_time
 

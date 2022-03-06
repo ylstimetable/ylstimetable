@@ -126,8 +126,8 @@ def reserve_status(request):
                                                        "seat_name": seat_name, "ran": ran, "rang": rang})
 
 @login_required(login_url='common:login')
-def seat_register(request):
-    requested_seat = int(request.POST.get("seat_number"))
+def seat_register(request, seat_number):
+    requested_seat = int(seat_number)
     current_queue = Result.objects.filter(semester='2022-2')
     for q in current_queue:
         current_queue = q

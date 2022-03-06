@@ -10,7 +10,7 @@ urlpatterns = [
     path('random/', views.random, name='random'),
     path('register/', views.register, name='register'),
     path('status/', views.reserve_status, name='reserve_status'),
-    path('register_seat/', views.seat_register, name='seat_register'),
+    path('register_seat/<int:seat_number>/', views.seat_register, name='seat_register'),
     path('admin/', views.seat_admin, name='seat_admin')
 
 

@@ -3,7 +3,7 @@ import datetime
 
 def schedule_every_ten_minutes():
     today = datetime.datetime.now()
-    day_standard = datetime.datetime(2022, 3, 6, 17, 30, 0)
+    day_standard = datetime.datetime(2022, 3, 6, 8, 0, 0)
     diff_hours = datetime.timedelta(hours=10)
     day_standard_ten_hours = day_standard+diff_hours
     day_standard_twenty_hours = day_standard_ten_hours+diff_hours

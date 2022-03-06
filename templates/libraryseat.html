@@ -15,17 +15,25 @@
             {% endif %}
             <div>
                 <span style="font-size: 18px; font-weight: bold; margin: 3px;">2022년 2학기 열람실 좌석배정</span>
-                {% if location == 10000 %}
+                {% if receipt_start != 1 %}
                 <span style="display: block;">2022년 2학기 좌석배정절차가 시작되지 않았습니다.</span>
                 {% else %}
+                {% if random_start != 1 %}
+                <span style="display: block;">순번 난수추첨 진행중입니다.</span>
+                {% endif %}
+                {% endif %}
+                {% if location != 10000 %}
                 {% date_start location as time %}
                 {% date_ten_minutes location as time_ten_minutes %}
                 <span style="display: block;">{{ request.user.student_number }}님의 예약시간은
                     {{ time | date:'Y.m.d. H:i' }}부터 {{ time_ten_minutes | date:'Y.m.d. H:i' }}까지입니다.</span>
                 {% endif %}
             </div>
-            {%
+            {% if receipt_start != 0 %}
+            {% if random_start != 1 %}
             <a href="{% url 'libraryseat:receive' %}" class="btnnb">접수</a>
+            {% endif %}
+            {% endif %}
             {% if random_start != 0 %}
             <a href="{% url 'libraryseat:reserve_status' %}" class="btnnb">예약 상태</a>
             {% endif %}

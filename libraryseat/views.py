@@ -89,23 +89,26 @@ def register(request):
 @login_required(login_url='common:login')
 def index(request):
     result = Result.objects.filter(semester='2022-2')
-    receipt = Receipt.objects.filter(semester='2022-2')
+    receipt_start = len(Receipt.objects.filter(semester='2022-2'))
     location = 10000
     random_start = 0
 
     if len(Result.objects.filter(semester='2022-2')) == 0:
-        return render(request, 'libraryseat.html', {'location': location, 'random_start': random_start})
+        return render(request, 'libraryseat.html', {'location': location,
+                                                    'random_start': random_start, 'receipt_start': receipt_start})
     else:
         for re in result:
             result = re
 
         list = result.sequence.split(',')
-        start = 1
+        random_start = 1
+
 
         if request.user.student_number in list:
             location = list.index(request.user.student_number)
 
-        return render(request, 'libraryseat.html', {'location': location, 'random_start': random_start})
+        return render(request, 'libraryseat.html', {'location': location,
+                                                    'random_start': random_start, 'receipt_start': receipt_start})
 
 @login_required(login_url='common:login')
 def reserve_status(request):

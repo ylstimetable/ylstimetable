@@ -148,7 +148,7 @@ def seat_register(request):
         else:
             already_reserve = len(Reserve.objects.filter(author=request.user))
             if already_reserve == 0:
-                if requested_seat < 350 & requested_seat > 0:
+                if requested_seat < 350 and requested_seat > 0:
                     reserve = Reserve(author=request.user, room=requested_seat)
                     reserve.save()
                     messages.success(request, '예약이 완료되었습니다.')

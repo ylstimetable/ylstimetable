@@ -99,7 +99,7 @@ def index(request):
     else:
         for re in result:
             result = re
-        list = result.sequence.split(',')
+        list = result.sequence_backup.split(',')
         random_start = 1
 
         if request.user.student_number in list:

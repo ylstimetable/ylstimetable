@@ -92,7 +92,7 @@ def num(value):
 
 @register.simple_tag
 def date_start(value):
-    day_standard = datetime.datetime(2022, 3, 6, 12, 0, 0)
+    day_standard = datetime.datetime(2022, 3, 6, 17, 30, 0)
     diff_minutes = datetime.timedelta(minutes=10)
     diff_days = datetime.timedelta(days=1)
     if int(value) < 61:
@@ -104,7 +104,7 @@ def date_start(value):
 
 @register.simple_tag
 def date_ten_minutes(value):
-    day_standard = datetime.datetime(2022, 3, 6, 12, 0, 0)
+    day_standard = datetime.datetime(2022, 3, 6, 17, 30, 0)
     diff_minutes = datetime.timedelta(minutes=10)
     diff_days = datetime.timedelta(days=1)
     if int(value) < 61:

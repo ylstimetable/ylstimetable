@@ -1,4 +1,5 @@
 from django import template
+import datetime
 
 register = template.Library()
 
@@ -88,6 +89,30 @@ def num(value):
     value = float(value)
     value = round(value, 2)
     return value
+
+@register.simple_tag
+def date(value):
+    day_standard = datetime.datetime(2022, 3, 6, 12, 0, 0)
+    diff_minutes = datetime.timedelta(minutes=10)
+    diff_days = datetime.timedelta(days=1)
+    if int(value) < 61:
+        reserve_time = day_standard + diff_minutes*int(value)
+    else:
+        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-61)
+
+    return reserve_time
+
+@register.simple_tag
+def date_ten_minutes(value):
+    day_standard = datetime.datetime(2022, 3, 6, 12, 0, 0)
+    diff_minutes = datetime.timedelta(minutes=10)
+    diff_days = datetime.timedelta(days=1)
+    if int(value) < 61:
+        reserve_time = day_standard + diff_minutes*(int(value)+1)
+    else:
+        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-60)
+
+    return reserve_time
 
 @register.simple_tag
 def start_time(list):

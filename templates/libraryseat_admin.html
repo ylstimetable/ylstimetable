@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+<div class="searchbar">
+    <form method="POST" action="{% url 'libraryseat:create_receive' %}">
+        {% csrf_token %}
+        <input class="search" type="text" name="semester">
+        <button type="submit" class="btnnb">작성완료</button>
+    </form>
+</div>
+    <a href="{% url 'libraryseat:random' %}" class="btnnb">랜덤</a>
+
+{% endblock %}

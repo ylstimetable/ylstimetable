@@ -37,11 +37,13 @@
             {% endfor %}
         </div>
         {% endif %}
-        <form method="POST" action="{% url 'libraryseat:seat_register' %}">
-            {% csrf_token %}
-            <input class="search" type="text" name="seat_number">
-        <button type="submit" class="btnnb">작성완료</button>
-    </form>
+        <div class="searchbar">
+            <form method="POST" action="{% url 'libraryseat:seat_register' %}">
+                {% csrf_token %}
+                <input class="search" type="text" name="seat_number" placeholder="좌석번호를 입력해주세요.">
+                <button type="submit" id="searchbutton">제출</button>
+            </form>
+        </div>
     </div>
 </div>
 

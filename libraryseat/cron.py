@@ -17,7 +17,7 @@ def schedule_every_ten_minutes():
     random_result_list = random_result.sequence.split(',')
 
     if today > day_standard:
-        if today.hour > day_standard_ten_hours.hour:
+        if today.hour >= day_standard_ten_hours.hour:
             if today.hour < day_standard_twenty_hours.hour:
                 random_result_list.reverse()
                 a = random_result_list.pop()

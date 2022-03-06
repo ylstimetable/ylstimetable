@@ -1,28 +1,36 @@
 {% extends 'base.html' %}
 {% load custom_tags %}
 {% block content %}
-<div class="searchbar">
-    <form method="POST" action="{% url 'libraryseat:create_receive' %}">
-        {% csrf_token %}
-        <input class="search" type="text" name="semester">
-        <button type="submit" class="btnnb">작성완료</button>
-    </form>
-</div>
-    {% if messages %}
-    <div class = "alert alert-danger my-3" role="alert">
-    {% for message in messages %}
-        <strong>{{ message.tags }}</strong>
-        <ul><li>{{ message.message }}</li></ul>
-        {% endfor %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-xs-12 col-md-10">
+        <div class="assess_border">
+            {% if messages %}
+            <div class = "alert alert-danger my-3" role="alert">
+            {% for message in messages %}
+                <strong>{{ message.tags }}</strong>
+                <ul><li>{{ message.message }}</li></ul>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div>
+                <span style="font-size: 18px; font-weight: bold; margin: 3px;">2022년 2학기 열람실 좌석배정</span>
+                {% if location == 10000 %}
+                <span style="display: block;">2022년 2학기 좌석배정절차가 시작되지 않았습니다.</span>
+                {% else %}
+                {% date location as time %}
+                {% date_ten_minutes location as time_ten_minutes %}
+                <span style="display: block;">{{ request.user.student_number }}님의 예약시간은
+                    {{ time | date:'Y.m.d. H:i' }}부터 {{ time_ten_minutes | date:'Y.m.d. H:i' }}까지입니다.</span>
+                {% endif %}
+            </div>
+
+            <a href="{% url 'libraryseat:receive' %}" class="btnnb">접수</a>
+
+            <a href="{% url 'libraryseat:reserve_status' %}" class="btnnb">예약 상태</a>
+        </div>
     </div>
-    {% endif %}
-
-    <a href="{% url 'libraryseat:receive' %}" class="btnnb">접수</a>
-    <a href="{% url 'libraryseat:random' %}" class="btnnb">랜덤빵</a>
-    <a href="{% url 'libraryseat:reserve_status' %}" class="btnnb">예약 상태</a>
-
-{{ test }}
-
+</div>
 
 
 {% endblock %}

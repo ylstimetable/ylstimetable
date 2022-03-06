@@ -14,6 +14,10 @@ def create_receive(request):
 
     return redirect('libraryseat:index')
 
+@login_required(login_url='common:login')
+def seat_admin(request):
+    return render(request, 'libraryseat_admin.html')
+
 
 @login_required(login_url='common:login')
 def receive(request):
@@ -21,8 +25,12 @@ def receive(request):
     for obj in q:
         q_obj = obj
 
-    q_obj.voter.add(request.user)
-    return redirect('libraryseat:index')
+    if request.user in q_obj.voter.all():
+        messages.error(request, '이미 접수된 사용자입니다.')
+        return redirect('libraryseat:index')
+    else:
+        messages.success(request, '접수 완료되었습니다.')
+        return redirect('libraryseat:index')
 
 
 @login_required(login_url='common:login')
@@ -80,7 +88,18 @@ def register(request):
 
 @login_required(login_url='common:login')
 def index(request):
-    return render(request, 'libraryseat.html')
+    result = Result.objects.filter(semester='2022-2')
+    for re in result:
+        result = re
+
+    list = result.sequence.split(',')
+    location = 10000
+
+    if request.user.student_number in list:
+        location = list.index(request.user.student_number)
+
+
+    return render(request, 'libraryseat.html', {'location': location})
 
 @login_required(login_url='common:login')
 def reserve_status(request):

@@ -141,7 +141,7 @@ def seat_register(request):
     for q in q_all:
         reserved_seat.append(int(q.room))
 
-    if request.user == current_queue.current:
+    if request.user.student_number == current_queue.current:
         if request.user in reserved_user:
             messages.error()
         if requested_seat in reserved_seat:

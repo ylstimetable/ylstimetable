@@ -2,45 +2,69 @@
 {% load custom_tags %}
 {% block content %}
 <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-xs-12 col-md-10">
-        <div class="assess_border">
-            {% if messages %}
-            <div class = "alert alert-danger my-3" role="alert">
-            {% for message in messages %}
-                <strong>{{ message.tags }}</strong>
-                <ul><li>{{ message.message }}</li></ul>
-                {% endfor %}
-            </div>
-            {% endif %}
-            <div>
-                <span style="font-size: 18px; font-weight: bold; margin: 3px;">2022년 2학기 열람실 좌석배정</span>
-                {% if receipt_start != 1 %}
-                <span style="display: block;">2022년 2학기 좌석배정절차가 시작되지 않았습니다.</span>
-                {% else %}
+    <div class="container">
+        <div class="col-xs-12 col-md-12">
+            <div class="assess_border">
+                {% if messages %}
+                <div class = "alert alert-danger my-3" role="alert">
+                {% for message in messages %}
+                    <strong>{{ message.tags }}</strong>
+                    <ul><li>{{ message.message }}</li></ul>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div>
+                    <span style="font-size: 18px; font-weight: bold; margin: 3px;">2022년 2학기 열람실 좌석배정</span>
+                    {% if receipt_start != 1 %}
+                    <span style="display: block;">2022년 2학기 좌석배정절차가 시작되지 않았습니다.</span>
+                    {% else %}
+                    {% if random_start != 1 %}
+                    <span style="display: block;">2022년 2학기 좌석배정신청기간입니다.</span>
+                    {% endif %}
+                    {% endif %}
+                    {% if location != 10000 %}
+                    {% date_start location as time %}
+                    {% date_ten_minutes location as time_ten_minutes %}
+                    <span style="display: block;">{{ request.user.student_number }}님의 예약시간은
+                        {{ time | date:'Y.m.d. H:i' }}부터 {{ time_ten_minutes | date:'Y.m.d. H:i' }}까지입니다.</span>
+                    {% endif %}
+                </div>
+                {% if receipt_start != 0 %}
                 {% if random_start != 1 %}
-                <span style="display: block;">2022년 2학기 좌석배정신청기간입니다.</span>
+                <a href="{% url 'libraryseat:receive' %}" class="btnnb">접수</a>
                 {% endif %}
                 {% endif %}
-                {% if location != 10000 %}
-                {% date_start location as time %}
-                {% date_ten_minutes location as time_ten_minutes %}
-                <span style="display: block;">{{ request.user.student_number }}님의 예약시간은
-                    {{ time | date:'Y.m.d. H:i' }}부터 {{ time_ten_minutes | date:'Y.m.d. H:i' }}까지입니다.</span>
+                {% if random_start != 0 %}
+                <a href="{% url 'libraryseat:reserve_status' %}" class="btnnb">좌석신청</a>
                 {% endif %}
             </div>
-            {% if receipt_start != 0 %}
-            {% if random_start != 1 %}
-            <a href="{% url 'libraryseat:receive' %}" class="btnnb">접수</a>
-            {% endif %}
-            {% endif %}
-            {% if random_start != 0 %}
-            <a href="{% url 'libraryseat:reserve_status' %}" class="btnnb">좌석신청</a>
-            {% endif %}
-
         </div>
     </div>
 </div>
 
+<div class="row">
+    <div class="container">
+        <div class="col-xs-12 col-md-12">
+            {% if random_start != 0 %}
+            <div class="assess_border">
+                <span style="font-size: 18px; font-weight: bold; margin: 3px;">난수추첨 결과</span>
+                <table>
+                    <tbody>
+                    {% for a in list %}
+                    {% location_plus list a as a_location %}
+                    <tr>
+                        <td>
+                            <span>{{ a_location }}. {{ a }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}

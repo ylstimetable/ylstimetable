@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from .models import Receipt, Reserve, Result
 from random import shuffle
@@ -9,12 +10,18 @@ import datetime
 @login_required(login_url='common:login')
 def create_receive(request):
     sem = request.POST.get("semester")
-    a = Receipt(semester=sem)
-    a.save()
+    q_count = len(Receipt.objects.filter(semester=sem))
 
-    return redirect('libraryseat:index')
+    if q_count != 0:
+        messages.error(request, "해당 학기의 좌석배정 로그가 이미 존재합니다.")
+        return redirect('libraryseat:index')
+    else:
+        a = Receipt(semester=sem)
+        a.save()
+        return redirect('libraryseat:index')
 
-@login_required(login_url='common:login')
+
+@staff_member_required(login_url='common:login')
 def seat_admin(request):
     return render(request, 'libraryseat_admin.html')
 
@@ -106,7 +113,7 @@ def index(request):
         if request.user.student_number in list:
             location = list.index(request.user.student_number)
 
-        return render(request, 'libraryseat.html', {'location': location,
+        return render(request, 'libraryseat.html', {'location': location, 'list': list,
                                                     'random_start': random_start, 'receipt_start': receipt_start})
 
 @login_required(login_url='common:login')

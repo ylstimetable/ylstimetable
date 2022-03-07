@@ -2,6 +2,7 @@ from django.db import models
 from CustomUser.models import User
 
 class Post(models.Model):
+    category = models.CharField(max_length=200, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_post')
     subject = models.CharField(max_length=200)
     content = models.TextField()

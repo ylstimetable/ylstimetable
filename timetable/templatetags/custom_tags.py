@@ -33,6 +33,11 @@ def location(list, loc):
     return a
 
 @register.simple_tag
+def location_plus(list, loc):
+    a = list.index(loc)+1
+    return a
+
+@register.simple_tag
 def next(list, num):
     a = list[num]
     return a

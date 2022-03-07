@@ -30,6 +30,7 @@ def receive(request):
         return redirect('libraryseat:index')
     else:
         messages.success(request, '접수 완료되었습니다.')
+        q_obj.voter.add(request.user)
         return redirect('libraryseat:index')
 
 

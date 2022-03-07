@@ -10,13 +10,15 @@ import datetime
 @login_required(login_url='common:login')
 def create_receive(request):
     sem = request.POST.get("semester")
+    month = request.POST.get("month")
+    day = request.POST.get("day")
     q_count = len(Receipt.objects.filter(semester=sem))
 
     if q_count != 0:
         messages.error(request, "해당 학기의 좌석배정 로그가 이미 존재합니다.")
         return redirect('libraryseat:index')
     else:
-        a = Receipt(semester=sem)
+        a = Receipt(semester=sem, month=month, day=day)
         a.save()
         return redirect('libraryseat:index')
 

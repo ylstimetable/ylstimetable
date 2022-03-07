@@ -1,5 +1,6 @@
 from django import template
 import datetime
+from libraryseat.models import Receipt
 
 register = template.Library()
 
@@ -97,25 +98,33 @@ def num(value):
 
 @register.simple_tag
 def date_start(value):
-    day_standard = datetime.datetime(2022, 3, 6, 0, 0, 0)
+    receipt = Receipt.objects.filter(semester='2022-2')
+    for re in receipt:
+        receipt = re
+    day_standard = datetime.datetime(2022, int(receipt.month), int(receipt.day), 0, 0, 0)
+    diff_hours = datetime.timedelta(hours=9)
     diff_minutes = datetime.timedelta(minutes=5)
     diff_days = datetime.timedelta(days=1)
     if int(value) < 169:
-        reserve_time = day_standard + diff_minutes*int(value)
+        reserve_time = day_standard + diff_minutes*int(value) + diff_hours
     else:
-        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-169)
+        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-169) + diff_hours
 
     return reserve_time
 
 @register.simple_tag
 def date_ten_minutes(value):
-    day_standard = datetime.datetime(2022, 3, 6, 0, 0, 0)
+    receipt = Receipt.objects.filter(semester='2022-2')
+    for re in receipt:
+        receipt = re
+    day_standard = datetime.datetime(2022, int(receipt.month), int(receipt.day), 0, 0, 0)
+    diff_hours = datetime.timedelta(hours=9)
     diff_minutes = datetime.timedelta(minutes=5)
     diff_days = datetime.timedelta(days=1)
     if int(value) < 169:
-        reserve_time = day_standard + diff_minutes*(int(value)+1)
+        reserve_time = day_standard + diff_minutes*(int(value)+1) + diff_hours
     else:
-        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-168)
+        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-168) + diff_hours
 
     return reserve_time
 

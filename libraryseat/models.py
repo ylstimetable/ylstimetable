@@ -4,6 +4,8 @@ from CustomUser.models import User
 class Receipt(models.Model):
     semester = models.CharField(max_length=200)
     voter = models.ManyToManyField(User, related_name='voter', blank=True)
+    month = models.CharField(max_length=2, null=True)
+    day =models.CharField(max_length=2, null=True)
 
     def __str__(self):
         return self.semester

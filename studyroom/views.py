@@ -10,7 +10,6 @@ from datetime import datetime, timedelta
 def index(request, room_num):
 
     user = request.user
-
     if user.student_auth == False:
         return render(request, 'unauth.html')
 
@@ -20,7 +19,7 @@ def index(request, room_num):
     count = 0
     tabletime = []
     daytable = []
-    day_standard = datetime.now()
+    day_standard = datetime.now() - timedelta(hours=8)
     temp = datetime.now()
     diff_days = timedelta(days=1)
     daytable.append(day_standard)
@@ -66,12 +65,16 @@ def register(request):
     time_check = end_time_i - start_time_i
     studytime = []
 
-    if time_check > 3:
-        messages.error(request, '한 예약에 3시간을 초과하여 예약하실 수 없습니다.')
+    if time_check > 4:
+        messages.error(request, '한 예약에 4시간을 초과하여 예약하실 수 없습니다.')
         return redirect('studyroom:index', room)
 
     if time_check < 1:
         messages.error(request, '잘못된 시간 선택입니다.')
+        return redirect('studyroom:index', room)
+
+    if len(already_reserve) >= 1:
+        messages.error(request, '1주일에 1회 예약 가능합니다.')
         return redirect('studyroom:index', room)
 
     for reserve in already_reserve:

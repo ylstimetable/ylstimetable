@@ -9,12 +9,14 @@ def schedule_every_ten_minutes():
         for a in result:
             result = a
         receipt = Receipt.objects.filter(semester='2022-2')
+        for a in receipt:
+            receipt = a
 
         today = datetime.datetime.now()
-        day_standard = datetime.datetime(2022, 3, 17, 0, 0, 0)
+        day_standard = datetime.datetime(2022, int(receipt.month), int(receipt.day), 0, 0, 0)
         diff_hours = datetime.timedelta(hours=9)
-        day_standard_nine_hours = day_standard+diff_hours
-        day_standard_twentythree_hours = day_standard_nine_hours+diff_hours+datetime.timedelta(hours=5)
+        day_standard_nine_hours = day_standard + diff_hours
+        day_standard_twentythree_hours = day_standard_nine_hours + diff_hours + datetime.timedelta(hours=5)
 
         random_result = Result.objects.filter(semester='2022-2')
         for random in random_result:

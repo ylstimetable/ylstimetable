@@ -140,12 +140,11 @@ def start_time(list):
 def end_time(list):
     string = list.split(',')
     if len(string) == 1:
-        end_time = int(string.pop()) + 1
+        end_time = int(string.pop()) + 9
+        return end_time
     else:
-        end_time = int(string.pop())
-
-    end_time = end_time + 8
-    return end_time
+        end_time = int(string.pop()) + 9
+        return end_time
 
 @register.simple_tag
 def room(num):

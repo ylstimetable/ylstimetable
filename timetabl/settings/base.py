@@ -70,7 +70,7 @@ ROOT_URLCONF = 'timetabl.urls'
 
 CRONJOBS = [
     ('* 0 * * *', 'studyroom.cron.schedule_everyday'),
-    ('*/10 * * * *', 'libraryseat.cron.schedule_every_ten_minutes'),
+    ('*/5 * * * *', 'libraryseat.cron.schedule_every_ten_minutes'),
 ]
 
 CRONTAB_DJANGO_SETTINGS_MODULE = 'timetabl.settings.prod'

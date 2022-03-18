@@ -137,6 +137,14 @@ def start_time(list):
     return ptime
 
 @register.simple_tag
+def compare_time(current_time):
+    day_standard = datetime.datetime(2022, 3, 16, 15, 0, 0)
+    if current_time > day_standard:
+        return True;
+    else:
+        return False;
+
+@register.simple_tag
 def end_time(list):
     string = list.split(',')
     if len(string) == 1:

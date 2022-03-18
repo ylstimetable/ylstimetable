@@ -45,6 +45,8 @@
             <div class="col-xs-12 col-md-10">
                 <div class="assess_border">
                     <span style="font-size: 18px; font-weight: bold; margin: 3px;">나의 예약</span>
+                    {% compare_time current_time as current_result %}
+                    {% if current_result %}
                     <button style="display: in-line;" type="button" class="btnnb" data-toggle="modal" data-target="#myModal">
                     예약하기
                     </button>
@@ -97,6 +99,9 @@
                                                 {% next daytable 6 as i %}
                                                 {% date i.weekday as weekday %}
                                                 <option value="6">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
+                                                {% next daytable 7 as i %}
+                                                {% date i.weekday as weekday %}
+                                                <option value="7">{{ i.month }}/{{ i.day }}({{ weekday }})</option>
                                             </select>
                                         </div>
                                         <div style="display: block;">
@@ -147,6 +152,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                     <span style="font-size: 18px; font-weight: bold; margin: 3px;"></span>
                     <table style="margin-top: 20px;" class="table table-hover">
                         <tbody>

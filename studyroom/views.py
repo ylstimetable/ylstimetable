@@ -15,7 +15,7 @@ def index(request, room_num):
 
     my_reserve = Reserve.objects.filter(author = request.user)
     ran = range(1, 15)
-    rang = range(0, 7)
+    rang = range(0, 8)
     count = 0
     tabletime = []
     daytable = []
@@ -24,7 +24,7 @@ def index(request, room_num):
     diff_days = timedelta(days=1)
     daytable.append(day_standard)
 
-    for i in range(0, 6):
+    for i in range(0, 7):
         temp = temp + diff_days
         daytable.append(temp)
 
@@ -42,7 +42,7 @@ def index(request, room_num):
         count = count+20
 
 
-    return render(request, 'studyroom.html', {"ran": ran, "rang": rang, "room": room_num,
+    return render(request, 'studyroom.html', {"ran": ran, "rang": rang, "room": room_num, "current_time": datetime.now(),
                                     "tabletime": tabletime, "daytable": daytable, "my_reserve": my_reserve})
 
 

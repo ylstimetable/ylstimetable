@@ -20,7 +20,7 @@ def index(request, room_num):
     tabletime = []
     daytable = []
     day_standard = datetime.now() - timedelta(hours=8)
-    temp = datetime.now()
+    temp = datetime.now() - timedelta(hours=8)
     diff_days = timedelta(days=1)
     daytable.append(day_standard)
 

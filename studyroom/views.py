@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Room, Reserve
-from datetime import datetime, timedelta
+import datetime
 
 
 @login_required(login_url='common:login')
@@ -19,9 +19,9 @@ def index(request, room_num):
     count = 0
     tabletime = []
     daytable = []
-    day_standard = datetime.now() - timedelta(hours=8)
-    temp = datetime.now() - timedelta(hours=8)
-    diff_days = timedelta(days=1)
+    day_standard = datetime.datetime.now() - datetime.timedelta(hours=8)
+    temp = datetime.datetime.now() - datetime.timedelta(hours=8)
+    diff_days = datetime.timedelta(days=1)
     daytable.append(day_standard)
 
     for i in range(0, 7):
@@ -42,7 +42,7 @@ def index(request, room_num):
         count = count+20
 
 
-    return render(request, 'studyroom.html', {"ran": ran, "rang": rang, "room": room_num, "current_time": datetime.now(),
+    return render(request, 'studyroom.html', {"ran": ran, "rang": rang, "room": room_num, "current_time": datetime.datetime.now(),
                                     "tabletime": tabletime, "daytable": daytable, "my_reserve": my_reserve})
 
 
@@ -112,7 +112,16 @@ def register(request):
 @login_required(login_url='common:login')
 def delete(request, reserve_id):
     reg = get_object_or_404(Reserve, pk=reserve_id)
+    reg_time_strings = reg.time.split(',')
+    last_time = int(reg_time_strings.pop()) + 9
+    reserve_time = datetime.datetime(int(reg.year), int(reg.month), int(reg.day), last_time, 0, 0)
+    time_now = datetime.datetime.now()
     room = reg.room
+
+    if time_now > reserve_time:
+        messages.error(request, '당일 시간 도과된 예약은 취소할 수 없습니다.')
+        return redirect('studyroom:index', room)
+
     reg.delete()
     return redirect('studyroom:index', room)
 

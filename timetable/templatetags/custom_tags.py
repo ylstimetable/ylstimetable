@@ -158,32 +158,26 @@ def end_time(list):
 def room(num):
     a = int(num)
     if a == 1:
-        b = "B106"
+        b = "B126"
         return b
     elif a == 2:
-        b = "B107"
+        b = "B127"
         return b
     elif a == 3:
-        b = "B108"
-        return b
-    elif a == 4:
-        b = "B109"
-        return b
-    elif a == 5:
         b = "210A"
         return b
-    elif a == 6:
+    elif a == 4:
         b = "210B"
         return b
-    elif a == 7:
+    elif a == 5:
         b = "210C"
         return b
-    elif a == 8:
+    elif a == 6:
         b = "210D"
         return b
-    elif a == 9:
+    elif a == 7:
         b = "210E"
         return b
-    elif a == 10:
+    elif a == 8:
         b = "210F"
         return b

@@ -36,7 +36,7 @@ def index(request):
     q_all = user.class_voter.all()
     q = q_all.filter(semester='2022-1')
     m = user.class_author.all()
-    ran = range(1, 13)
+    ran = range(1, 14)
     rang = range(0, 5)
 
     tabletime = []

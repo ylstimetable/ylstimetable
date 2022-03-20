@@ -181,34 +181,36 @@
                     </table>
                 </div>
                 <!-- 시간표 -->
-                <div class="assess_border" style="overflow:auto;">
+                <div class="assess_border">
                     {% room room as num %}
                     <span style="font-size: 18px; font-weight: bold; margin: 3px;">{{ num }} 예약현황</span>
-                    <table id="table1" class="table">
-                        <tbody>
-                        <tr class="text-center">
-                            <th width="5%"></th>
-                            {% for i in daytable %}
-                            {% date i.weekday as weekday %}
-                            <th width="11%"><span style = "font-size:12px; font-weight:lighter;"> {{ i.month }}/{{ i.day }}({{ weekday }})</span></th>
+                    <div style="overflow: auto;">
+                        <table id="table1" class="table">
+                            <tbody>
+                            <tr class="text-center">
+                                <th width="5%"></th>
+                                {% for i in daytable %}
+                                {% date i.weekday as weekday %}
+                                <th width="11%"><span style = "font-size:12px; font-weight:lighter;"> {{ i.month }}/{{ i.day }}({{ weekday }})</span></th>
+                                {% endfor %}
+                            </tr>
+                            {% for i in ran %}
+                            <tr>
+                                {% time i as p %}
+                                <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}</p></th>
+                                {% for j in rang %}
+                                {% add_str i j as cou %}
+                                {% if cou in tabletime %}
+                                <th bgcolor="CFE2F8"></th>
+                                {% else %}
+                                <th></th>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
                             {% endfor %}
-                        </tr>
-                        {% for i in ran %}
-                        <tr>
-                            {% time i as p %}
-                            <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}</p></th>
-                            {% for j in rang %}
-                            {% add_str i j as cou %}
-                            {% if cou in tabletime %}
-                            <th bgcolor="CFE2F8"></th>
-                            {% else %}
-                            <th></th>
-                            {% endif %}
-                            {% endfor %}
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -13,6 +13,8 @@ from bs4 import BeautifulSoup
 def result(request):
     if request.method == 'POST':
         name = request.POST.get("classname")
+        if name == "개발자":
+            return redirect('https://www.instagram.com/kkpark09/')
         class_list = ClassD.objects.filter(semester='2022-1')
         classfind = class_list.filter(
             Q(title__icontains=name) |

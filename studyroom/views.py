@@ -53,9 +53,10 @@ def register(request):
     end_time = request.POST.get("end_time")
     room_num = request.POST.get("room_num")
     room = int(room_num)
-    temp = datetime.now()
+    temp = datetime.datetime.now()
+    temp_seven_day = datetime.datetime(temp.year, temp.month, temp.day, 0, 0, 0) + datetime.timedelta(days=7)
     delta_date = int(date)
-    object_date = temp + timedelta(days=delta_date)
+    object_date = temp + datetime.timedelta(days=delta_date)
     q = Reserve.objects.filter(room = room_num)
     already_reserve = Reserve.objects.filter(author=request.user)
     check = 0
@@ -74,16 +75,9 @@ def register(request):
         return redirect('studyroom:index', room)
 
     if len(already_reserve) >= 1:
-        messages.error(request, '1주일에 1회 예약 가능합니다.')
-        return redirect('studyroom:index', room)
-
-    for reserve in already_reserve:
-        reserve_string = reserve.time.split(',')
-        total_time = total_time + len(reserve_string)
-
-    if total_time > 7:
-        messages.error(request, '한 주에 예약하실 수 있는 최대 시간은 7시간입니다.')
-        return redirect('studyroom:index', room)
+        if object_date < temp_seven_day:
+            messages.error(request, '1주일에 1회 예약 가능합니다.')
+            return redirect('studyroom:index', room)
 
     for i in range(start_time_i, end_time_i):
         studytime.append(str(i))

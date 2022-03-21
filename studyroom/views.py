@@ -55,7 +55,7 @@ def register(request):
     room = int(room_num)
     temp = datetime.datetime.now()
     delta_date = int(date)
-    object_date = temp + datetime.timedelta(days=delta_date)
+    object_date = temp + datetime.timedelta(days=delta_date) - datetime.timedelta(hours=8)
     q = Reserve.objects.filter(room = room_num)
     already_reserve = Reserve.objects.filter(author=request.user)
     check = 0

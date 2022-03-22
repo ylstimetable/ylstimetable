@@ -15,16 +15,26 @@ def index(request, room_num):
 
     my_reserve = Reserve.objects.filter(author = request.user)
     ran = range(1, 15)
-    rang = range(0, 8)
+    rang = range(0, 7)
     count = 0
     tabletime = []
     daytable = []
-    day_standard = datetime.datetime.now() - datetime.timedelta(hours=8)
-    temp = datetime.datetime.now() - datetime.timedelta(hours=8)
+
+    temp_today = datetime.datetime.now()
+    if temp_today.weekday() != 0:
+        temporary = temp_today - datetime.timedelta(days=int(temp_today.weekday()))
+    else:
+        if temp_today.hour < 8:
+            temporary = temp_today - datetime.timedelta(days=7)
+        else:
+            temporary = temp_today - datetime.timedelta(days=int(temp_today.weekday()))
+
+    day_standard = temporary
+    temp = temporary
     diff_days = datetime.timedelta(days=1)
     daytable.append(day_standard)
 
-    for i in range(0, 7):
+    for i in range(0, 6):
         temp = temp + diff_days
         daytable.append(temp)
 
@@ -53,7 +63,16 @@ def register(request):
     end_time = request.POST.get("end_time")
     room_num = request.POST.get("room_num")
     room = int(room_num)
-    temp = datetime.datetime.now()
+
+    temp_today = datetime.datetime.now()
+    if temp_today.weekday() != 0:
+        temp = temp_today - datetime.timedelta(days=int(temp_today.weekday()))
+    else:
+        if temp_today.hour < 8:
+            temp = temp_today - datetime.timedelta(days=7)
+        else:
+            temp = temp_today - datetime.timedelta(days=int(temp_today.weekday()))
+
     delta_date = int(date)
     object_date = temp + datetime.timedelta(days=delta_date) - datetime.timedelta(hours=8)
     q = Reserve.objects.filter(room = room_num)
@@ -73,19 +92,18 @@ def register(request):
         messages.error(request, '잘못된 시간 선택입니다.')
         return redirect('studyroom:index', room)
 
-    if len(already_reserve) >= 1:
-        for already in already_reserve:
-            monday_date = datetime.datetime(
-                int(already.year), int(already.month), int(already.day), 0, 0, 0) - datetime.timedelta(days=int(already.date))
-            sunday_date = datetime.datetime(
-                int(already.year), int(already.month), int(already.day), 23, 0, 0) + datetime.timedelta(days=6-int(already.date))
-
-            if (object_date > monday_date) and (object_date < sunday_date):
-                messages.error(request, '1주일에 1회 예약 가능합니다.')
-                return redirect('studyroom:index', room)
-
     for i in range(start_time_i, end_time_i):
         studytime.append(str(i))
+
+    for reserve in already_reserve:
+        reserve_string = reserve.time.split(',')
+        total_time = total_time + len(reserve_string)
+
+    total_time = total_time + time_check
+
+    if total_time > 8:
+        messages.error(request, '한 주에 예약하실 수 있는 최대 시간은 8시간입니다.')
+        return redirect('studyroom:index', room)
 
     for temp in q:
         if int(temp.year) == object_date.year:

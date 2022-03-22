@@ -42,6 +42,7 @@ def location_plus(list, loc):
 def next(list, num):
     a = list[num]
     return a
+
 @register.simple_tag
 def date(num):
     if num == 0:

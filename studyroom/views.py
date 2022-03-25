@@ -74,19 +74,30 @@ def register(request):
             temp = temp_today - datetime.timedelta(days=int(temp_today.weekday()))
 
     delta_date = int(date)
-    object_date = temp + datetime.timedelta(days=delta_date) - datetime.timedelta(hours=8)
+    object_date = temp + datetime.timedelta(days=delta_date)
     q = Reserve.objects.filter(room = room_num)
     already_reserve = Reserve.objects.filter(author=request.user)
     check = 0
     total_time = 0
+    max_day_time = 0
     start_time_i = int(start_time)
     end_time_i = int(end_time)
     time_check = end_time_i - start_time_i
     studytime = []
 
-    if time_check > 4:
-        messages.error(request, '한 예약에 4시간을 초과하여 예약하실 수 없습니다.')
+    for reserve in already_reserve:
+        if object_date.year == int(reserve.year):
+            if object_date.month == int(reserve.month):
+                if object_date.day == int(reserve.day):
+                    day_reserve_string = reserve.time.split(',')
+                    max_day_time = max_day_time + len(day_reserve_string)
+
+    max_day_time = max_day_time + time_check
+
+    if max_day_time > 4:
+        messages.error(request, '하루에 예약 가능한 시간은 최대 4시간입니다.')
         return redirect('studyroom:index', room)
+
 
     if time_check < 1:
         messages.error(request, '잘못된 시간 선택입니다.')
@@ -111,7 +122,6 @@ def register(request):
                 if int(temp.day) == object_date.day:
                     temptime = temp.time
                     strings = temptime.split(',')
-                    print(strings)
                     for b in strings:
                         if studytime.count(b) != 0:
                             check += 1
@@ -120,6 +130,7 @@ def register(request):
         a = Reserve(author = request.user, time = ','.join(studytime), year = object_date.year, month = object_date.month,
                     day = object_date.day, date = object_date.weekday(), room = room_num)
         a.save()
+        messages.success(request, '예약이 완료되었습니다.')
         return redirect('studyroom:index', room)
     else:
         messages.error(request, '이미 해당 시간에 예약이 존재합니다.')
@@ -136,7 +147,7 @@ def delete(request, reserve_id):
     room = reg.room
 
     if time_now > reserve_time:
-        messages.error(request, '당일 시간 도과된 예약은 취소할 수 없습니다.')
+        messages.error(request, '시간 도과된 예약은 취소할 수 없습니다.')
         return redirect('studyroom:index', room)
 
     reg.delete()

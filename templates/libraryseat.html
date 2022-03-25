@@ -6,12 +6,17 @@
         <div class="col-xs-12 col-md-12">
             <div class="assess_border">
                 {% if messages %}
-                <div class = "alert alert-danger my-3" role="alert">
-                {% for message in messages %}
-                    <strong>{{ message.tags }}</strong>
-                    <ul><li>{{ message.message }}</li></ul>
+                    {% for message in messages %}
+                        {% if message.tags == "error" %}
+                            <div class = "alert alert-danger my-3" role="alert">
+                                <ul><li>{{ message.message }}</li></ul>
+                            </div>
+                            {% else %}
+                            <div class="alert alert-success my-3" role="alert">
+                                <ul><li>{{ message.message }}</li></ul>
+                            </div>
+                            {% endif %}
                     {% endfor %}
-                </div>
                 {% endif %}
                 <div>
                     <span style="font-size: 18px; font-weight: bold; margin: 3px;">2022년 2학기 열람실 좌석배정</span>

@@ -70,7 +70,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'timetabl.urls'
 
 CRONJOBS = [
-    ('0 8 * * 1', 'studyroom.cron.schedule_everyday'),
+    ('40 23 * * 4', 'studyroom.cron.schedule_everyday'),
     ('*/5 * * * *', 'libraryseat.cron.schedule_every_ten_minutes'),
 ]
 

@@ -98,7 +98,6 @@ def register(request):
         messages.error(request, '하루에 예약 가능한 시간은 최대 4시간입니다.')
         return redirect('studyroom:index', room)
 
-
     if time_check < 1:
         messages.error(request, '잘못된 시간 선택입니다.')
         return redirect('studyroom:index', room)

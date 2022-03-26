@@ -162,8 +162,8 @@
                                 <td>
                                     <div style="margin: 5px 0px;">
                                         {% date reserve.date as reserve_weekday %}
-                                        <span style="display: in-line; font-size: 14px;"> / {{ room_num }} / </span>
-                                        <span style="display: in-line; font-size: 14px;">{{ reserve.month }}월 {{ reserve.day }}일({{ reserve_weekday }}요일)</span>
+                                        <span style="display: in-line; font-size: 14px; font-weight: bold;">{{ room_num }}</span>
+                                        <span style="display: in-line; font-size: 14px;"> / {{ reserve.month }}월 {{ reserve.day }}일({{ reserve_weekday }}요일) / </span>
                                         <span style="display: in-line; font-size: 14px;">{{ start_show_time }}:00-{{ end_show_time }}:00</span>
                                         <div class="reg">
                                             <form method="POST" action="{% url 'studyroom:delete' reserve.id %}" style="display: in-line;">

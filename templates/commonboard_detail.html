@@ -9,28 +9,30 @@
                     <ul class="list-group list-group-flush">
                     <a class="rounded-0 list-group-item list-group-item-action"
                        href="/commonboard/list">공지사항</a>
+                        <!--
                     <a class="rounded-0 list-group-item list-group-item-action"
                        href="/board/list">강의평가</a>
                     <a class="rounded-0 list-group-item list-group-item-action"
                        href="/freeboard/list">자유게시판</a>
+                       -->
                     </ul>
                 </div>
             </nav>
         </div>
         <div class="col-xs-12 col-md-10"> <!-- 글 영역 -->
-            <div class="card">
-                <div class="card-body">
-                    <div id="post_header">
-                        <h3>{{ announce.subject }}</h3>
-                        <span>{{ announce.author.username }} |</span>
-                        {% if announce.modify_date %}
-                        <span>작성일: {{ announce.modify_date | date:'Y년 m월d일 H:i' }}</span>
-                        {% else %}
-                        <span>{{ announce.create_date | date:'Y년 m월d일 H:i' }}</span>
-                        {% endif %}
-                    </div>
-                    <br>
-                    <div class="card-text" style="white-space: pre-line;">{{ announce.content }}</div>
+            <div class="assess_border">
+                <div id="post_header">
+                    <span style="font-size: 20px; display: block;">{{ announce.subject }}</span>
+                    <span>{{ announce.author.student_name }} |</span>
+                    {% if announce.modify_date %}
+                    <span>작성일: {{ announce.modify_date | date:'Y.m.d. H:i' }}</span>
+                    {% else %}
+                    <span>{{ announce.create_date | date:'Y.m.d. H:i' }}</span>
+                    {% endif %}
+                </div>
+                <br>
+                <div>
+                    <div style="white-space: pre-line;">{{ announce.content }}</div>
                 </div>
             </div>
         </div>

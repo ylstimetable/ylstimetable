@@ -46,14 +46,16 @@
                     {% if announce_list %}
                     {% for announce in announce_list %}
                     <tr>
-                        <td class="text-center">{{ announce.id }}</td>
-                        <td class="align-middle">
-                            <a href="{% url 'commonboard:detail' announce.id %}" style="color:black;">
-                                {{ announce.subject }}
-                            </a>
+                        <td onclick="location.href='/commonboard/detail/{{ announce.id }}'">
+                            <div style="margin: 5px 0px;">
+                                <span style="float: right; color: #808080; font-size: 12px;">
+                                    {{ announce.create_date | date:'Y.m.d. H:i' }}
+                                </span>
+                                <span style="display: block; font-size: 14px;">
+                                    {{ announce.subject }}
+                                </span>
+                            </div>
                         </td>
-                        <td class="text-center">{{ announce.author.username }}</td>
-                        <td class="text-center">{{ announce.create_date | date:'Y년 m월d일 H:i' }}</td>
                     </tr>
                     {% endfor %}
                     {% else %}

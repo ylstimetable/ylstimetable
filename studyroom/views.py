@@ -19,6 +19,7 @@ def index(request, room_num):
     count = 0
     tabletime = []
     daytable = []
+    nametable = []
 
     temp_today = datetime.datetime.now()
     if temp_today.weekday() != 0:
@@ -46,14 +47,16 @@ def index(request, room_num):
             temptime = reserve.time
             strings = temptime.split(',')
             for string in strings:
-
+                nametable.append(reserve.author.student_name)
                 tabletime.append(int(string)+count)
 
         count = count+20
 
 
-    return render(request, 'studyroom.html', {"ran": ran, "rang": rang, "room": room_num, "current_time": datetime.datetime.now(),
-                                    "tabletime": tabletime, "daytable": daytable, "my_reserve": my_reserve})
+    return render(request, 'studyroom.html', {"ran": ran, "rang": rang, "room": room_num,
+                                              "current_time": datetime.datetime.now(),
+                                              "tabletime": tabletime, "nametable": nametable,
+                                              "daytable": daytable, "my_reserve": my_reserve})
 
 
 @login_required(login_url='common:login')

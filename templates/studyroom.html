@@ -204,7 +204,9 @@
                                 {% for j in rang %}
                                 {% add_str i j as cou %}
                                 {% if cou in tabletime %}
-                                <th bgcolor="CFE2F8"></th>
+                                {% location tabletime cou as loc %}
+                                {% content nametable loc as name %}
+                                <th bgcolor="CFE2F8" style="text-align: center;">{{ name }}</th>
                                 {% else %}
                                 <th></th>
                                 {% endif %}

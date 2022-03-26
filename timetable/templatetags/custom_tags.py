@@ -139,11 +139,11 @@ def start_time(list):
 
 @register.simple_tag
 def compare_time(current_time):
-    day_standard = datetime.datetime(2022, 3, 16, 15, 0, 0)
-    if current_time > day_standard:
-        return True;
+    if current_time.weekday() == 0:
+        if current_time.hour < 8:
+            return False;
     else:
-        return False;
+        return True;
 
 @register.simple_tag
 def end_time(list):

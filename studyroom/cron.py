@@ -1,5 +1,5 @@
 from .models import Reserve
-from datetime import datetime, timedelta
+import datetime
 
 def schedule_monday():
     real_time = datetime.datetime.now().weekday()

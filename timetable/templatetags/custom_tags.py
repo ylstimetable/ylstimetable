@@ -142,8 +142,8 @@ def compare_time(current_time):
     if current_time.weekday() == 0:
         if current_time.hour < 8:
             return False;
-    else:
-        return True;
+        else:
+            return True;
 
 @register.simple_tag
 def end_time(list):

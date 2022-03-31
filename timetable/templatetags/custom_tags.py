@@ -141,11 +141,11 @@ def start_time(list):
 def compare_time(current_time):
     if current_time.weekday() == 5:
         if current_time.hour < 8:
-            return False;
+            return False
         else:
-            return True;
+            return True
     else:
-        True
+        return True
 
 @register.simple_tag
 def end_time(list):

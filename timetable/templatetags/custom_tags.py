@@ -144,6 +144,8 @@ def compare_time(current_time):
             return False;
         else:
             return True;
+    else:
+        True
 
 @register.simple_tag
 def end_time(list):

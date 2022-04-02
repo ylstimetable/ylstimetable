@@ -167,20 +167,20 @@ def room(num):
         b = "B127"
         return b
     elif a == 3:
-        b = "210A"
+        b = "212A"
         return b
     elif a == 4:
-        b = "210B"
+        b = "212B"
         return b
     elif a == 5:
-        b = "210C"
+        b = "212C"
         return b
     elif a == 6:
-        b = "210D"
+        b = "212D"
         return b
     elif a == 7:
-        b = "210E"
+        b = "212E"
         return b
     elif a == 8:
-        b = "210F"
+        b = "212F"
         return b

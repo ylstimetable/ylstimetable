@@ -105,6 +105,10 @@ def register(request):
         messages.error(request, '잘못된 시간 선택입니다.')
         return redirect('studyroom:index', room)
 
+    if object_date < temp_today:
+        messages.error(request, '도과된 날짜에 대해서는 예약이 불가합니다.')
+        return redirect('studyroom:index', room)
+
     for i in range(start_time_i, end_time_i):
         studytime.append(str(i))
 

@@ -106,7 +106,7 @@ def register(request):
         return redirect('studyroom:index', room)
 
     if object_date < temp_today:
-        messages.error(request, '도과된 날짜에 대해서는 예약이 불가합니다.')
+        messages.error(request, '지난 날짜에 대해서는 예약이 불가합니다.')
         return redirect('studyroom:index', room)
 
     for i in range(start_time_i, end_time_i):

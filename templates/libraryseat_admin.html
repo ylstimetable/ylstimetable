@@ -5,8 +5,6 @@
     <form method="POST" action="{% url 'libraryseat:create_receive' %}">
         {% csrf_token %}
         <input class="searchbar" type="text" name="semester" placeholder="학기">
-        <input class="searchbar" type="text" name="month" placeholder="월">
-        <input class="searchbar" type="text" name="day" placeholder="일">
         <button type="submit" class="btnnb">작성완료</button>
     </form>
     <a href="{% url 'libraryseat:random' %}" class="btnnb">랜덤</a>

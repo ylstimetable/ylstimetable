@@ -15,7 +15,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-xs-12 col-md-12">
+        <div class="col-xs-12 col-md-9">
             <div class="assess_border">
                 <span style="font-size: 18px; font-weight: bold; margin: 3px;">최근 강의평</span>
                 <table style="margin-top: 20px;" class="table table-hover">
@@ -66,6 +66,30 @@
                 </table>
             </div>
         </div>
+         <div class="col-xs-12 col-md-3">
+            <div class="assess_border">
+                <span style="font-size: 18px; font-weight: bold; margin: 3px;">연로 빛강</span><span style="font-size: 18px; font-weight: bold; color: #2A24E2;">TOP 3</span>
+                    <table style="margin-top: 20px;" class="table table-hover">
+                        <tbody>
+                            {% if best_list %}
+                            {% for best in best_list %}
+                            <tr>
+                            <td onclick="location.href='/board/detail/{{ best.id }}'">
+                                <div style="margin: 5px 0px;">
+                                     <span style="display: block; font-size: 14px; font-weight: bold">{{ best.subject }} / {{ best.professor }}</span>
+                                        <div class="result_star">
+                                            <i class="fas fa-star fa-sm star"></i>
+                                            <span style="font-size: 16px;">{{ best.rate }}</span>
+                                        </div>
+                                </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                        {% endif %}
+                    </table>
+            </div>
+         </div>
     </div>
 </div>
 <form id="searchForm" method="get" action="{% url 'index' %}">

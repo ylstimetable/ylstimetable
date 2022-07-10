@@ -55,7 +55,7 @@ def list(request):
     all_class = ClassA.objects.all()
 
 
-    best_class = all_class.order_by('-rate')[0:3]
+    best_class = all_class.order_by('-rate')[:5]
 
 
     context = {'assess_list': recent_post, 'best_list': best_class}

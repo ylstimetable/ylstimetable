@@ -50,9 +50,15 @@ def list(request):
     page = request.GET.get('page', '1')
 
     recent_post = ClassA_Post.objects.all()
-    recent_post = recent_post.order_by('-create_date')[:5]
+    recent_post = recent_post.order_by('-create_date')[:10]
 
-    context = {'assess_list': recent_post}
+    all_class = ClassA.objects.all()
+
+
+    best_class = all_class.order_by('-rate')[0:3]
+
+
+    context = {'assess_list': recent_post, 'best_list': best_class}
     return render(request, 'assess_list.html', context)
 
 @login_required(login_url='common:login')

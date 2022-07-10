@@ -216,6 +216,18 @@ body {
     width: 85%;
 }
 
+.signup_search {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #A9A7A7;
+    outline: none;
+    padding: 8px;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 2em;
+}
+
 .board_content {
     display: inline-block;
     font-size: 12px;

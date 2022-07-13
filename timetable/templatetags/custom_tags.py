@@ -106,10 +106,10 @@ def date_start(value):
     diff_hours = datetime.timedelta(hours=9)
     diff_minutes = datetime.timedelta(minutes=5)
     diff_days = datetime.timedelta(days=1)
-    if int(value) < 169:
+    if int(value) < 168:
         reserve_time = day_standard + diff_minutes*int(value) + diff_hours
     else:
-        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-169) + diff_hours
+        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-168) + diff_hours
 
     return reserve_time
 
@@ -122,10 +122,10 @@ def date_ten_minutes(value):
     diff_hours = datetime.timedelta(hours=9)
     diff_minutes = datetime.timedelta(minutes=5)
     diff_days = datetime.timedelta(days=1)
-    if int(value) < 169:
+    if int(value) < 168:
         reserve_time = day_standard + diff_minutes*(int(value)+1) + diff_hours
     else:
-        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-168) + diff_hours
+        reserve_time = day_standard + diff_days + diff_minutes*(int(value)-167) + diff_hours
 
     return reserve_time
 

@@ -27,6 +27,9 @@ def create_receive(request):
 def seat_admin(request):
     return render(request, 'libraryseat_admin.html')
 
+@login_required(login_url='common:login')
+def floor(request):
+    return render(request, 'floor.html')
 
 @login_required(login_url='common:login')
 def receive(request):

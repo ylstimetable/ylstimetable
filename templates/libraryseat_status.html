@@ -4,26 +4,134 @@
 
 <div class="row">
     <div class="col-xs-12 col-md-6">
+        <span style="font-size: 20px">3층 좌석</span>
         <table class="table">
             <tbody>
             {% for i in ran %}
             <tr style="text-align: center;">
                 {% for j in rang %}
                 {% seatnum_cal i j as seatnum %}
+                {% if seatnum < third_floor_end %}
                 {% if seatnum in seat_num %}
                 {% location seat_num seatnum as loc %}
                 {% content seat_name loc as seatname %}
+
                 <td bgcolor="CFE2F8">
+                    {% if seatnum > third_smoke_start and seatnum < third_smoke_end %}
+                    <span style="display: block;">{{ seatnum }}(흡연)</span>
+                    {% else %}
                     <span style="display: block;">{{ seatnum }}</span>
+                    {% endif %}
                     <span>{{ seatname }}</span>
                 </td>
                 {% else %}
                 <td>
+                    {% if seatnum > third_smoke_start and seatnum < third_smoke_end %}
+                    <a href="{% url 'libraryseat:seat_register' seatnum %}"
+                       onclick="if(!confirm('{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
+                            style="display: block;">{{ seatnum }}(흡연)</a>
+                    {% else %}
                     <a href="{% url 'libraryseat:seat_register' seatnum %}"
                        onclick="if(!confirm('{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
                             style="display: block;">{{ seatnum }}</a>
+                    {% endif %}
                     <span>공석</span>
                 </td>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <span style="font-size: 20px">4층 좌석</span>
+        <table class="table">
+            <tbody>
+             {% for i in ran %}
+            <tr style="text-align: center;">
+                {% for j in rang %}
+                {% seatnum_cal i j as seatnum %}
+                {% if seatnum < fourth_na_floor_end %}
+                {% fourth seatnum as fourth_seatnum %}
+                {% if fourth_seatnum in seat_num %}
+                {% location seat_num fourth_seatnum as loc %}
+                {% content seat_name loc as seatname %}
+
+                <td bgcolor="CFE2F8">
+                    {% if seatnum < fourth_ga_floor_end %}
+                    <span style="display: block;">가{{ seatnum }}</span>
+                    {% else %}
+                    {% if seatnum > fourth_smoke_start and seatnum < fourth_smoke_end %}
+                    <span style="display: block;">나{{ seatnum }}(흡연)</span>
+                    {% else %}
+                    <span style="display: block;">나{{ seatnum }}</span>
+                    {% endif %}
+                    {% endif %}
+                    <span>{{ seatname }}</span>
+                </td>
+                {% else %}
+                <td>
+                    {% if seatnum < fourth_ga_floor_end %}
+                    <a href="{% url 'libraryseat:seat_register' fourth_seatnum %}"
+                       onclick="if(!confirm('가{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
+                            style="display: block;">가{{ seatnum }}</a>
+                    {% else %}
+                    {% if seatnum > fourth_smoke_start and seatnum < fourth_smoke_end %}
+                     <a href="{% url 'libraryseat:seat_register' fourth_seatnum %}"
+                       onclick="if(!confirm('나{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
+                            style="display: block;">나{{ seatnum }}(흡연)</a>
+                    {% else %}
+                    <a href="{% url 'libraryseat:seat_register' fourth_seatnum %}"
+                       onclick="if(!confirm('나{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
+                            style="display: block;">나{{ seatnum }}</a>
+                    {% endif %}
+                    {% endif %}
+                    <span>공석</span>
+                </td>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <span style="font-size: 20px">5층 좌석</span>
+        <table class="table">
+            <tbody>
+             {% for i in ran %}
+            <tr style="text-align: center;">
+                {% for j in rang %}
+                {% seatnum_cal i j as seatnum %}
+                {% if seatnum < fifth_b_floor_end %}
+                {% fifth seatnum as fifth_seatnum %}
+                {% if fifth_seatnum in seat_num %}
+                {% location seat_num fifth_seatnum as loc %}
+                {% content seat_name loc as seatname %}
+
+                <td bgcolor="CFE2F8">
+                    {% if seatnum < fifth_a_smoke_floor_end %}
+                    <span style="display: block;">가{{ seatnum }}</span>
+                    {% else %}
+                    <span style="display: block;">나{{ seatnum }}</span>
+                    {% endif %}
+                    <span>{{ seatname }}</span>
+                </td>
+                {% else %}
+                <td>
+                    {% if seatnum < fifth_a_floor_end %}
+                    <a href="{% url 'libraryseat:seat_register' fifth_seatnum %}"
+                       onclick="if(!confirm('A{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
+                            style="display: block;">A{{ seatnum }}</a>
+                    {% else %}
+                     <a href="{% url 'libraryseat:seat_register' fifth_seatnum %}"
+                       onclick="if(!confirm('B{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
+                            style="display: block;">B{{ seatnum }}</a>
+                    {% endif %}
+                    <span>공석</span>
+                </td>
+                {% endif %}
                 {% endif %}
                 {% endfor %}
             </tr>
@@ -31,6 +139,7 @@
             </tbody>
         </table>
     </div>
+
     <div class="col-xs-12 col-md-6">
         {% if messages %}
         <div class = "alert alert-danger my-3" role="alert">

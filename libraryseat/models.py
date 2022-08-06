@@ -10,6 +10,15 @@ class Receipt(models.Model):
     def __str__(self):
         return self.semester
 
+class Receipt_Student(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Receipt_Student_author')
+    fee = models.CharField(max_length=2, null=True)
+    floor = models.CharField(max_length=2, null=True)
+    smoke = models.CharField(max_length=2, null=True)
+
+    def __str__(self):
+        return self.floor
+
 class Reserve(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Reserve_author')
     room = models.CharField(max_length=200)

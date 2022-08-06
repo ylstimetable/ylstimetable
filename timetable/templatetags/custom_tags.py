@@ -158,6 +158,16 @@ def end_time(list):
         return end_time
 
 @register.simple_tag
+def fourth(num):
+    num = num+1000
+    return num
+
+@register.simple_tag
+def fifth(num):
+    num = num+10000
+    return num
+
+@register.simple_tag
 def room(num):
     a = int(num)
     if a == 1:

@@ -36,7 +36,51 @@
                 </div>
                 {% if receipt_start != 0 %}
                 {% if random_start != 1 %}
-                <a href="{% url 'libraryseat:receive' %}" class="btnnb">접수</a>
+                <button style="display: in-line;" type="button" class="btnnb" data-toggle="modal" data-target="#myModal">
+                    접수
+                </button>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span style="font-size: 20px; font-weight: bold;">열람실 좌석 신청</span>
+                                </div>
+                                <div class="modal-body">
+                                <form method="POST" action="{% url 'libraryseat:receive' %}">
+                                    {% csrf_token %}
+                                    <div>
+                                        <div style="display: block;">
+                                            <label for="room_num" style="font-size: 14px; font-weight: bold;">희망 층</label>
+                                            <select class="assess_select" name="floor" style="display: in-line;">
+                                                <option value="3층">3층</option>
+                                                <option value="4층">4층</option>
+                                                <option value="5층">5층</option>
+                                            </select>
+                                        </div>
+                                        <div style="display: block;">
+                                            <label for="room_num" style="font-size: 14px; font-weight: bold;">학생회비 납부여부</label>
+                                            <select class="assess_select" name="student_fee" style="display: in-line;">
+                                                <option value="납부">납부</option>
+                                                <option value="미납">미납</option>
+                                            </select>
+                                        </div>
+                                        <div style="display: block;">
+                                            <label for="room_num" style="font-size: 14px; font-weight: bold;">흡연여부</label>
+                                            <select class="assess_select" name="smoke" style="display: in-line;">
+                                                <option value="흡연">흡연</option>
+                                                <option value="비연">비연</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btnn">접수</button>
+                                </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 {% endif %}
                 {% endif %}
                 {% if random_start != 0 %}

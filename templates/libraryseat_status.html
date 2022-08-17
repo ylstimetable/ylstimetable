@@ -3,7 +3,30 @@
 {% block content %}
 
 <div class="row">
+    <div class="col-xs-12 col-md-3"></div>
     <div class="col-xs-12 col-md-6">
+        <p>
+            신청하시려는 좌석 번호를 클릭해주세요. 한번 선택하신 후에는 좌석 선택을 취소하실 수 없습니다.
+        </p>
+        <a href="{% url 'libraryseat:floor' %}" class="btnnb">좌석 도면 보기</a>
+        <br>
+
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.level == 40 %}
+        <div class = "alert alert-danger my-3" role="error">
+            <strong>{{ message.tags }}</strong>
+            <ul><li>{{ message.message }}</li></ul>
+        </div>
+        {% elif message.level == 25 %}
+        <div class = "alert alert-primary my-3" role="error">
+            <strong>{{ message.tags }}</strong>
+            <ul><li>{{ message.message }}</li></ul>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
         <span style="font-size: 20px">3층 좌석</span>
         <table class="table">
             <tbody>
@@ -111,10 +134,10 @@
                 {% content seat_name loc as seatname %}
 
                 <td bgcolor="CFE2F8">
-                    {% if seatnum < fifth_a_smoke_floor_end %}
-                    <span style="display: block;">가{{ seatnum }}</span>
+                    {% if seatnum < fifth_a_floor_end %}
+                    <span style="display: block;">A{{ seatnum }}</span>
                     {% else %}
-                    <span style="display: block;">나{{ seatnum }}</span>
+                    <span style="display: block;">B{{ seatnum }}</span>
                     {% endif %}
                     <span>{{ seatname }}</span>
                 </td>
@@ -138,21 +161,6 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
-
-    <div class="col-xs-12 col-md-6">
-        {% if messages %}
-        <div class = "alert alert-danger my-3" role="alert">
-            {% for message in messages %}
-            <strong>{{ message.tags }}</strong>
-            <ul><li>{{ message.message }}</li></ul>
-            {% endfor   %}
-        </div>
-        {% endif %}
-        <p>
-            신청하시려는 좌석 번호를 클릭해주세요. 한번 선택하신 후에는 좌석 선택을 취소하실 수 없습니다.
-        </p>
-        <a href="{% url 'libraryseat:floor' %}" class="btnnb">좌석 도면 보기</a>
     </div>
 </div>
 

@@ -47,7 +47,7 @@ def receive(request):
     else:
         messages.success(request, '접수 완료되었습니다.')
         q_obj.voter.add(request.user)
-        a = Receipt_Student(author=request.user, fee=student_fee, floor=floor, smoke=smoke)
+        a = Receipt_Student(author=request.user, student_number = request.user.student_number, fee=student_fee, floor=floor, smoke=smoke)
         a.save()
         return redirect('libraryseat:index')
 

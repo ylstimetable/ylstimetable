@@ -12,12 +12,13 @@ class Receipt(models.Model):
 
 class Receipt_Student(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Receipt_Student_author')
+    student_number = models.CharField(max_length=15, null=True)
     fee = models.CharField(max_length=2, null=True)
     floor = models.CharField(max_length=2, null=True)
     smoke = models.CharField(max_length=2, null=True)
 
     def __str__(self):
-        return self.floor
+        return self.student_number
 
 class Reserve(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Reserve_author')

@@ -197,24 +197,29 @@
                         <table id="table1" class="table">
                             <tbody>
                             <tr class="text-center">
-                                <th width="5%"></th>
+                                <td width="5%"></td>
                                 {% for i in daytable %}
                                 {% date i.weekday as weekday %}
-                                <th width="11%"><span style = "font-size:12px; font-weight:lighter;"> {{ i.month }}/{{ i.day }}({{ weekday }})</span></th>
+                                <td width="11%"><span style = "font-size:12px; font-weight:bold;"> {{ i.month }}/{{ i.day }}({{ weekday }})</span></td>
                                 {% endfor %}
                             </tr>
                             {% for i in ran %}
                             <tr>
                                 {% time i as p %}
-                                <th class="text-center align-middle"><p style = "font-size:12px; font-weight:lighter;">{{ p }}</p></th>
+                                <td class="text-center align-middle"><p style = "font-size:12px; font-weight:bold;">{{ p }}</p></td>
                                 {% for j in rang %}
                                 {% add_str i j as cou %}
                                 {% if cou in tabletime %}
                                 {% location tabletime cou as loc %}
                                 {% content nametable loc as name %}
-                                <th bgcolor="CFE2F8" style="text-align: center; font-size:12px;">{{ name }}</th>
+                                {% content numbertable loc as number %}
+                                {% if number == user.student_number %}
+                                <td bgcolor="b364d5" style="text-align: center; font-size:12px; font-weight: bold;">{{ name }}</td>
                                 {% else %}
-                                <th></th>
+                                <td bgcolor="CFE2F8" style="text-align: center; font-size:12px; font-weight: bold;">{{ name }}</td>
+                                {% endif %}
+                                {% else %}
+                                <td></td>
                                 {% endif %}
                                 {% endfor %}
                             </tr>

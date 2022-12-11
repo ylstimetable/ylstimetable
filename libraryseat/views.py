@@ -37,7 +37,7 @@ def receive(request):
     student_fee = request.POST.get("student_fee")
     smoke = request.POST.get("smoke")
 
-    q = Receipt.objects.filter(semester='2022-2')
+    q = Receipt.objects.filter(semester='2023-1')
     for obj in q:
         q_obj = obj
 
@@ -55,7 +55,7 @@ def receive(request):
 @login_required(login_url='common:login')
 def random(request):
     r_all = Result.objects.all()
-    next_semester = '2022-2'
+    next_semester = '2023-1'
 
     semester_list = []
 
@@ -66,7 +66,7 @@ def random(request):
         messages.error(request, '이미 랜덤배정이 완료되었습니다.')
         return redirect('libraryseat:index')
 
-    applicant_list = Receipt.objects.filter(semester='2022-2')
+    applicant_list = Receipt.objects.filter(semester='2023-1')
     for obj in applicant_list:
         q = obj
 
@@ -94,7 +94,7 @@ def random(request):
         target.append(app)
 
     strings = ','.join(target)
-    a = Result(semester='2022-2', sequence=strings, sequence_backup=strings)
+    a = Result(semester='2023-1', sequence=strings, sequence_backup=strings)
     a.save()
 
     return redirect('libraryseat:index')
@@ -102,7 +102,7 @@ def random(request):
 
 @login_required(login_url='common:login')
 def register(request):
-    result = Result.objects.filter(semester='2022-2')
+    result = Result.objects.filter(semester='2023-1')
     for re in result:
         result = re
 
@@ -124,8 +124,8 @@ def register(request):
 
 @login_required(login_url='common:login')
 def index(request):
-    result = Result.objects.filter(semester='2022-2')
-    receipt_start = len(Receipt.objects.filter(semester='2022-2'))
+    result = Result.objects.filter(semester='2023-1')
+    receipt_start = len(Receipt.objects.filter(semester='2023-1'))
     location = 10000
     random_start = 0
     user = request.user
@@ -133,7 +133,7 @@ def index(request):
     if user.student_auth == False:
         return render(request, 'unauth.html')
 
-    if len(Result.objects.filter(semester='2022-2')) == 0:
+    if len(Result.objects.filter(semester='2023-1')) == 0:
         return render(request, 'libraryseat.html', {'location': location,
                                                     'random_start': random_start, 'receipt_start': receipt_start})
     else:
@@ -187,7 +187,7 @@ def reserve_status(request):
 @login_required(login_url='common:login')
 def seat_register(request, seat_number):
     requested_seat = int(seat_number)
-    current_queue = Result.objects.filter(semester='2022-2')
+    current_queue = Result.objects.filter(semester='2023-1')
     for q in current_queue:
         current_queue = q
 

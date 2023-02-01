@@ -6,6 +6,10 @@
 
 ### Trying running on dev mod
 
+#### Creating tables locally
+
+#### Creating and authenticating yourself as a superuser
+
 ## Maintenance Guide  
 
 ## Tips and Discussions

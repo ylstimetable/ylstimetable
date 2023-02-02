@@ -12,4 +12,8 @@
 
 ## Maintenance Guide  
 
+### 열람실 좌석배정 시즌
+
+### 수강신청 시즌
+
 ## Tips and Discussions

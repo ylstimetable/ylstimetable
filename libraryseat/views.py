@@ -42,8 +42,8 @@ def receive(request):
         q_obj = obj
 
     if request.user in q_obj.voter.all():
-        stored_user = q_obj.voter.get(pk=1)
-        temp_error_message = '이미 접수된 사용자입니다. 학생회비 납부 여부: {}; 선호층: {}; 흡연여부: {}'.format(stored_user.student_fee, stored_user.floor, stored_user.smoke)
+        stored_user = Receipt_Student.objects.filter(author=request.user)
+        temp_error_message = '이미 접수된 사용자입니다. 학생회비 납부 여부: {}; 선호층: {}; 흡연여부: {}'.format(stored_user.fee, stored_user.floor, stored_user.smoke)
         messages.error(request, temp_error_message)
         return redirect('libraryseat:index')
     else:

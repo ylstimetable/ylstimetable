@@ -46,12 +46,10 @@ def detail(request, post_id):
 def receive(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     q = Response.objects.filter(post=post)
-    q_obj = None
     for obj in q:
-        q_obj = obj
-    if q_obj and request.user in q_obj.author.all():
-        temp_error_message = '이미 접수된 사용자입니다.'
-        return redirect('survey:list')
+        if request.user.id == q_obj.author.id:
+            temp_error_message = '이미 접수된 사용자입니다.'
+            return redirect('survey:list')
     post.response_set.create(author=request.user, post=post)
     '''
     for key in request.POST:

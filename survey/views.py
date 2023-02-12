@@ -61,8 +61,8 @@ def receive(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     
     temp_res = []
-    for key, val in request.POST:
-        temp_res.append(val)
+    for q in post.question_set.all(): 
+        temp_res.append(request.POST[q.subject])
     content=",".join(temp_res)
     
     post.response_set.create(author=request.user, post=post, content=content)

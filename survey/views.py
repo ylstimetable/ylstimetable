@@ -7,7 +7,7 @@ import datetime
 
 from django.core.paginator import Paginator
 
-from .forms import PostForm, ResponseForm
+#from .forms import PostForm, ResponseForm
 from .models import Post, Response
 
 

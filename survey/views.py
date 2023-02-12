@@ -34,5 +34,8 @@ def list(request):
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     questions = post.question_set.all()
+    options = []
+    for q in questions:
+        options.append(q.get_choices())
     context = {'post': post, 'questions': questions}
     return render(request, 'survey_detail.html', context)

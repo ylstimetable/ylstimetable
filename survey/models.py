@@ -98,7 +98,7 @@ class Response(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        msg = f"Response to {self.post} by {self.user}"
+        msg = f"Response to {self.post} by {self.author}"
         msg += f" on {self.created}"
         return msg
     

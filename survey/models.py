@@ -29,7 +29,7 @@ Models starts here!
 class Post(models.Model):
     subject = models.CharField(max_length=200)
     content = models.TextField()
-    create_date = models.DateField(_("Publication date"), blank=True, null=False, default=now)
+    create_date = models.DateField()
     end_date = models.DateTimeField()
     visible = models.BooleanField(max_length=2, null=True)
 
@@ -39,12 +39,12 @@ class Post(models.Model):
     
 # Question을 ForeignKey로 가지는 모델들: Answer
 class Question(models.Model): 
-    content = models.TextField(_("Content"))
+    content = models.TextField()
     subject = models.CharField(max_length=200)
     post = models.ForeignKey(Post, on_delete=models.CASCADE) 
     
     # 선택지는 문자열로 저장되며 필요할때 그때그때 get_choices 활용하여 tuple 형태로 리턴해주면 됩니다. 
-    choices = models.TextField(_("Choices"), blank=True, null=True, help_text=CHOICES_HELP_TEXT)
+    choices = models.TextField()
     
     
     def save(self, *args, **kwargs):
@@ -87,7 +87,7 @@ class Response(models.Model):
     post = models.ForeignKey(Post, null=True, blank=True,
                                  on_delete=models.SET_NULL)
     
-    created = models.DateTimeField(_("Creation date"), auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         msg = f"Response to {self.post} by {self.user}"
@@ -98,9 +98,9 @@ class Response(models.Model):
 class Answer(models.Model): 
     question = models.ForeignKey(Question, on_delete=models.SET_NULL)
     response = models.ForeignKey(Response, on_delete=models.SET_NULL)
-    created = models.DateTimeField(_("Creation date"), auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     
-    body = models.TextField(_("Content"), blank=True, null=True)
+    body = models.TextField()
     
     
     def __init__(self, *args, **kwargs):

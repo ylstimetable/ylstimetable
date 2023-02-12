@@ -33,5 +33,6 @@ def list(request):
 @login_required(login_url='common:login')
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    context = {'post': post}
+    questions = post.question_set.all()
+    context = {'post': post, 'questions': questions}
     return render(request, 'survey_detail.html', context)

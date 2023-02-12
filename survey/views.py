@@ -20,7 +20,7 @@ def list(request):
 
     page = request.GET.get('page', '1')
 
-    post_list = Post.objects.order_by('-create_date')
+    post_list = Post.objects.order_by('-end_day')
 
     paginator = Paginator(post_list, 10)
     page_obj = paginator.get_page(page)

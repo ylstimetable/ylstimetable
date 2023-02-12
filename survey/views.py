@@ -39,3 +39,9 @@ def detail(request, post_id):
         options.append(q.get_choices())
     context = {'post': post, 'qao': zip(questions, options)}
     return render(request, 'survey_detail.html', context)
+
+
+
+@login_required(login_url='common:login')
+def receive(request):
+    pass 

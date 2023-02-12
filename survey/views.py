@@ -41,7 +41,7 @@ def detail(request, post_id):
     responded = False
     rs = post.response_set.all() 
     for r in rs:
-        if r.author == request.user.id:
+        if r.author.id == request.user.id:
             responded = True
             temp_error_message = '이미 접수된 사용자입니다.' 
             messages.error(request, temp_error_message)

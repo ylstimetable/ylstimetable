@@ -2,6 +2,8 @@ from django.db import models
 from CustomUser.models import User
 
 from django.urls import reverse
+from django.utils.text import slugify
+
 
 """
 참고한 코드: https://github.com/Pierre-Sassoulas/django-survey/

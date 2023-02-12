@@ -5,6 +5,9 @@
 <div class="container my-3">
     <div class="row my-2">
          
+    {% if responded %}
+        
+    {% else %}
     <form method="POST" action="{% url 'survey:receive' post.id %}">
     {% csrf_token %}
         <div class="col-xs-12 col-md-12">
@@ -44,5 +47,7 @@
         </div>
     </form>
     </div>
+
+    {% endif %}
 </div>
 {% endblock %}

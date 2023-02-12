@@ -62,6 +62,8 @@ def receive(request, post_id):
     
     temp_res = []
     for q in post.question_set.all(): 
+        print(q.subject)
+        print(request.POST)
         temp_res.append(request.POST.get(q.subject))
     content=",".join(temp_res)
     

@@ -43,10 +43,10 @@ def detail(request, post_id):
     for r in rs:
         if r.author.id == request.user.id:
             responded = True
-            temp_error_message = '이미 응답한 설문입니다.\n' 
+            temp_error_messages = ['이미 응답한 설문입니다.']
             for a in r.answer_set.all():
-                temp_error_message += "{}: {}\n".format( a.question, a.body )
-            messages.error(request, temp_error_message)
+                temp_error_messages = temp_error_messages.append("{}: {}\n".format( a.question, a.body ))
+            messages.error(request, temp_error_messages)
             return redirect('survey:list')
             
     context = {'post': post, 'qao': zip(questions, options), 'responded': responded}

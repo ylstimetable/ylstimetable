@@ -1,6 +1,8 @@
 from django.db import models
 from CustomUser.models import User
 
+from django.urls import reverse
+
 """
 참고한 코드: https://github.com/Pierre-Sassoulas/django-survey/
 """

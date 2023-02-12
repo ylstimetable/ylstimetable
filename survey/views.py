@@ -48,7 +48,7 @@ def detail(request, post_id):
             qs = r.post.question_set.all()
             aas = r.get_clean_answers()
             for q, a in zip(qs, aas):
-                temp_error_message += ("{}: {}\n".format( q, a ))
+                temp_error_message += ("{}: {}; ".format( q, a ))
             messages.error(request, temp_error_message)
             
             return redirect('survey:list')

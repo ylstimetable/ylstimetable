@@ -6,6 +6,8 @@
 
 ### Trying running on dev mod
 
+```python manage.py runserver --settings=timetabl.settings.local```
+
 #### Creating tables locally
 
 #### Creating and authenticating yourself as a superuser

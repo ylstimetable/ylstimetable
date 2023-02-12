@@ -93,7 +93,7 @@ class Response(models.Model):
     post = models.ForeignKey(Post, null=True, blank=True,
                                  on_delete=models.SET_NULL)
     
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField()
 
     def __str__(self):
         msg = f"Response to {self.post} by {self.user}"
@@ -104,7 +104,7 @@ class Response(models.Model):
 class Answer(models.Model): 
     question = models.ForeignKey(Question, on_delete=models.SET_NULL)
     response = models.ForeignKey(Response, on_delete=models.SET_NULL)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField()
     
     body = models.TextField()
     

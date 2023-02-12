@@ -4,6 +4,11 @@
 
 ### Setting up Miniconda environment
 ```
+python manage.py createsuperuser --settings=timetabl.settings.local
+```
+... And then enter your credentials
+
+```
 python manage.py makemigrations --settings=timetabl.settings.local
 python manage.py migrate --run-syncdb --settings=timetabl.settings.local
 ```

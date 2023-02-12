@@ -44,4 +44,4 @@ def detail(request, post_id):
 
 @login_required(login_url='common:login')
 def receive(request):
-    return redirect('survey:detail')
+    return redirect('survey:list')

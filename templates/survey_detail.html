@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-3">
+    <div class="row my-2">
+         
+        <div class="col-xs-12 col-md-10"> <!-- 글 영역 -->
+            <div class="assess_border">
+                <div id="post_header">
+                    <span style="font-size: 20px; display: block;">{{ post.subject }}</span>
+                    
+                    <span>응답종료일: {{ post.end_month }}월 {{ post.end_day }}일 23시 59분</span>
+                </div>
+                <br>
+                <div>
+                    <div style="white-space: pre-line;">{{ post.content }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

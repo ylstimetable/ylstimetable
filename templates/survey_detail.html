@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
 <div class="container my-3">
     <div class="row my-2">
          
+    <form method="POST" action="{% url 'survey:receive' %}">
+    {% csrf_token %}
         <div class="col-xs-12 col-md-10"> <!-- 글 영역 -->
             <div class="assess_border">
                 <div id="post_header">
@@ -41,6 +44,7 @@
                  <button type="submit" class="btnn">접수</button>
             </div>
         </div>
+    </form>
     </div>
 </div>
 {% endblock %}

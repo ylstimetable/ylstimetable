@@ -43,5 +43,29 @@ def detail(request, post_id):
 
 
 @login_required(login_url='common:login')
-def receive(request):
+def receive(request, post_id):
+    '''
+    for key in request.POST:
+        print(key)
+        value = request.POST[key]
+        print(value)
+    floor = request.POST.get("floor")
+    student_fee = request.POST.get("student_fee")
+    smoke = request.POST.get("smoke")
+
+    q = Response.objects.filter(post='2023-1')
+    for obj in q:
+        q_obj = obj
+
+    if request.user in q_obj.voter.all():
+        stored_user = Receipt_Student.objects.get(author=request.user)
+        temp_error_message = '이미 접수된 사용자입니다. 학생회비 납부 여부: {}; 선호층: {}; 흡연여부: {}'.format(stored_user.fee, stored_user.floor, stored_user.smoke)
+        messages.error(request, temp_error_message)
+        return redirect('libraryseat:index')
+    else:
+        messages.success(request, '접수 완료되었습니다.')
+        q_obj.voter.add(request.user)
+        a = Receipt_Student(author=request.user, student_number = request.user.student_number, fee=student_fee, floor=floor, smoke=smoke)
+        a.save()
+    '''
     return redirect('survey:list')

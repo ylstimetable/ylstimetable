@@ -9,7 +9,6 @@ class PostForm(forms.ModelForm):
             'subject': '제목',
             'content': '내용',
             'options': '선택지',
-            'delete_unavailable': '삭제금지',
             'visible': '공개',
         }
 

@@ -69,7 +69,8 @@ class Question(models.Model):
         for choice in self.get_clean_choices():
             choices_list.append((slugify(choice, allow_unicode=True), choice))
         choices_tuple = tuple(choices_list)
-        return choices_tuple
+        return tuple(self.get_clean_choices())
+        #return choices_tuple
     
     # 선택지를 list 형태로 리턴해줍니다. 
     def get_clean_choices(self):

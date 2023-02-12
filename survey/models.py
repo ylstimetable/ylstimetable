@@ -31,10 +31,10 @@ Models starts here!
 class Post(models.Model):
     subject = models.CharField(max_length=200)
     content = models.TextField()
-    create_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    # TODO: DateTimeField가 말썽을 부려서 무식한 방법을 썼습니다... 이부분 수정할때까지 해를 넘기는 설문은 만들지 말아주세요. 
+    end_month = models.CharField(max_length=2, null=True)
+    end_day =models.CharField(max_length=2, null=True)
     visible = models.BooleanField(max_length=2, null=True)
-
     
     def get_absolute_url(self):
         return reverse("survey-detail", kwargs={"id": self.pk})
@@ -92,7 +92,7 @@ class Response(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     post = models.ForeignKey(Post, null=True, blank=True, on_delete=models.SET_NULL)
     
-    created = models.DateTimeField()
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         msg = f"Response to {self.post} by {self.user}"
@@ -103,7 +103,6 @@ class Response(models.Model):
 class Answer(models.Model): 
     question = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
     response = models.ForeignKey(Response, on_delete=models.SET_NULL, null=True)
-    created = models.DateTimeField()
     
     body = models.TextField()
     

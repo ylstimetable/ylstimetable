@@ -85,9 +85,7 @@ class Question(models.Model):
         return choices_list
 
     def __str__(self):
-        msg = f"Question '{self.content}' "
-        msg += f"{self.get_clean_choices()}"
-        return msg
+        return self.subject
     
     
 # Response를 ForeignKey로 가지는 모델들: Answer

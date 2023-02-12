@@ -96,6 +96,20 @@ class Response(models.Model):
     post = models.ForeignKey(Post, null=True, blank=True, on_delete=models.SET_NULL)
     
     created = models.DateTimeField(auto_now_add=True)
+    
+    content = models.TextField()
+    
+    # 선택지를 list 형태로 리턴해줍니다. 
+    def get_clean_answers(self):
+        """Return split and stripped list of choices with no null values."""
+        if self.content is None:
+            return []
+        answers_list = []
+        for answer in self.answers.split(','):
+            answer = answer.strip()
+            if answer:
+                answerss_list.append(answer)
+        return answers_list
 
     def __str__(self):
         msg = f"Response to {self.post} by {self.author}"

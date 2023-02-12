@@ -45,8 +45,8 @@ class Post(models.Model):
     
 # Question을 ForeignKey로 가지는 모델들: Answer
 class Question(models.Model): 
-    content = models.TextField()
     subject = models.CharField(max_length=200)
+    content = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE) 
     
     # 선택지는 문자열로 저장되며 필요할때 그때그때 get_choices 활용하여 tuple 형태로 리턴해주면 됩니다. 

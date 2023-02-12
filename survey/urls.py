@@ -6,7 +6,7 @@ app_name='survey'
 urlpatterns = [
     path('list/', views.list, name='list'),
     path('detail/<int:post_id>', views.detail, name='detail'),
-    path('receive/', views.receive, name='receive')
+    path('receive/<int:post_id>', views.receive, name='receive')
     #path('post/comment/create/<int:post_id>', views.comment_create, name='comment_create')
 ]
 

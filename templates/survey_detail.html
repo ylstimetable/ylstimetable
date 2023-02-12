@@ -9,6 +9,22 @@
     {% csrf_token %}
         <div class="col-xs-12 col-md-12">
             <div class="assess_border">
+                
+                
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == "error" %}
+                            <div class = "alert alert-danger my-3" role="alert">
+                                <ul><li>{{ message.message }}</li></ul>
+                            </div>
+                            {% else %}
+                            <div class="alert alert-success my-3" role="alert">
+                                <ul><li>{{ message.message }}</li></ul>
+                            </div>
+                            {% endif %}
+                    {% endfor %}
+                {% endif %}
+                
                 <div id="post_header">
                     <span style="font-size: 20px; display: block;">{{ post.subject }}</span>
                     

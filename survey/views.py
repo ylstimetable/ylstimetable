@@ -42,11 +42,13 @@ def detail(request, post_id):
     rs = post.response_set.all() 
     for r in rs:
         if r.author.id == request.user.id:
-            responded = True
             temp_error_message = '이미 응답한 설문입니다.'
+            messages.error(request, temp_error_message)
+            '''
             for a in r.answer_set.all():
                 temp_error_message = ("{}: {}\n".format( a.question, a.body ))
-            messages.error(request, temp_error_message)
+                messages.error(request, temp_error_message)
+            '''
             return redirect('survey:list')
             
     context = {'post': post, 'qao': zip(questions, options), 'responded': responded}
@@ -57,7 +59,14 @@ def detail(request, post_id):
 @login_required(login_url='common:login')
 def receive(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    post.response_set.create(author=request.user, post=post)
+    
+    temp_res = []
+    for key, val in request.POST:
+        temp_res.append(val)
+    content=",".join(temp_res)
+    
+    post.response_set.create(author=request.user, post=post, content=content)
+    
     '''
     for key in request.POST:
         print(key)

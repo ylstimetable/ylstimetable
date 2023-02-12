@@ -31,7 +31,7 @@ Models starts here!
 class Post(models.Model):
     subject = models.CharField(max_length=200)
     content = models.TextField()
-    create_date = models.DateField()
+    create_date = models.DateTimeField()
     end_date = models.DateTimeField()
     visible = models.BooleanField(max_length=2, null=True)
 

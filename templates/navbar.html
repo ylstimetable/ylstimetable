@@ -26,6 +26,9 @@
                     <a class="nav-link" href="{% url 'libraryseat:index' %}" style="color: #000;">열람실</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'survey:list' %}" style="color: #000;">설문응답</a>
+                </li>
+                <li class="nav-item">
                     {% if user.is_authenticated %}
                     <a class="nav-link" href="{% url 'common:logout' %}" style="color: #000;">
                         로그아웃

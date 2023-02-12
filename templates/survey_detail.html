@@ -15,6 +15,22 @@
                 <div>
                     <div style="white-space: pre-line;">{{ post.content }}</div>
                 </div>
+                
+                {% for question in post.question_set.all() %}
+                    <tr>
+                            <div style="margin: 5px 0px;">
+                                <span style="display: block; font-size: 14px;">
+                                    {{ question.subject }}
+                                </span>
+                                <br>
+                                <span style="display: block; font-size: 12px;">
+                                    {{ question.content }}
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                 {% endfor %}
+                
             </div>
         </div>
     </div>

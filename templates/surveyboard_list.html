@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+
+<div class="container my-3">
+    <!--
+    <div class="row justify-content-end my-3">
+        <div class="col-4 input-group">
+            <input type="text" class="form-control kw"
+                   value="{{ kw|default_if_none:''}}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary"
+                        type="button" id="btn_search">찾기</button>
+            </div>
+        </div>
+    </div>
+    -->
+    <div class="row">
+        <div class="col-xs-12 col-md-10 my-4">
+            <div class="assess_border">
+                <span style="font-size: 18px; font-weight: bold; margin: 3px;">설문응답</span>
+                <table style="margin-top: 20px;" class="table table-hover">
+                    <tbody>
+                    {% if survey_list %}
+                    {% for survey in survey_list %}
+                    <tr>
+                        <td onclick="location.href='/survey/detail/{{ survey.id }}'">
+                            <div style="margin: 5px 0px;">
+                                <span style="float: right; color: #808080; font-size: 12px;">
+                                    {{ survey.create_date | date:'Y.m.d. H:i' }}
+                                </span>
+                                <span style="display: block; font-size: 14px;">
+                                    {{ survey.subject }}
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="3">진행중인 설문이 없습니다.</td>
+                    </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+
+                <!-- 페이징 처리 시작 -->
+                <ul class="pagination justify-content-center">
+                    {% if survey_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ survey_list.previous_page_number }}">
+                            이전
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+                            이전
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    <!-- 페이지 리스트 -->
+                    {% for page_number in survey_list.paginator.page_range %}
+                    {% if page_number >= survey_list.number|add:-5 and page_number <= survey_list.number|add:5 %}
+                    {% if page_number == survey_list.number %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="?page={{ page_number }}">
+                            {{ page_number }}
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_number }}">
+                            {{ page_number }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+
+                    <!-- 다음페이지 -->
+                    {% if survey_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ survey_list.next_page_number }}">
+                            다음
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">
+                            다음
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="searchForm" method="get" action="{% url 'index' %}">
+    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:''">
+    <input type="hidden" id="page" name="page" value="{{ page }}">
+</form>
+
+{% endblock %}

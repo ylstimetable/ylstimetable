@@ -48,7 +48,7 @@ def receive(request, post_id):
     q = Response.objects.filter(post=post)
     for obj in q:
         q_obj = obj
-    if request.user in q_obj.author_set.all():
+    if q_obj and request.user in q_obj.author_set.all():
         temp_error_message = '이미 접수된 사용자입니다.'
         return redirect('survey:list')
     post.response_set.create(author=request.user, post=post)

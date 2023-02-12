@@ -44,7 +44,7 @@ def detail(request, post_id):
         if r.author.id == request.user.id:
             responded = True
             temp_error_message = '이미 응답한 설문입니다.\n' 
-            for a in r.answer_set:
+            for a in r.answer_set.all():
                 temp_error_message += "{}: {}\n".format( a.question, a.body )
             messages.error(request, temp_error_message)
             return redirect('survey:list')

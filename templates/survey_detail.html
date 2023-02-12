@@ -5,7 +5,6 @@
 <div class="container my-3">
     <div class="row my-2">
          
-    <form method="POST" action="{% url 'survey:receive' post.id %}">
     {% csrf_token %}
         <div class="col-xs-12 col-md-12">
             <div class="assess_border">
@@ -35,6 +34,8 @@
                     <div style="white-space: pre-line;">{{ post.content }}</div>
                 </div>
                 
+                
+                <form method="POST" action="{% url 'survey:receive' post.id %}">
                 {% for question, option in qao %}
                     <br>
                     <tr>
@@ -52,13 +53,13 @@
                                 </select>
                         </td>
                     </tr>
-                 {% endfor %}
+                {% endfor %}
                 
                  <br>
                  <button type="submit" class="btnn">접수</button>
+                </form>
            </div>
         </div>
-    </form>
     </div>
 </div>
 {% endblock %}

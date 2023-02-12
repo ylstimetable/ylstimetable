@@ -90,8 +90,7 @@ class Question(models.Model):
 # Response를 ForeignKey로 가지는 모델들: Answer
 class Response(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    post = models.ForeignKey(Post, null=True, blank=True,
-                                 on_delete=models.SET_NULL, null=True)
+    post = models.ForeignKey(Post, null=True, blank=True, on_delete=models.SET_NULL)
     
     created = models.DateTimeField()
 

@@ -37,7 +37,14 @@ def detail(request, post_id):
     options = []
     for q in questions:
         options.append(q.get_choices())
-    context = {'post': post, 'qao': zip(questions, options)}
+        
+    responded = False
+    rs = post.response_set.all() 
+    for r in rs:
+        if r.author == request.user.id:
+            responded = True
+            
+    context = {'post': post, 'qao': zip(questions, options), 'responded': responded}
     return render(request, 'survey_detail.html', context)
 
 

@@ -1,6 +1,6 @@
 from django import forms
 from .models import Post, Response
-
+"""
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -20,3 +20,4 @@ class ResponseForm(forms.ModelForm):
         labels = {
             'content': '선택지',
         }
+"""

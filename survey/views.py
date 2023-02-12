@@ -43,6 +43,9 @@ def detail(request, post_id):
     for r in rs:
         if r.author == request.user.id:
             responded = True
+            temp_error_message = '이미 접수된 사용자입니다.' 
+            messages.error(request, temp_error_message)
+            return redirect('survey:list')
             
     context = {'post': post, 'qao': zip(questions, options), 'responded': responded}
     return render(request, 'survey_detail.html', context)

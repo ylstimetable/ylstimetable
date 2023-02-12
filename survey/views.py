@@ -37,5 +37,5 @@ def detail(request, post_id):
     options = []
     for q in questions:
         options.append(q.get_choices())
-    context = {'post': post, 'questions': questions, 'options': options}
+    context = {'post': post, 'qao': zip(questions, options)}
     return render(request, 'survey_detail.html', context)

@@ -5,7 +5,7 @@
 ### Setting up Miniconda environment
 ```
 python manage.py makemigrations --settings=timetabl.settings.local
-python manage.py migrate --settings=timetabl.settings.local
+python manage.py migrate --run-syncdb --settings=timetabl.settings.local
 ```
 
 ### Trying running on dev mod

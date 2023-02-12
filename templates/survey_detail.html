@@ -45,7 +45,7 @@
                                     {{ question.content }}
                                 </span>
                                 
-                                <select class="assess_select" name="floor" style="display: block;">
+                                <select class="assess_select" name=question.subject style="display: block;">
                                     {% for o in option %}
                                         <option value=o>{{ o }} </option>
                                     {% endfor %}

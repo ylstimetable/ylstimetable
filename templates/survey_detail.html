@@ -29,9 +29,9 @@
                                 </span>
                                 
                                 <select class="assess_select" name="floor" style="display: in-line;">
-                                                <option value="3층">3층(3학년만 신청 가능)</option>
-                                                <option value="4층">4층</option>
-                                                <option value="5층">5층</option>
+                                    {% for o in option %}
+                                        <option value=o>{{ o }} </option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </td>

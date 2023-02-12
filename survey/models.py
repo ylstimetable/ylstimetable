@@ -33,6 +33,10 @@ class Post(models.Model):
     end_date = models.DateTimeField()
     visible = models.BooleanField(max_length=2, null=True)
 
+    
+    def get_absolute_url(self):
+        return reverse("survey-detail", kwargs={"id": self.pk})
+
     def __str__(self):
         return self.subject
     

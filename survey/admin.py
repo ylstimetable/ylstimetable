@@ -11,7 +11,7 @@ class PostAdmin(admin.ModelAdmin):
   
     fieldsets = [
         (None,               {'fields': ['subject', 'content']}),
-        ('Date information', {'fields': ['create_date', 'end_date', 'visible']}),
+        ('Date information', {'fields': ['end_month', 'end_day', 'visible']}),
     ]
     inlines = [QuestionInline]
 

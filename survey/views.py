@@ -62,7 +62,7 @@ def receive(request, post_id):
     
     temp_res = []
     for q in post.question_set.all(): 
-        temp_res.append(request.POST[q.subject])
+        temp_res.append(request.POST.get(q.subject))
     content=",".join(temp_res)
     
     post.response_set.create(author=request.user, post=post, content=content)

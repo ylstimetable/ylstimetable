@@ -103,10 +103,10 @@ class Response(models.Model):
         if self.content is None:
             return []
         answers_list = []
-        for answer in self.answers.split(','):
+        for answer in self.content.split(','):
             answer = answer.strip()
             if answer:
-                answerss_list.append(answer)
+                answers_list.append(answer)
         return answers_list
 
     def __str__(self):

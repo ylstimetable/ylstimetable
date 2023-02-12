@@ -4,7 +4,7 @@ from .models import Post, Response
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['subject', 'content', 'options', 'delete_unavailable', 'visible']
+        fields = ['subject', 'content', 'options', 'visible']
         labels = {
             'subject': '제목',
             'content': '내용',

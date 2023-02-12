@@ -12,7 +12,7 @@ from .models import Post, Response
 
 
 @login_required(login_url='common:login')
-def list(request):
+def index(request):
     user = request.user
 
     if user.student_auth == False:

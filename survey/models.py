@@ -11,7 +11,7 @@ def validate_choices(choices):
     """Verifies that there is at least two choices in choices
     :param String choices: The string representing the user choices.
     """
-    values = choices.split(settings.CHOICES_SEPARATOR)
+    values = choices.split(',')
     empty = 0
     for value in values:
         if value.replace(" ", "") == "":
@@ -75,7 +75,7 @@ class Question(models.Model):
         if self.choices is None:
             return []
         choices_list = []
-        for choice in self.choices.split(settings.CHOICES_SEPARATOR):
+        for choice in self.choices.split(','):
             choice = choice.strip()
             if choice:
                 choices_list.append(choice)

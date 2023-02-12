@@ -4,9 +4,9 @@ from . import views
 app_name='libraryseat'
 
 urlpatterns = [
-    path('index/', views.index, name='index'),
-    path('receive/', views.receive, name='receive'),
-    path('status/', views.reserve_status, name='reserve_status'),
+    path('list/', views.list, name='list'),
+    path('detail/<int:post_id>', views.detail, name='detail'),
+    path('post/comment/create/<int:post_id>', views.comment_create, name='comment_create'),
     path('admin/', views.seat_admin, name='seat_admin')
 ]
 

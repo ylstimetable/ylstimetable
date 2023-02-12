@@ -45,7 +45,7 @@ def detail(request, post_id):
             temp_error_message = '이미 응답한 설문입니다.'
             messages.error(request, temp_error_message)
              
-            qs = r.post.get_clean_choices()
+            qs = r.post.question_set.all()
             aas = r.get_clean_answers()
             for q, a in zip(qs, aas):
                 temp_error_message = ("{}: {}\n".format( q, a ))

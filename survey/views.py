@@ -45,6 +45,9 @@ def detail(request, post_id):
             responded = True
             temp_error_message = '이미 접수된 사용자입니다.' 
             messages.error(request, temp_error_message)
+            for a in r.answer_set.all():
+                temp_error_message = "{}: {}\n".format( a.question, a.body )
+                messages.error(request, temp_error_message)
             return redirect('survey:list')
             
     context = {'post': post, 'qao': zip(questions, options), 'responded': responded}
@@ -55,11 +58,6 @@ def detail(request, post_id):
 @login_required(login_url='common:login')
 def receive(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    q = Response.objects.filter(post=post)
-    for obj in q:
-        if request.user.id == obj.author.id:
-            temp_error_message = '이미 접수된 사용자입니다.'
-            return redirect('survey:list')
     post.response_set.create(author=request.user, post=post)
     '''
     for key in request.POST:

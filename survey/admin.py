@@ -20,6 +20,8 @@ class PostAdmin(admin.ModelAdmin):
         ('Date information', {'fields': ['end_month', 'end_day', 'visible']}),
     ]
     inlines = [QuestionInline]
+    actions = ['xls_export']
+    '''
     actions = ['export_to_csv', 'xls_export']
     
     @admin.action(description='Export selected as csv')
@@ -41,7 +43,7 @@ class PostAdmin(admin.ModelAdmin):
                 
        
         return response
-        
+    '''
     
     @admin.action(description='xls로 저장')
     def xls_export(self, request, queryset):

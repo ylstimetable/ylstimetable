@@ -59,8 +59,12 @@ class PostAdmin(admin.ModelAdmin):
                 for i, question in enumerate(post.question_set.all()):
                     ws.write(0, i+1, question.subject)
                     
-                for r in post.response_set.all(): 
-                    print(r.get_clean_answers())
+                for i, resp in enumerate(post.response_set.all()): 
+                    print(resp.get_clean_answers())
+                    ws.write(i+1, 0, resp.author)
+                    print(resp.author)
+                    for j, r in enumerate(resp): 
+                        ws.write(i+1, j+1, r)
         return response
     '''
     

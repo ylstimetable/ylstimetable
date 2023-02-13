@@ -23,8 +23,8 @@ class PostAdmin(admin.ModelAdmin):
     @admin.action(description='Export selected as csv')
     def export_to_csv(self, request, queryset):
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(self.model)
-        print('attachment; filename={}.csv'.format(self.model))
+        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(str(self.model))
+        print('attachment; filename={}.csv'.format(str(self.model)))
         writer = csv.writer(response)
 
         for obj in queryset:

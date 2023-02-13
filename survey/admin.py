@@ -15,6 +15,11 @@ class PostAdmin(admin.ModelAdmin):
     ]
     inlines = [QuestionInline]
 
+    def export_to_csv(self, request, queryset):
+        pass
+    
+    export_to_csv.short_description = "Export Selected to csv"
+        
     
 admin.site.register(Post, PostAdmin)
 admin.site.register(Response)

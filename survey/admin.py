@@ -24,11 +24,11 @@ class PostAdmin(admin.ModelAdmin):
     def export_to_csv(self, request, queryset):
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename={}.csv'.format(self.model)
+        print('attachment; filename={}.csv'.format(self.model))
         writer = csv.writer(response)
 
-        #writer.writerow(field_names)
         for obj in queryset:
-            print([getattr(obj, field) for field in field_names])
+            print(obj)
             #row = writer.writerow([getattr(obj, field) for field in field_names])
 
         return response

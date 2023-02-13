@@ -5,6 +5,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 import datetime
 
+from django.utils import timezone
 from django.core.paginator import Paginator
 
 #from .forms import PostForm, ResponseForm
@@ -41,7 +42,11 @@ def detail(request, post_id):
     responded = False
     rs = post.response_set.all() 
     for r in rs:
-        if r.author.id == request.user.id:
+        if not post.visible:
+            temp_error_message = '응답이 마감된 설문입니다.\n'
+            messages.error(request, temp_error_message)
+            return redirect('survey:list')
+        elif r.author.id == request.user.id:
             temp_error_message = '이미 응답한 설문입니다.\n'
             #messages.error(request, temp_error_message)
              

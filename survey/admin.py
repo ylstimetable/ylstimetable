@@ -18,7 +18,7 @@ class PostAdmin(admin.ModelAdmin):
         ('Date information', {'fields': ['end_month', 'end_day', 'visible']}),
     ]
     inlines = [QuestionInline]
-    actions = [export_to_csv]
+    actions = ['export_to_csv']
     
     @admin.action(description='Export selected as csv')
     def export_to_csv(self, request, queryset):

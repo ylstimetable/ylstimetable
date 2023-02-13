@@ -51,7 +51,8 @@ class PostAdmin(admin.ModelAdmin):
         
         for i, post in enumerate(queryset):
             if i == 0:
-                response["Content-Disposition"] = 'attachment;filename*={}.xls'.format(str(post))
+                response["Content-Disposition"] = 'attachment;filename*=UTF-8\'\'yttexported.xls'
+                #response["Content-Disposition"] = 'attachment;filename*={}.xls'.format(str(post))
                 wb = xlwt.Workbook(encoding='ansi') #encoding은 ansi로 해준다.
                 ws = wb.add_sheet('답변') #시트 추가
                 

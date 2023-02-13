@@ -110,7 +110,7 @@ class Response(models.Model):
         return answers_list
 
     def __str__(self):
-        msg = f"Response to {self.post} by {self.author}"
+        msg = f"응답: {self.post} - {self.author.student_name}"
         msg += f" on {self.created}"
         return msg
     

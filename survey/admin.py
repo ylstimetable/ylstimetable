@@ -35,8 +35,8 @@ class PostAdmin(admin.ModelAdmin):
                 writer.writerow(header)
                 
                 for r in post.response_set.all(): 
-                    print(r)
-                    #row = writer.writerow(r)
+                    print(r.get_clean_answers)
+                    #row = writer.writerow(r.get_clean_answers)
             else:
                 pass
                 

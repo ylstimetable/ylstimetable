@@ -2,6 +2,9 @@ from django.contrib import admin
 from .models import Post, Question, Response, Answer
 
 
+@admin.action(description='Export selected as csv')
+def export_to_csv(self, request, queryset):
+    pass
 
 class QuestionInline(admin.StackedInline):
     model = Question
@@ -14,12 +17,7 @@ class PostAdmin(admin.ModelAdmin):
         ('Date information', {'fields': ['end_month', 'end_day', 'visible']}),
     ]
     inlines = [QuestionInline]
+    actions = [export_to_csv]
 
-    def export_to_csv(self, request, queryset):
-        pass
-    
-    export_to_csv.short_description = "Export Selected to csv"
-        
-    
 admin.site.register(Post, PostAdmin)
 admin.site.register(Response)

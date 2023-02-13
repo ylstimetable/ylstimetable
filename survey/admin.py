@@ -31,11 +31,8 @@ class PostAdmin(admin.ModelAdmin):
                 header = ["user"]  
                 for question in post.question_set.all():
                     header.append(question.subject)
-                print(header)
                 writer.writerow(header)
-                
                 for r in post.response_set.all(): 
-                    print(r.get_clean_answers())
                     row = writer.writerow(r.get_clean_answers())
             else:
                 pass

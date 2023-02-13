@@ -47,8 +47,14 @@ def detail(request, post_id):
             temp_error_message = '응답이 마감된 설문입니다.\n'
             messages.error(request, temp_error_message)
             return redirect('survey:list')
-        elif timezone.localtime().month > int(post.end_month): # 이미 달이 지나간 설문이면~ 
+        elif timezone.localtime().month > int(post.end_month): 
+            # 이미 달이 지나간 설문이면~ 
             temp_error_message = '응답이 마감된 설문입니다.\n'
+            messages.error(request, temp_error_message)
+            return redirect('survey:list')
+        elif timezone.localtime().month == int(post.end_month) and timezone.localtime().day > int(post.end_day): 
+            # 날짜가 지나간 설문이면~ 
+            temp_error_message = '{}월 {}일에 응답이 마감된 설문입니다.\n'.format(post.end_month, post.end_day)
             messages.error(request, temp_error_message)
             return redirect('survey:list')
         elif r.author.id == request.user.id:

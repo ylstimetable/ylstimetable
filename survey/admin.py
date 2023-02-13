@@ -59,7 +59,9 @@ class PostAdmin(admin.ModelAdmin):
                 for i, question in enumerate(post.question_set.all()):
                     ws.write(0, i+1, question.subject)
                     
-        return reponse
+                for r in post.response_set.all(): 
+                    print(r.get_clean_answers())
+        return response
     '''
     
     #데이터 베이스에서 유저 정보를 불러온다.

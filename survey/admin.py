@@ -56,14 +56,16 @@ class PostAdmin(admin.ModelAdmin):
                 wb = xlwt.Workbook(encoding='ansi') #encoding은 ansi로 해준다.
                 ws = wb.add_sheet('답변') #시트 추가
                 
-                ws.write(0, 0, "user")
+                ws.write(0, 0, "이름")
+                ws.write(0, 1, "학번")
                 for i, question in enumerate(post.question_set.all()):
-                    ws.write(0, i+1, question.subject)
+                    ws.write(0, i+2, question.subject)
                     
                 for i, resp in enumerate(post.response_set.all()): 
                     ws.write(i+1, 0, resp.author.student_name)
+                    ws.write(i+1, 1, resp.author.student_number)
                     for j, r in enumerate(resp.get_clean_answers()): 
-                        ws.write(i+1, j+1, r)
+                        ws.write(i+1, j+2, r)
         wb.save(response)
         return response
 

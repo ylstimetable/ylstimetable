@@ -61,8 +61,8 @@ class PostAdmin(admin.ModelAdmin):
                     
                 for i, resp in enumerate(post.response_set.all()): 
                     print(resp.get_clean_answers())
-                    ws.write(i+1, 0, resp.author)
-                    print(resp.author)
+                    ws.write(i+1, 0, resp.author.student_name)
+                    print(resp.author.student_name)
                     for j, r in enumerate(resp): 
                         ws.write(i+1, j+1, r)
         return response

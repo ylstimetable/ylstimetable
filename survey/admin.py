@@ -21,29 +21,7 @@ class PostAdmin(admin.ModelAdmin):
     ]
     inlines = [QuestionInline]
     actions = ['xls_export']
-    '''
-    actions = ['export_to_csv', 'xls_export']
     
-    @admin.action(description='Export selected as csv')
-    def export_to_csv(self, request, queryset):
-        response = HttpResponse(content_type='text/csv')
-        response.write(codecs.BOM_UTF8)
-        for i, post in enumerate(queryset):
-            if i == 0:
-                response['Content-Disposition'] = 'attachment; filename={}.csv'.format(str(post))
-                writer = csv.writer(response)
-                header = ["user"]  
-                for question in post.question_set.all():
-                    header.append(question.subject)
-                writer.writerow(header)
-                for r in post.response_set.all(): 
-                    row = writer.writerow(r.get_clean_answers())
-            else:
-                pass
-                
-       
-        return response
-    '''
     
     @admin.action(description='xls로 저장')
     def xls_export(self, request, queryset):

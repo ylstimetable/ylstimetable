@@ -39,25 +39,26 @@ def detail(request, post_id):
     for q in questions:
         options.append(q.get_choices())
         
+    if not post.visible:
+        temp_error_message = '응답이 마감된 설문입니다.\n'
+        messages.error(request, temp_error_message)
+            
+        return redirect('survey:list')
+    elif timezone.localtime().month > int(post.end_month): 
+        # 이미 달이 지나간 설문이면~ 
+        temp_error_message = '응답이 마감된 설문입니다.\n'
+        messages.error(request, temp_error_message)
+        return redirect('survey:list')
+    elif timezone.localtime().month == int(post.end_month) and timezone.localtime().day > int(post.end_day): 
+        # 날짜가 지나간 설문이면~ 
+        temp_error_message = '{}월 {}일에 응답이 마감된 설문입니다.\n'.format(post.end_month, post.end_day)
+        messages.error(request, temp_error_message)
+        return redirect('survey:list')
+        
     responded = False
     rs = post.response_set.all() 
     for r in rs:
-        # 이부분 너무 대충 기워붙여서 죄송합니다... 나중에 수정해주세요...
-        if not post.visible:
-            temp_error_message = '응답이 마감된 설문입니다.\n'
-            messages.error(request, temp_error_message)
-            return redirect('survey:list')
-        elif timezone.localtime().month > int(post.end_month): 
-            # 이미 달이 지나간 설문이면~ 
-            temp_error_message = '응답이 마감된 설문입니다.\n'
-            messages.error(request, temp_error_message)
-            return redirect('survey:list')
-        elif timezone.localtime().month == int(post.end_month) and timezone.localtime().day > int(post.end_day): 
-            # 날짜가 지나간 설문이면~ 
-            temp_error_message = '{}월 {}일에 응답이 마감된 설문입니다.\n'.format(post.end_month, post.end_day)
-            messages.error(request, temp_error_message)
-            return redirect('survey:list')
-        elif r.author.id == request.user.id:
+        if r.author.id == request.user.id:
             temp_error_message = '이미 응답한 설문입니다.\n'
             #messages.error(request, temp_error_message)
              

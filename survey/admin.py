@@ -57,7 +57,7 @@ class PostAdmin(admin.ModelAdmin):
                 
                 ws.write(0, 0, "user")
                 for i, question in enumerate(post.question_set.all()):
-                    ws.write(0, i, question.subject)
+                    ws.write(0, i+1, question.subject)
                     
         return reponse
     '''

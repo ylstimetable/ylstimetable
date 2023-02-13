@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Post, Question, Response, Answer
 
+import codecs
 import csv
 from django.http import HttpResponse
 

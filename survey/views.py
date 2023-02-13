@@ -47,6 +47,7 @@ def detail(request, post_id):
             messages.error(request, temp_error_message)
             return redirect('survey:list')
         elif r.author.id == request.user.id:
+            print(timezone.localtime())
             temp_error_message = '이미 응답한 설문입니다.\n'
             #messages.error(request, temp_error_message)
              

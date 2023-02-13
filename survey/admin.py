@@ -47,12 +47,10 @@ class PostAdmin(admin.ModelAdmin):
     def xls_export(self, request, queryset):
         response = HttpResponse(content_type="application/vnd.ms-excel")
         
-        
         for i, post in enumerate(queryset):
             if i == 0:
                 response["Content-Disposition"] = 'attachment;filename*=UTF-8\'\'{}.xls'.format(str(post))
                 wb = xlwt.Workbook(encoding='ansi') #encoding은 ansi로 해준다.
-                
                 ws = wb.add_sheet('답변') #시트 추가
                 
                 ws.write(0, 0, "user")
@@ -60,26 +58,11 @@ class PostAdmin(admin.ModelAdmin):
                     ws.write(0, i+1, question.subject)
                     
                 for i, resp in enumerate(post.response_set.all()): 
-                    print(resp.get_clean_answers())
                     ws.write(i+1, 0, resp.author.student_name)
-                    print(resp.author.student_name)
                     for j, r in enumerate(resp.get_clean_answers()): 
                         ws.write(i+1, j+1, r)
+        wb.save(response)
         return response
-    '''
-    
-    #데이터 베이스에서 유저 정보를 불러온다.
-    rows = User.objects.all().values_list('name', 'email') 
-    
-    #유저정보를 한줄씩 작성한다.
-    for row in rows:
-    	row_num +=1
-        for col_num, attr in enumerate(row):
-        	ws.write(row_num, col_num, attr)
-            
-    wb.save(response)
-    '''
-    
 
 
 admin.site.register(Post, PostAdmin)

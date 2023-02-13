@@ -63,7 +63,7 @@ class PostAdmin(admin.ModelAdmin):
                     print(resp.get_clean_answers())
                     ws.write(i+1, 0, resp.author.student_name)
                     print(resp.author.student_name)
-                    for j, r in enumerate(resp): 
+                    for j, r in enumerate(resp.get_clean_answers()): 
                         ws.write(i+1, j+1, r)
         return response
     '''

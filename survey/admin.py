@@ -21,8 +21,7 @@ class PostAdmin(admin.ModelAdmin):
     ]
     inlines = [QuestionInline]
     actions = ['xls_export']
-    
-    
+
     @admin.action(description='xls로 저장')
     def xls_export(self, request, queryset):
         response = HttpResponse(content_type="application/vnd.ms-excel")

@@ -40,24 +40,14 @@
                 {% content seat_name loc as seatname %}
 
                 <td bgcolor="CFE2F8">
-                    {% if seatnum > third_smoke_start and seatnum < third_smoke_end %}
-                    <span style="display: block;">{{ seatnum }}(흡연)</span>
-                    {% else %}
                     <span style="display: block;">{{ seatnum }}</span>
-                    {% endif %}
                     <span>{{ seatname }}</span>
                 </td>
                 {% else %}
                 <td>
-                    {% if seatnum > third_smoke_start and seatnum < third_smoke_end %}
-                    <a href="{% url 'libraryseat:seat_register' seatnum %}"
-                       onclick="if(!confirm('{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
-                            style="display: block;">{{ seatnum }}(흡연)</a>
-                    {% else %}
                     <a href="{% url 'libraryseat:seat_register' seatnum %}"
                        onclick="if(!confirm('{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
                             style="display: block;">{{ seatnum }}</a>
-                    {% endif %}
                     <span>공석</span>
                 </td>
                 {% endif %}
@@ -84,12 +74,8 @@
                 <td bgcolor="CFE2F8">
                     {% if seatnum < fourth_ga_floor_end %}
                     <span style="display: block;">가{{ seatnum }}</span>
-                    {% else %}
-                    {% if seatnum > fourth_smoke_start and seatnum < fourth_smoke_end %}
-                    <span style="display: block;">나{{ seatnum }}(흡연)</span>
-                    {% else %}
+                    {% else %
                     <span style="display: block;">나{{ seatnum }}</span>
-                    {% endif %}
                     {% endif %}
                     <span>{{ seatname }}</span>
                 </td>
@@ -100,15 +86,9 @@
                        onclick="if(!confirm('가{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
                             style="display: block;">가{{ seatnum }}</a>
                     {% else %}
-                    {% if seatnum > fourth_smoke_start and seatnum < fourth_smoke_end %}
-                     <a href="{% url 'libraryseat:seat_register' fourth_seatnum %}"
-                       onclick="if(!confirm('나{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
-                            style="display: block;">나{{ seatnum }}(흡연)</a>
-                    {% else %}
                     <a href="{% url 'libraryseat:seat_register' fourth_seatnum %}"
                        onclick="if(!confirm('나{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
                             style="display: block;">나{{ seatnum }}</a>
-                    {% endif %}
                     {% endif %}
                     <span>공석</span>
                 </td>

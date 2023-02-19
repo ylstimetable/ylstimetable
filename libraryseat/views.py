@@ -33,9 +33,8 @@ def floor(request):
 
 @login_required(login_url='common:login')
 def receive(request):
-    floor = request.POST.get("floor")
-    student_fee = request.POST.get("student_fee")
-    smoke = request.POST.get("smoke")
+    floor = request.POST.get("floor") # 학년
+    smoke = '0'
 
     q = Receipt.objects.filter(semester='2023-1')
     for obj in q:
@@ -43,13 +42,13 @@ def receive(request):
 
     if request.user in q_obj.voter.all():
         stored_user = Receipt_Student.objects.get(author=request.user)
-        temp_error_message = '이미 접수된 사용자입니다. 학생회비 납부 여부: {}; 선호층: {}; 흡연여부: {}'.format(stored_user.fee, stored_user.floor, stored_user.smoke)
+        temp_error_message = '이미 접수된 사용자입니다. 학년: {}'.format(stored_user.floor)
         messages.error(request, temp_error_message)
         return redirect('libraryseat:index')
     else:
         messages.success(request, '접수 완료되었습니다.')
         q_obj.voter.add(request.user)
-        a = Receipt_Student(author=request.user, student_number = request.user.student_number, fee=student_fee, floor=floor, smoke=smoke)
+        a = Receipt_Student(author=request.user, student_number = request.user.student_number, floor=floor, smoke=smoke)
         a.save()
         return redirect('libraryseat:index')
 
@@ -73,26 +72,31 @@ def random(request):
         q = obj
 
     target = []
-    fee_app = []
-    non_fee_app = []
+    first_app = []
+    second_app = []
+    third_app = []
 
     for applicant in q.voter.all():
         b = Receipt_Student.objects.filter(author=applicant)
         for c in b:
             applicant_receipt = c
 
-        if applicant_receipt.fee == "납부":
-            fee_app.append(applicant.student_number)
+        if applicant_receipt.floor == "3":
+            third_app.append(applicant.student_number)
+        elif applicant_receipt.floor == "2":
+            second_app.append(applicant.student_number)
         else:
-            non_fee_app.append(applicant.student_number)
+            first_app.append(applicant.student_number)
 
-    shuffle(fee_app)
-    shuffle(non_fee_app)
+    shuffle(third_app)
+    shuffle(second_app)
+    shuffle(first_app)
 
-    for app in fee_app:
+    for app in third_app:
         target.append(app)
-
-    for app in non_fee_app:
+    for app in second_app:
+        target.append(app)
+    for app in first_app:
         target.append(app)
 
     strings = ','.join(target)
@@ -158,14 +162,10 @@ def reserve_status(request):
     seat_name = []
     third_floor = range(0,129)
     third_floor_end = 130
-    third_smoke_start = 72
-    third_smoke_end = 85
     fourth_ga_floor = range(0, 60)
     fourth_ga_floor_end = 61
     fourth_na_floor = range(61,152)
     fourth_na_floor_end = 153
-    fourth_smoke_start = 98
-    fourth_smoke_end = 111
     fifth_a_floor = range(0,62)
     fifth_a_floor_end = 62
     fifth_b_floor = range(62,119)
@@ -179,10 +179,8 @@ def reserve_status(request):
 
 
     return render(request, 'libraryseat_status.html', {"seat_num": seat_num, "seat_name": seat_name, "third_floor": third_floor, "third_floor_end": third_floor_end,
-                                                       "third_smoke_start": third_smoke_start, "third_smoke_end": third_smoke_end,
-                                                       "fourth_ga_floor_end": fourth_ga_floor_end, "fourth_na_floor_end": fourth_na_floor_end,
-                                                       "fourth_smoke_start": fourth_smoke_start, "fourth_smoke_end": fourth_smoke_end,
-                                                       "fifth_a_floor_end": fifth_a_floor_end, "fifth_b_floor_end": fifth_b_floor_end,
+                                                        "fourth_ga_floor_end": fourth_ga_floor_end, "fourth_na_floor_end": fourth_na_floor_end,
+                                                      "fifth_a_floor_end": fifth_a_floor_end, "fifth_b_floor_end": fifth_b_floor_end,
                                                        "fourth_ga_floor": fourth_ga_floor, "fourth_na_floor": fourth_na_floor,
                                                        "fifth_a_floor": fifth_a_floor, "fifth_b_floor": fifth_b_floor, "ran": ran, "rang": rang})
 
@@ -209,15 +207,12 @@ def seat_register(request, seat_number):
         else:
             already_reserve = len(Reserve.objects.filter(author=request.user))
             if already_reserve == 0:
-                b = Receipt_Student.objects.filter(author=request.user)
-                for c in b:
-                    applicant_receipt = c
+                reserve = Reserve(author=request.user, room=requested_seat)
+                reserve.save()
+                messages.success(request, '예약이 완료되었습니다.')
+                return redirect('libraryseat:reserve_status')
 
-                if applicant_receipt.smoke == "흡연":
-                    if 72 > requested_seat > 84 or 1098 > requested_seat > 1111:
-                        messages.error(request, "흡연자는 흡연좌석만 예약 가능합니다.")
-                        return redirect('libraryseat:index')
-
+                """
                 if applicant_receipt.floor == "3층":
                     if requested_seat < 1000:
                         if applicant_receipt.smoke == "흡연":
@@ -255,6 +250,8 @@ def seat_register(request, seat_number):
                     else:
                         messages.error(request, "5층 신청자는 5층 구역만 예약하실 수 있습니다.")
                         return redirect('libraryseat:reserve_status')
+                        
+                """
             else:
                 messages.error(request, '이미 예약하셨습니다.')
                 return redirect('libraryseat:reserve_status')

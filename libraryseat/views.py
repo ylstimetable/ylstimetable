@@ -160,16 +160,17 @@ def reserve_status(request):
 
     seat_num = []
     seat_name = []
-    third_floor = range(0,129)
-    third_floor_end = 130
-    fourth_ga_floor = range(0, 60)
-    fourth_ga_floor_end = 61
-    fourth_na_floor = range(61,152)
-    fourth_na_floor_end = 153
-    fifth_a_floor = range(0,62)
-    fifth_a_floor_end = 62
-    fifth_b_floor = range(62,119)
-    fifth_b_floor_end = 120
+    third_a_floor = range(0,21)
+    third_a_floor_end = 21
+    third_b_floor = range(21, 141)
+    third_b_floor_end = 141
+    fourth_a_floor = range(0, 35)
+    fourth_a_floor_end = 35
+    fourth_b_floor = range(35, 145)
+    fourth_b_floor_end = 145
+    fifth_a_floor = range(0,91)
+    fifth_a_floor_end = 91
+
     ran = range(0,60)
     rang = range(1,6)
 
@@ -177,15 +178,24 @@ def reserve_status(request):
         seat_name.append(q.author.student_name)
         seat_num.append(int(q.room))
 
-
-    return render(request, 'libraryseat_status.html', {"seat_num": seat_num, "seat_name": seat_name, "third_floor": third_floor, "third_floor_end": third_floor_end,
-                                                        "fourth_ga_floor_end": fourth_ga_floor_end, "fourth_na_floor_end": fourth_na_floor_end,
-                                                      "fifth_a_floor_end": fifth_a_floor_end, "fifth_b_floor_end": fifth_b_floor_end,
-                                                       "fourth_ga_floor": fourth_ga_floor, "fourth_na_floor": fourth_na_floor,
-                                                       "fifth_a_floor": fifth_a_floor, "fifth_b_floor": fifth_b_floor, "ran": ran, "rang": rang})
+    return render(request, 'libraryseat_status.html', {"seat_num": seat_num, "seat_name": seat_name, 
+                                                        #"third_a_floor": third_a_floor, 
+                                                        "third_a_floor_end": third_a_floor_end,
+                                                        #"third_b_floor": third_b_floor, 
+                                                        "third_b_floor_end": third_b_floor_end,
+                                                        #"fourth_a_floor": fourth_a_floor, 
+                                                        #"fourth_b_floor": fourth_b_floor,
+                                                        "fourth_a_floor_end": fourth_a_floor_end, 
+                                                        "fourth_b_floor_end": fourth_b_floor_end,
+                                                       "fifth_a_floor_end": fifth_a_floor_end, 
+                                                       #"fifth_a_floor": fifth_a_floor, 
+                                                       "ran": ran, "rang": rang})
 
 @login_required(login_url='common:login')
 def seat_register(request, seat_number):
+    # 관리자님께: 매학기 흡연 좌석 현황을 이 배열에 업데이트해 주세요.  
+    smoking_zone = [134, 135, 136, 137, 138, 139, 140, 1135, 1136, 1139, 1140, 1143, 1144, 10076, 10077, 10078, 10081, 10082, 10083, 10086, 10087, 10088]
+
     requested_seat = int(seat_number)
     current_queue = Result.objects.filter(semester='2023-1')
     for q in current_queue:
@@ -197,7 +207,7 @@ def seat_register(request, seat_number):
 
     for q in q_all:
         reserved_seat.append(int(q.room))
-
+    
     if request.user.student_number == current_queue.current:
         if request.user in reserved_user:
             messages.error()
@@ -207,6 +217,23 @@ def seat_register(request, seat_number):
         else:
             already_reserve = len(Reserve.objects.filter(author=request.user))
             if already_reserve == 0:
+
+
+                b = Receipt_Student.objects.filter(author=request.user)
+                for c in b:
+                    applicant_receipt = c
+
+                # 3학년 전용좌석 처리
+                if requested_seat < 1000 and requested_seat > 40:
+                    if not applicant_receipt.floor == "3":
+                        messages.error(request, "선택하신 좌석은 3학년 전용 구역으로 운영되고 있습니다.")
+                        return redirect('libraryseat:reserve_status')
+
+                # 흡연좌석 처리
+                if requested_seat in smoking_zone: 
+                    messages.error(request, "흡연구역의 좌석배정은 별도의 절차를 이용해주세요.")
+                    return redirect('libraryseat:reserve_status')
+
                 reserve = Reserve(author=request.user, room=requested_seat)
                 reserve.save()
                 messages.success(request, '예약이 완료되었습니다.')
@@ -256,6 +283,7 @@ def seat_register(request, seat_number):
                 messages.error(request, '이미 예약하셨습니다.')
                 return redirect('libraryseat:reserve_status')
     else:
+        #print(requested_seat)
         messages.error(request, '현재 예약 순번이 아닙니다.')
         return redirect('libraryseat:reserve_status')
 

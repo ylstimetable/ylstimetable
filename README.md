@@ -27,14 +27,12 @@ And then...
 
 ### Shipping prod code
 1. 로그인 하자! 브라우저에서 ssh into the virtual machine!
-1. ```cd venvs/mysite/bin```
-1. ```. activate```
-1. ```cd ~/projects/mysite```
-1. ```killall python```
-1. ```git pull <Whatever you need to pull>```
-1. ```python manage.py runserver```
-1. ```python manage.py migrate```
-1. ```python manage.py runserver```
+1. ``` $ cd venvs/mysite/bin```
+1. ``` $ . activate```
+1. ``` $ cd ~/projects/mysite```
+1. ``` $ killall python```
+1. ``` $ git pull <Whatever you need to pull>```
+1. ``` $ python manage.py runserver```
 ## Maintenance Guide  
 
 ### 설문조사 기능

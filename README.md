@@ -30,9 +30,8 @@ And then...
 1. ``` $ cd venvs/mysite/bin```
 1. ``` $ . activate```
 1. ``` $ cd ~/projects/mysite```
-1. ``` $ killall python```
 1. ``` $ git pull <Whatever you need to pull>```
-1. ``` $ python manage.py runserver```
+1. ``` $ sudo systemctl restart mysite.service```
 ## Maintenance Guide  
 
 ### 설문조사 기능

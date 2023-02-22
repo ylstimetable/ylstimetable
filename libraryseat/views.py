@@ -76,6 +76,15 @@ def random(request):
     second_app = []
     third_app = []
 
+
+    # Fixed Error: 혹시 신청자가 RECEIPT.voters에서 누락되었을 경우를 대비한 코드!
+    RSALL = Receipt_Student.objects.all()
+    for r_s in RSALL:
+        if not r_s.author in q.voter.all():
+            q.voter.add(r_s.author)
+            
+
+
     for applicant in q.voter.all():
         b = Receipt_Student.objects.filter(author=applicant)
         for c in b:

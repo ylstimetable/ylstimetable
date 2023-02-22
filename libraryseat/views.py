@@ -82,7 +82,12 @@ def random(request):
     for r_s in RSALL:
         if not r_s.author in q.voter.all():
             q.voter.add(r_s.author)
-            
+            print("UPDATED:")
+            print(r_s.author.student_name)
+            print(r_s.author.student_number)
+            print()
+    print("Fixing done")
+    print()
 
 
     for applicant in q.voter.all():

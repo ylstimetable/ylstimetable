@@ -41,3 +41,4 @@ def schedule_every_ten_minutes():
             result = a
             
         result.current = 'UPDATING'
+        result.save()

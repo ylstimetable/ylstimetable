@@ -35,10 +35,3 @@ def schedule_every_ten_minutes():
                     result.sequence = list
                     result.save()
                    
-    else:
-        result = Result.objects.filter(semester='2000-0')
-        for a in result:
-            result = a
-            
-        result.current = 'UPDATING'
-        result.save()

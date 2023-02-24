@@ -178,6 +178,7 @@ def reserve_status(request):
     third_a_floor_end = 21
     third_b_floor = range(21, 141)
     third_b_floor_end = 141
+    third_floor_end = 145
     fourth_a_floor = range(0, 35)
     fourth_a_floor_end = 35
     fourth_b_floor = range(35, 145)
@@ -197,6 +198,7 @@ def reserve_status(request):
                                                         "third_a_floor_end": third_a_floor_end,
                                                         #"third_b_floor": third_b_floor, 
                                                         "third_b_floor_end": third_b_floor_end,
+                                                        "third_floor_end": third_floor_end, 
                                                         #"fourth_a_floor": fourth_a_floor, 
                                                         #"fourth_b_floor": fourth_b_floor,
                                                         "fourth_a_floor_end": fourth_a_floor_end, 

@@ -34,13 +34,15 @@
             <tr style="text-align: center;">
                 {% for j in rang %}
                 {% seatnum_cal i j as seatnum %}
-                {% if seatnum < third_b_floor_end %}
+                {% if seatnum < third_floor_end %}
                 {% if seatnum in seat_num %}
                 {% location seat_num seatnum as loc %}
                 {% content seat_name loc as seatname %}
 
                 <td bgcolor="CFE2F8">
                     {% if seatnum < third_a_floor_end %}
+                    <span style="display: block;">A{{ seatnum }}</span>
+                    {% elif seatnum >= third_b_floor_end %}
                     <span style="display: block;">A{{ seatnum }}</span>
                     {% else %}
                     <span style="display: block;">B{{ seatnum }}</span>
@@ -50,6 +52,10 @@
                 {% else %}
                 <td>
                     {% if seatnum < third_a_floor_end %}
+                    <a href="{% url 'libraryseat:seat_register' seatnum %}"
+                       onclick="if(!confirm('A{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
+                            style="display: block;">A{{ seatnum }}</a>
+                    {% elif seatnum >= third_b_floor_end %}
                     <a href="{% url 'libraryseat:seat_register' seatnum %}"
                        onclick="if(!confirm('A{{ seatnum }}번 좌석으로 신청하시겠습니까?')){ return false; }"
                             style="display: block;">A{{ seatnum }}</a>

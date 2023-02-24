@@ -240,7 +240,7 @@ def seat_register(request, seat_number):
                     applicant_receipt = c
 
                 # 3학년 전용좌석 처리
-                if requested_seat < 1000 and requested_seat > 40:
+                if requested_seat < 141 and requested_seat > 40:
                     if not applicant_receipt.floor == "3":
                         messages.error(request, "선택하신 좌석은 3학년 전용 구역으로 운영되고 있습니다.")
                         return redirect('libraryseat:reserve_status')

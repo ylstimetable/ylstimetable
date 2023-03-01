@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+
+<div class="container my-3">
+    
+    <div class="row">
+        <div class="col-xs-12 col-md-2">
+            <nav id="sidebar" class="border-top border-secondary">
+                <div class="list-group">
+                    <ul class="list-group list-group-flush">
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/survey/list">설문응답</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/inquiry/write">1대1문의</a>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-xs-12 col-md-10 my-4">
+            <div class="assess_border">
+                <span style="font-size: 18px; font-weight: bold; margin: 5px;">1:1 문의 내용</span>
+
+
+                <form method="POST" action="{% url 'inquiry:receive' %}">
+                {% csrf_token %}
+                <textarea class="form-control" name="content" id="content"
+                      rows="15"></textarea>
+                </div>
+                <br>
+                <button type="submit" class="btn btnnb">보내기</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

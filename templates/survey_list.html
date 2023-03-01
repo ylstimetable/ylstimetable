@@ -3,23 +3,24 @@
 {% block content %}
 
 <div class="container my-3">
-    <!--
-    <div class="row justify-content-end my-3">
-        <div class="col-4 input-group">
-            <input type="text" class="form-control kw"
-                   value="{{ kw|default_if_none:''}}">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary"
-                        type="button" id="btn_search">찾기</button>
-            </div>
-        </div>
-    </div>
-    -->
+    
+
     <div class="row">
+        <div class="col-xs-12 col-md-2">
+            <nav id="sidebar" class="border-top border-secondary">
+                <div class="list-group">
+                    <ul class="list-group list-group-flush">
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/survey/list">설문응답</a>
+                    <a class="rounded-0 list-group-item list-group-item-action"
+                       href="/inquiry/write">1대1문의</a>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
         <div class="col-xs-12 col-md-10 my-4">
-            <div class="assess_border">
-                
-                
+            <div class="assess_border">                
                 {% if messages %}
                     {% for message in messages %}
                         {% if message.tags == "error" %}
@@ -34,7 +35,7 @@
                     {% endfor %}
                 {% endif %}
                 
-                <span style="font-size: 18px; font-weight: bold; margin: 3px;">설문응답</span>
+                <span style="font-size: 18px; font-weight: bold; margin: 5px;">설문응답</span>
                 <table style="margin-top: 20px;" class="table table-hover">
                     <tbody>
                     {% if survey_list %}

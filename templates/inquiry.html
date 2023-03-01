@@ -19,6 +19,23 @@
         </div>
         <div class="col-xs-12 col-md-10 my-4">
             <div class="assess_border">
+
+
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == "error" %}
+                            <div class = "alert alert-danger my-3" role="alert">
+                                <ul><li>{{ message.message }}</li></ul>
+                            </div>
+                            {% else %}
+                            <div class="alert alert-success my-3" role="alert">
+                                <ul><li>{{ message.message }}</li></ul>
+                            </div>
+                            {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+
                 <span style="font-size: 18px; font-weight: bold; margin: 5px;">1:1 문의 내용</span>
 
 

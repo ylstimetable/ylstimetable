@@ -144,8 +144,8 @@ def register(request):
 
 @login_required(login_url='common:login')
 def index(request):
-    result = Result.objects.filter(semester='2023-1')
-    receipt_start = len(Receipt.objects.filter(semester='2023-1'))
+    result = Result.objects.filter(semester='2023-2')
+    receipt_start = len(Receipt.objects.filter(semester='2023-2'))
     location = 10000
     random_start = 0
     user = request.user
@@ -153,7 +153,7 @@ def index(request):
     if user.student_auth == False:
         return render(request, 'unauth.html')
 
-    if len(Result.objects.filter(semester='2023-1')) == 0:
+    if len(Result.objects.filter(semester='2023-2')) == 0:
         return render(request, 'libraryseat.html', {'location': location,
                                                     'random_start': random_start, 'receipt_start': receipt_start})
     else:

@@ -30,4 +30,7 @@ def receive(request):
     post.create_date = timezone.now()
     post.save()
     
+
+    messages.success(request, '문의가 접수되었습니다.')
+
     return redirect('inquiry:write')

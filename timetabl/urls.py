@@ -14,7 +14,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('auth/', include('studentauth.urls')),
     path('libraryseat/', include('libraryseat.urls')),
-    path('survey/', include('survey.urls'))
+    path('survey/', include('survey.urls')),
+    path('inquiry/', include('inquiry.urls'))
 ]
 
 handler404 = 'common.views.page_not_found'

@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'studyroom.apps.StudyroomConfig',
     'libraryseat.apps.LibraryseatConfig',
     'survey.apps.SurveyConfig',
+    'inquiry.apps.InquiryConfig'
 ]
 
 MIDDLEWARE = [

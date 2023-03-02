@@ -2,36 +2,40 @@
 
 ## Quick Start Guide
 
-### Setting up Miniconda environment
+### Setting up dev environment
 
 
 #### Creating tables locally
 ```
-python manage.py makemigrations --settings=timetabl.settings.local
-python manage.py migrate --run-syncdb --settings=timetabl.settings.local
+ $ python manage.py makemigrations --settings=timetabl.settings.local
+ $ python manage.py migrate --run-syncdb --settings=timetabl.settings.local
 ```
 
 #### Creating and authenticating yourself as a superuser
 ```
-python manage.py createsuperuser --settings=timetabl.settings.local
+ $ python manage.py createsuperuser --settings=timetabl.settings.local
+ $ python manage.py runserver --settings=timetabl.settings.loc
 ```
+
 And then...
 
-1. http://127.0.0.1:8000 and sign in
-1. http://127.0.0.1:8000/adminlee and give yourself credentials
+1. Go to http://127.0.0.1:8000/adminlee 
+1. Sign in to give yourself credentials
 
-
-### Trying running on dev mod
-
-```python manage.py runserver --settings=timetabl.settings.local```
+로컬서버를 종료하지 않은 채로 쭉 작업하시면 됩니다. 
 
 ### Shipping prod code
-1. 로그인 하자! 브라우저에서 ssh into the virtual machine!
+1. Lightsail 로그인 하자! 브라우저에서 ssh into the virtual machine!
 1. ``` $ cd venvs/mysite/bin```
 1. ``` $ . activate```
 1. ``` $ cd ~/projects/mysite```
 1. ``` $ git pull <Whatever you need to pull>```
 1. ``` $ sudo systemctl restart mysite.service```
+
+만일 Application을 새로 만들어 추가한 경우 아래의 작업도 추가적으로 해주세요. 
+1. ``` $ python manage.py makemigrations <application name> --settings=timetabl.settings.local```
+1. ``` $ python manage.py migrate --run-syncdb <application name> --settings=timetabl.settings.local```
+
 ## Maintenance Guide  
 
 ### 설문조사 기능

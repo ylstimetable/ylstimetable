@@ -4,6 +4,7 @@
 
 ### Setting up dev environment
 
+(리눅스 기준으로 서술하고있습니다... 이런 나라서 미안해)
 
 #### Creating tables locally
 ```

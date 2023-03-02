@@ -6,6 +6,9 @@
 
 (리눅스 기준으로 서술하고있습니다... 이런 나라서 미안해)
 
+#### Cloning git repo
+이 Repository의 내용물을 로컬머신에 내려받아주세요~! (나는 git practice의 표준을 잘 모르니까 각자 알아서 git 잘 쓰기)
+
 #### Creating tables locally
 ```
  $ python manage.py makemigrations --settings=timetabl.settings.local

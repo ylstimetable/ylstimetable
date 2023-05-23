@@ -31,11 +31,11 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
-EMAIL_HOST = 'smtp.gmail.com' 		 # 메일 호스트 서버
+# 2023-05-25 Gmail이 less secure app login을 차단함에 따라 outlook으로 이사합니다
+EMAIL_HOST = 'smtp-mail.outlook.com' 		 # 메일 호스트 서버
 EMAIL_PORT = '587' 			 # 서버 포트
-EMAIL_HOST_USER = 'ylstimetable@gmail.com' 	 # 우리가 사용할 Gmail
-EMAIL_HOST_PASSWORD = '!yonlaw11'		 # 우리가 사용할 Gmail p
+EMAIL_HOST_USER = 'ylstimetable@outlook.kr' 	 # 우리가 사용할 Gmail..아니고 Outlook
+EMAIL_HOST_PASSWORD = '!yonlaw11'		 # 우리가 사용할 Gmail p..아니고 Outlook p
 EMAIL_USE_TLS = True			 # TLS 보안 설정
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER	 # 응답 메일 관련 설정
 

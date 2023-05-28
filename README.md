@@ -18,7 +18,7 @@
 #### Creating and authenticating yourself as a superuser
 ```
  $ python manage.py createsuperuser --settings=timetabl.settings.local
- $ python manage.py runserver --settings=timetabl.settings.loc
+ $ python manage.py runserver --settings=timetabl.settings.local
 ```
 
 And then...

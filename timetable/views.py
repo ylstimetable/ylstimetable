@@ -15,7 +15,7 @@ def result(request):
         name = request.POST.get("classname")
         if name == "개발자":
             return redirect('https://www.instagram.com/kkpark09/')
-        class_list = ClassD.objects.filter(semester='2022-2')
+        class_list = ClassD.objects.filter(semester='2023-2')
         classfind = class_list.filter(
             Q(title__icontains=name) |
             Q(professor__icontains=name) |
@@ -36,7 +36,7 @@ def index(request):
         return render(request, 'unauth.html')
 
     q_all = user.class_voter.all()
-    q = q_all.filter(semester='2022-2')
+    q = q_all.filter(semester='2023-2')
     m = user.class_author.all()
     ran = range(1, 14)
     rang = range(0, 5)
@@ -182,7 +182,7 @@ def index(request):
 @login_required(login_url='common:login')
 def register(request, class_id):
     q_all = request.user.class_voter.all()
-    q = q_all.filter(semester='2022-2')
+    q = q_all.filter(semester='2023-2')
 
     reg = get_object_or_404(ClassD, pk=class_id)
 
@@ -398,19 +398,19 @@ def addition(request):
                         tabletime.append(int(string[0]) + count)
 
                 t = ClassD(title=temptitle, room=temproom, professor=tempprof, time=temptime,
-                              semester='2022-2', number=f"YJD{classnum}", ban=i)
+                              semester='2023-2', number=f"YJD{classnum}", ban=i)
                 t.save()
 
                 for asses in assess:
                     if temptitle == asses.subject:
                         if tempprof == asses.professor:
                             sem = asses.semester
-                            asses.semester = f"2022-2, {sem}"
+                            asses.semester = f"2023-2, {sem}"
                             control = 1
                             asses.save()
 
                 if control == 0:
-                    a = ClassA(subject=temptitle, professor=tempprof, semester = '2022-2', rate = '0')
+                    a = ClassA(subject=temptitle, professor=tempprof, semester = '2023-2', rate = '0')
                     a.save()
 
     return render(request, 'addition.html')

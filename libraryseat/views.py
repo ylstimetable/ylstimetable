@@ -36,7 +36,7 @@ def receive(request):
     floor = request.POST.get("floor") # 학년
     smoke = '0'
 
-    q = Receipt.objects.filter(semester='2023-1')
+    q = Receipt.objects.filter(semester='2023-2')
     for obj in q:
         q_obj = obj
 
@@ -56,7 +56,7 @@ def receive(request):
 @login_required(login_url='common:login')
 def random(request):
     r_all = Result.objects.all()
-    next_semester = '2023-1'
+    next_semester = '2023-2'
 
     semester_list = []
 
@@ -67,7 +67,7 @@ def random(request):
         messages.error(request, '이미 랜덤배정이 완료되었습니다.')
         return redirect('libraryseat:index')
 
-    applicant_list = Receipt.objects.filter(semester='2023-1')
+    applicant_list = Receipt.objects.filter(semester='2023-2')
     for obj in applicant_list:
         q = obj
 
@@ -114,7 +114,7 @@ def random(request):
         target.append(app)
 
     strings = ','.join(target)
-    a = Result(semester='2023-1', sequence=strings, sequence_backup=strings)
+    a = Result(semester='2023-2', sequence=strings, sequence_backup=strings)
     a.save()
 
     return redirect('libraryseat:index')
@@ -122,7 +122,7 @@ def random(request):
 
 @login_required(login_url='common:login')
 def register(request):
-    result = Result.objects.filter(semester='2023-1')
+    result = Result.objects.filter(semester='2023-2')
     for re in result:
         result = re
 
@@ -213,7 +213,7 @@ def seat_register(request, seat_number):
     smoking_zone = [134, 135, 136, 137, 138, 139, 140, 1135, 1136, 1139, 1140, 1143, 1144, 10076, 10077, 10078, 10081, 10082, 10083, 10086, 10087, 10088]
 
     requested_seat = int(seat_number)
-    current_queue = Result.objects.filter(semester='2023-1')
+    current_queue = Result.objects.filter(semester='2023-2')
     for q in current_queue:
         current_queue = q
 

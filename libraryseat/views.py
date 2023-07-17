@@ -178,11 +178,11 @@ def reserve_status(request):
     third_a_floor_end = 21
     third_b_floor = range(21, 141)
     third_b_floor_end = 141
-    third_floor_end = 145
+    third_floor_end = 147 # 23여름에 144 좌석에서 146 좌석으로 변경!
     fourth_a_floor = range(0, 35)
     fourth_a_floor_end = 35
-    fourth_b_floor = range(35, 145)
-    fourth_b_floor_end = 145
+    fourth_b_floor = range(35, 163)
+    fourth_b_floor_end = 163 # 23여름에 144 좌석에서 162 좌석으로 변경!
     fifth_a_floor = range(0,91)
     fifth_a_floor_end = 91
 
@@ -241,12 +241,10 @@ def seat_register(request, seat_number):
 
                 
                 # 3학년 전용좌석 처리
-                """
-                if requested_seat < 141 and requested_seat > 40:
+                if requested_seat < 1000: 
                     if not applicant_receipt.floor == "3":
                         messages.error(request, "선택하신 좌석은 3학년 전용 구역으로 운영되고 있습니다.")
                         return redirect('libraryseat:reserve_status')
-                """
 
                 # 흡연좌석 처리
                 if requested_seat in smoking_zone: 

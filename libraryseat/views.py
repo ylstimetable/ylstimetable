@@ -34,7 +34,7 @@ def floor(request):
 @login_required(login_url='common:login')
 def receive(request):
     floor = request.POST.get("floor") # 학년
-    smoke = '0'
+    smoke = request.POST.get("smoke") # 흡연여부
 
     q = Receipt.objects.filter(semester='2023-2')
     for obj in q:
@@ -42,7 +42,7 @@ def receive(request):
 
     if request.user in q_obj.voter.all():
         stored_user = Receipt_Student.objects.get(author=request.user)
-        temp_error_message = '이미 접수된 사용자입니다. 학년: {}'.format(stored_user.floor)
+        temp_error_message = '이미 접수된 사용자입니다. 학년: {}; 흡연여부: {}'.format(stored_user.floor, stored_user.smoke)
         messages.error(request, temp_error_message)
         return redirect('libraryseat:index')
     else:
@@ -97,8 +97,8 @@ def random(request):
 
         if applicant_receipt.floor == "3":
             third_app.append(applicant.student_number)
-        elif applicant_receipt.floor == "2":
-            second_app.append(applicant.student_number)
+#        elif applicant_receipt.floor == "2": # 1-2학년 따로 shuffle할때는 이부분 각주처리 풀어주세요
+#            second_app.append(applicant.student_number)
         else:
             first_app.append(applicant.student_number)
 
@@ -106,11 +106,16 @@ def random(request):
     shuffle(second_app)
     shuffle(first_app)
 
-    for app in third_app:
-        target.append(app)
+    # 2학년 shuffle
     for app in second_app:
         target.append(app)
+
+    # 1학년 shuffle (2023-2학기 기준으로 2학년과 함께 shuffle합니다)
     for app in first_app:
+        target.append(app)
+        
+    # 3학년 제일 마지막에!
+    for app in third_app:
         target.append(app)
 
     strings = ','.join(target)

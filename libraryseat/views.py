@@ -34,7 +34,7 @@ def floor(request):
 @login_required(login_url='common:login')
 def receive(request):
     floor = request.POST.get("floor") # 학년
-    smoke = '0'
+    smoke = request.POST.get("smoke") # 흡연여부
 
     q = Receipt.objects.filter(semester='2023-2')
     for obj in q:

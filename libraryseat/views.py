@@ -42,7 +42,7 @@ def receive(request):
 
     if request.user in q_obj.voter.all():
         stored_user = Receipt_Student.objects.get(author=request.user)
-        temp_error_message = '이미 접수된 사용자입니다. 학년: {}'.format(stored_user.floor)
+        temp_error_message = '이미 접수된 사용자입니다. 학년: {}; 흡연여부: {}'.format(stored_user.floor, stored_user.smoke)
         messages.error(request, temp_error_message)
         return redirect('libraryseat:index')
     else:

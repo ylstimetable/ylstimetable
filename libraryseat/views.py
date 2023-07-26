@@ -262,10 +262,14 @@ def seat_register(request, seat_number):
                         return redirect('libraryseat:reserve_status')
 
                 # 흡연좌석 처리
-                if requested_seat in smoking_zone: 
-                    messages.error(request, "흡연구역의 좌석배정은 별도의 절차를 이용해주세요.")
+                if requested_seat in smoking_zone and applicant_receipt.smoke == "비연": 
+                    messages.error(request, "선택하신 좌석은 흡연자 좌석으로 운영되고 있습니다. ")
+                    return redirect('libraryseat:reserve_status')    
+                if requested_seat not in smoking_zone and applicant_receipt.smoke == "흡연": 
+                    messages.error(request, "흡연자는 흡연좌석만 예약 가능합니다.")
                     return redirect('libraryseat:reserve_status')
 
+                # 정상적으로 예약처리
                 reserve = Reserve(author=request.user, room=requested_seat)
                 reserve.save()
                 messages.success(request, '예약이 완료되었습니다.')

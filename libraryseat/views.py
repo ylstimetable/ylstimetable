@@ -126,7 +126,7 @@ def random(request):
         #모든 학년 함께 섞는 배정방식입니다!
         shuffle(all_app)
         for app in all_app:
-            taget.append(app)
+            target.append(app)
         
     strings = ','.join(target)
     a = Result(semester='2023-2', sequence=strings, sequence_backup=strings)

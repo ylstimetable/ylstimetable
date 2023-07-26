@@ -9,7 +9,7 @@ from django.http import HttpResponse
 admin.site.register(Result)
 admin.site.register(Receipt)
 admin.site.register(Reserve)
-admin.site.register(Receipt_Student)
+#admin.site.register(Receipt_Student)
 
 
 class ReceiptStudentAdmin(admin.ModelAdmin):

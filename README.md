@@ -54,7 +54,7 @@ admin 페이지에서 post 새로 작성할 때에 유의할 점!
 1. 권한: 깃헙리포 권한은 11기 이환 변호사님께, YTT 관리자계정 승인은 전대 YTT 관리자에게 받기~!
 1. 코드수정: libraryseat/cron.py 에 2023->해당년도로, 2023-1->해당학기로 수정
 1. 코드수정: libraryseat/view.py 에 2023-1->해당학기로 수정
-1. timetable/templatetags/custom_tags.py 2023->해당년도로, 2023-1->해당학기로 수정
+1. 코드수정: timetable/templatetags/custom_tags.py 2023->해당년도로, 2023-1->해당학기로 수정
 1. 코드수정: templates/libraryseat.html 이런거에도 표기 수정은 간단하게 해주세요!
 1. admin 페이지: Reserve 오브젝트들중에 사용x 좌석 네개만 남기고 삭제하기 (10044, 10045, 10089, 10090)
 1. admin 페이지: Receipt-student 오브젝트도 전부 삭제해버리기

@@ -99,7 +99,7 @@ def num(value):
 
 @register.simple_tag
 def date_start(value):
-    receipt = Receipt.objects.filter(semester='2023-1')
+    receipt = Receipt.objects.filter(semester='2023-2')
     for re in receipt:
         receipt = re
     day_standard = datetime.datetime(2023, int(receipt.month), int(receipt.day), 0, 0, 0)
@@ -117,7 +117,7 @@ def date_start(value):
 
 @register.simple_tag
 def date_ten_minutes(value):
-    receipt = Receipt.objects.filter(semester='2023-1')
+    receipt = Receipt.objects.filter(semester='2023-2')
     for re in receipt:
         receipt = re
     day_standard = datetime.datetime(2023, int(receipt.month), int(receipt.day), 0, 0, 0)

@@ -75,7 +75,7 @@ def random(request):
     first_app = []
     second_app = []
     third_app = []
-
+    all_app = []
 
     # Fixed Error: 혹시 신청자가 RECEIPT.voters에서 누락되었을 경우를 대비한 코드!
     RSALL = Receipt_Student.objects.all()
@@ -90,34 +90,44 @@ def random(request):
     print()
 
 
+    # 관리자님께: 이 부분 수정하여 MY_SHUFFLE_METHOD 변수에 난수추첨 방식을 설정해 놓으시면 됩니다! 
+    # MY_SHUFFLE_METHOD = 1 로 설정시: 3-2-1학년 순서로 배열되도록 난수추첨
+    # MY_SHUFFLE_METHOD = 2 로 설정시: 학년 관계없이 모두 섞어서 난수추첨 
+    MY_SHUFFLE_METHOD = 2
+
     for applicant in q.voter.all():
         b = Receipt_Student.objects.filter(author=applicant)
         for c in b:
             applicant_receipt = c
-
+            
+        all_app.append(applicant.student_number)
         if applicant_receipt.floor == "3":
             third_app.append(applicant.student_number)
-#        elif applicant_receipt.floor == "2": # 1-2학년 따로 shuffle할때는 이부분 각주처리 풀어주세요
-#            second_app.append(applicant.student_number)
+        elif applicant_receipt.floor == "2": 
+            second_app.append(applicant.student_number)
         else:
             first_app.append(applicant.student_number)
 
-    shuffle(third_app)
-    shuffle(second_app)
-    shuffle(first_app)
-
-    # 2학년 shuffle
-    for app in second_app:
-        target.append(app)
-
-    # 1학년 shuffle (2023-2학기 기준으로 2학년과 함께 shuffle합니다)
-    for app in first_app:
-        target.append(app)
+    if MY_SHUFFLE_METHOD==1:     
+        #3-2-1 순서 배정방식입니다! 
+        shuffle(third_app)
+        shuffle(second_app)
+        shuffle(first_app)
+        # 3학년 우선배정
+        for app in third_app:
+            target.append(app)
+        # 2학년 
+        for app in second_app:
+            target.append(app)
+        # 1학년 학년
+        for app in first_app:
+            target.append(app)
+    else: 
+        #모든 학년 함께 섞는 배정방식입니다!
+        shuffle(all_app)
+        for app in all_app:
+            target.append(app)
         
-    # 3학년 제일 마지막에!
-    for app in third_app:
-        target.append(app)
-
     strings = ','.join(target)
     a = Result(semester='2023-2', sequence=strings, sequence_backup=strings)
     a.save()
@@ -250,12 +260,23 @@ def seat_register(request, seat_number):
                     if not applicant_receipt.floor == "3":
                         messages.error(request, "선택하신 좌석은 3학년 전용 구역으로 운영되고 있습니다.")
                         return redirect('libraryseat:reserve_status')
-
+                        
+                # 1,2학년 전용좌석 처리
+                # 관리자님께: 3학년에게 4,5층 좌석 선택을 허용하려면 이 아래 네줄 코드를 주석처리 해주세요
+                if requested_seat >= 1000: 
+                    if applicant_receipt.floor == "3": 
+                        messages.error(request, "현재는 3층 좌석만 3학년에게 우선배정하고 있습니다.")
+                        return redirect('libraryseat:reserve_status')
+                
                 # 흡연좌석 처리
-                if requested_seat in smoking_zone: 
-                    messages.error(request, "흡연구역의 좌석배정은 별도의 절차를 이용해주세요.")
+                if requested_seat in smoking_zone and applicant_receipt.smoke == "비연": 
+                    messages.error(request, "선택하신 좌석은 흡연자 좌석으로 운영되고 있습니다. ")
+                    return redirect('libraryseat:reserve_status')    
+                if requested_seat not in smoking_zone and applicant_receipt.smoke == "흡연": 
+                    messages.error(request, "흡연자는 흡연좌석만 예약 가능합니다.")
                     return redirect('libraryseat:reserve_status')
 
+                # 정상적으로 예약처리
                 reserve = Reserve(author=request.user, room=requested_seat)
                 reserve.save()
                 messages.success(request, '예약이 완료되었습니다.')

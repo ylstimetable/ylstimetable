@@ -265,7 +265,7 @@ def seat_register(request, seat_number):
                 # 관리자님께: 3학년에게 4,5층 좌석 선택을 허용하려면 이 아래 네줄 코드를 주석처리 해주세요
                 if requested_seat >= 1000: 
                     if applicant_receipt.floor == "3": 
-                        messages.error(request, "현재는 3층 좌석만 3학년에게 우선배정하고 있습니다.")
+                        messages.error(request, "현재는 3층 좌석만 3학년에게 배정하고 있습니다.")
                         return redirect('libraryseat:reserve_status')
                 
                 # 흡연좌석 처리

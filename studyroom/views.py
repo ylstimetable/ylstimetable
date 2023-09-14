@@ -99,6 +99,10 @@ def register(request):
 
     max_day_time = max_day_time + time_check
 
+    if room==7:
+        messages.error(request, '212C호 스터디룸은 예약이 불가합니다.')
+        return redirect('studyroom:index', room)
+        
     if max_day_time > 4:
         messages.error(request, '하루에 예약 가능한 시간은 최대 4시간입니다.')
         return redirect('studyroom:index', room)

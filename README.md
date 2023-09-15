@@ -83,6 +83,7 @@ admin 페이지에서 post 새로 작성할 때에 유의할 점!
 1. 시뮬레이션 돌려돌려! 
 
 [좀더 자세한 매뉴얼](https://docs.google.com/document/d/1NyVns_pI_mAHi7PvhE0YL5rzzR9AMnsDbmn8mF4JKTw/edit?usp=sharing)
+
 [잘 모르겠으면 이 링크 참조하세요](https://velog.io/@dojun527/AWS-EC2-Django-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)
 
 #### 신청 후에 YTT 관리자가 해야 할 일 

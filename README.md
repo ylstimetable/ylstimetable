@@ -34,6 +34,11 @@ And then...
 로컬서버를 종료하지 않은 채로 쭉 작업하시면 됩니다. 
 
 ### Shipping prod code
+
+[Lightsail](https://lightsail.aws.amazon.com/) 계정정보
+*  아이디 : ylstimetable@gmail.com
+* 비밀번호 : !yonlaw11
+
 1. Lightsail 로그인 하자! 브라우저에서 ssh into the virtual machine!
 1. ``` $ cd venvs/mysite/bin```
 1. ``` $ . activate```

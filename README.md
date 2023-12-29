@@ -36,8 +36,8 @@ And then...
 ### Shipping prod code
 
 [Lightsail](https://lightsail.aws.amazon.com/) 계정정보
-*  아이디 : ylstimetable@gmail.com
-* 비밀번호 : !yonlaw11
+*  아이디 : 개별적으로 전달
+* 비밀번호 : 개별적으로 전달
 
 1. Lightsail 로그인 하자! Ubuntu-1 누른 뒤에 "ssh 로 연결" 버튼 누르기
 1. 검은 창에 아래의 명령어들을 순차적으로 복사 붙여넣기

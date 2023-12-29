@@ -1,7 +1,9 @@
 # YLS Timetable 개발매뉴얼
-## User View와 Admin View
-[![튜토리얼 비디오](https://img.youtube.com/vi/AJySSrQF6jA/0.jpg)](https://youtu.be/AJySSrQF6jA)
 
+## 기본 관리 매뉴얼 
+### User View와 Admin View
+[![튜토리얼 비디오](https://img.youtube.com/vi/AJySSrQF6jA/0.jpg)](https://youtu.be/AJySSrQF6jA)
+* 이미지를 클릭하면 튜토리얼 비디오로 연결됩니다 
 
 ## Quick Start Guide
 

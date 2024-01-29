@@ -225,7 +225,7 @@ def reserve_status(request):
 @login_required(login_url='common:login')
 def seat_register(request, seat_number):
     # 관리자님께: 매학기 흡연 좌석 현황을 이 배열에 업데이트해 주세요.  
-    smoking_zone = [134, 135, 136, 137, 138, 139, 140, 1135, 1136, 1139, 1140, 1143, 1144, 1160, 1161, 1162, 10076, 10077, 10078, 10081, 10082, 10083, 10086, 10087, 10088]
+    smoking_zone = [134, 135, 136, 137, 138, 139, 140, 1135, 1136, 1139, 1140, 1143, 1144, 1160, 1161, 1162, 10066, 10067, 10068, 10081, 10082, 10083, 10086, 10087, 10088]
 
     requested_seat = int(seat_number)
     current_queue = Result.objects.filter(semester='2024-1')

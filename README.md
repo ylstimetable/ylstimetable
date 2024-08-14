@@ -99,6 +99,11 @@ admin 페이지에서 post 새로 작성할 때에 유의할 점!
 
 #### 신청 후에 YTT 관리자가 해야 할 일 
 1. 난수추첨은 http://ylstimetable.com/libraryseat/admin/ 들어가서 학기-본배정월-본배정일 넣고 생성 누르면 됨! 이거 누르면 다른 사람들도 바로 추첨결과 볼 수 있으니까 신중하게 할것! 녹화할것!
+1. 흡연좌석 결정 후 좌석표 수정해서 사진에 업데이트 하기
+   사진 업데이트는 ylstimetable/static/images/ (https://github.com/ylstimetable/ylstimetable/tree/master/static/images)
+   사진 2개씩 해서 3층은 third_floor, IMG_0811/ 4층은 fourth_floor, IMG_0812, / 5층은 fifth_floor, IMG_0813 (왜 2개씩인지는 나도 모르니 그냥 따라하길,,)
+   기존에 있던 파일 지우고 새롭게 캡쳐하고 이름은 윗줄처럼 해서 올리면 됨.
+
 1. 당일 아홉시쯤 일어나서 한 30분쯤 오류없게 대기하기.. 
 1. 배정 중간에 코드 업데이트 필요하면 당사자에게 연락해서 수동으로 자리 등록해주고 5분안에 빠르게 업데이트!
 

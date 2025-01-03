@@ -3,7 +3,7 @@ from .models import ClassA, ClassA_Post
 
 class ClassAAdmin(admin.ModelAdmin):
   pass
-  list_display = ('classname', 'professor')
+  list_display = ('subject', 'professor')
 
 admin.site.register(ClassA)
 admin.site.register(ClassA_Post)

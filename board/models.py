@@ -19,7 +19,8 @@ class ClassA(models.Model):
     semester = models.CharField(max_length=200)
     rate = models.CharField(max_length=200)
 
-    list_display = ('subject', 'professor')
+    def __str__(self):
+        return self.subject
 
 class ClassA_Post(models.Model):
     classinfo = models.ForeignKey(ClassA, on_delete=models.CASCADE)

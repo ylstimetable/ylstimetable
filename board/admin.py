@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import ClassA, ClassA_Post
 
 class ClassAAdmin(admin.ModelAdmin):
-  pass
+  # pass
   list_display = ('subject', 'professor')
 
 admin.site.register(ClassA)

@@ -19,6 +19,8 @@ class ClassA(models.Model):
     semester = models.CharField(max_length=200)
     rate = models.CharField(max_length=200)
 
+    was_published_recently.admin_order_field='subject'
+    
     def __str__(self):
         return self.subject
 

@@ -14,3 +14,6 @@ class UserAdmin(admin.ModelAdmin):
         'student_name',
         'email',
     )
+
+    search_fields = ("student_name")
+    ordering = ("student_name",)

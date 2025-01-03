@@ -12,5 +12,5 @@ class ClassA_PostAdmin(admin.ModelAdmin):
   list_display=('subject','professor','semester','rate')
 
 admin.site.register(ClassA, ClassAAdmin)
-admin.site.register(ClassA_Post)
+admin.site.register(ClassA_Post, ClassA_PostAdmin)
 # Register your models here.

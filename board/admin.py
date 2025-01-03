@@ -4,6 +4,7 @@ from .models import ClassA, ClassA_Post
 class ClassAAdmin(admin.ModelAdmin):
   pass
   list_display=('subject','professor','semester')
+  list_display_links = None
   ordering=('subject')
 
 admin.site.register(ClassA, ClassAAdmin)

@@ -19,7 +19,6 @@ class Migration(migrations.Migration):
             model_name='classa',
             name='id',
             field=models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
-            list_display=('subject', 'professor'),
         ),
         migrations.AlterField(
             model_name='classa_post',

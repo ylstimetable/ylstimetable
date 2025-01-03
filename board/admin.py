@@ -7,6 +7,10 @@ class ClassAAdmin(admin.ModelAdmin):
   search_fields=('subject','professor')
   ordering=('subject',)
 
+class ClassA_PostAdmin(admin.ModelAdmin):
+  pass
+  list_display=('subject','professor','semester','rate')
+
 admin.site.register(ClassA, ClassAAdmin)
 admin.site.register(ClassA_Post)
 # Register your models here.

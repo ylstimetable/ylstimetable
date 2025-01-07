@@ -6,7 +6,7 @@ class ClassAAdmin(admin.ModelAdmin):
   list_display=('subject','professor','semester')
   search_fields=('subject','professor')
   ordering=('subject',)
-  list_editable=('semester')
+  list_editable=('semester',)
 
 class ClassA_PostAdmin(admin.ModelAdmin):
   pass

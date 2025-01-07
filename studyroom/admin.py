@@ -15,4 +15,4 @@ from django.contrib import admin
   
 
 
-admin.site.regiter(Reserve, ReserveAdmin)
+# admin.site.regiter(Reserve, ReserveAdmin)

@@ -28,8 +28,7 @@ class ReserveAdmin(admin.ModelAdmin):
       return "212D"
     elif obj.room="9":
       return "212E"
-    elif obj.room="10":
-      return "212F"
+    return "212F"
 
 admin.site.register(ClassD, ClassDAdmin)
 admin.site.register(ClassM)

@@ -13,6 +13,9 @@ class ReserveAdmin(admin.ModelAdmin):
     if obj.room=="1":
       name="B126"
       return name
+    elif obj.room=="2":
+      name="B127"
+      return name
     return "else"
  #   elif obj.room=="2":
   #    return "B127"

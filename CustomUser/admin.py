@@ -17,3 +17,5 @@ class UserAdmin(admin.ModelAdmin):
 
     search_fields = ("student_name")
     ordering = ("student_name",)
+
+admin.site.register(User, UserAdmin)

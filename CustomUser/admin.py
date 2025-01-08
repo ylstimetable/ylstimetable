@@ -3,7 +3,7 @@ from . import models
 
 @admin.register(models.User)
 class UserAdmin(admin.ModelAdmin):
-
+    pass
     list_display = (
         'student_name',
         'email',
@@ -15,5 +15,5 @@ class UserAdmin(admin.ModelAdmin):
         'email',
     )
 
-    search_fields = ("student_name",)
+    search_fields = ("student_name")
     ordering = ("student_name",)

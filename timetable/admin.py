@@ -8,7 +8,11 @@ class ClassDAdmin(admin.ModelAdmin):
 
 class ReserveAdmin(admin.ModelAdmin):
   pass
-  list_display=('room', 'date')
+  list_display=('room','room_name','date')
+  def room_name(self, obj):
+    if obj.room=="1":
+      return "B126"
+    return "else"
 
 admin.site.register(ClassD, ClassDAdmin)
 admin.site.register(ClassM)

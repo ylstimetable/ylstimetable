@@ -8,11 +8,6 @@ class ClassAAdmin(admin.ModelAdmin):
   ordering=('subject',)
   list_editable=('semester',)
 
-  def ox(self, obj):
-    if obj.professor=="이기범":
-      return "o"
-    return "x"
-
 class ClassA_PostAdmin(admin.ModelAdmin):
   pass
   list_display=('subject','professor','semester','rate')

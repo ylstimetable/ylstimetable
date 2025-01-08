@@ -15,7 +15,5 @@ class UserAdmin(admin.ModelAdmin):
         'email',
     )
 
-    search_fields = ("student_name")
+    search_fields = ("student_name",)
     ordering = ("student_name",)
-
-admin.site.register(User, UserAdmin)

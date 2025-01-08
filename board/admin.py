@@ -9,7 +9,7 @@ class ClassAAdmin(admin.ModelAdmin):
   list_editable=('semester',)
 
   def ox(self, obj):
-    if professor=="이기범":
+    if professor.obj=="이기범":
       return "o"
     return "x"
 

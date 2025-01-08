@@ -3,7 +3,7 @@ from .models import ClassA, ClassA_Post
 
 class ClassAAdmin(admin.ModelAdmin):
   pass
-  list_display=('subject','professor','semester','ox')
+  list_display=('subject','professor','semester')
   search_fields=('subject','professor')
   ordering=('subject',)
   list_editable=('semester',)

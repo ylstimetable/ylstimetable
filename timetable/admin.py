@@ -8,7 +8,7 @@ class ClassDAdmin(admin.ModelAdmin):
 
 class ReserveAdmin(admin.ModelAdmin):
   pass
-  list_display=('room')
+  list_display=('room', 'date')
 
 admin.site.register(ClassD, ClassDAdmin)
 admin.site.register(ClassM)

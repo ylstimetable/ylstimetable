@@ -15,4 +15,4 @@ from .models import Reserve
   
 
 
-admin.site.regiter(Reserve)
+admin.site.register(Reserve)

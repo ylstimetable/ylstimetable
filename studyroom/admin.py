@@ -1,9 +1,9 @@
 from django.contrib import admin
-#from .models import Reserve
+from .models import Reserve
 # Register your models here.
 
-#class ReserveAdmin(admin.ModelAdmin):
- # pass
+class ReserveAdmin(admin.ModelAdmin):
+  pass
   #list_display=('room')
 #  search_fields=('author')
 
@@ -15,4 +15,4 @@ from django.contrib import admin
   
 
 
-#admin.site.regiter(Reserve)
+admin.site.regiter(Reserve, ReserveAdmin)

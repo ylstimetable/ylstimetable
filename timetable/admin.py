@@ -12,7 +12,24 @@ class ReserveAdmin(admin.ModelAdmin):
   def room_name(self, obj):
     if obj.room=="1":
       return "B126"
-    return "else"
+    elif obj.room=="2":
+      return "B127"
+    elif obj.room=="3":
+      return "B112"
+    elif obj.room=="4":
+      return "B113"
+    elif obj.room=="5":
+      return "B114"
+    elif obj.room=="6":
+      return "B116"
+    elif obj.room=="7":
+      return "212C"
+    elif obj.room=="8":
+      return "212D"
+    elif obj.room="9":
+      return "212E"
+    elif obj.room="10":
+      return "212F"
 
 admin.site.register(ClassD, ClassDAdmin)
 admin.site.register(ClassM)

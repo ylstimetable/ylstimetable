@@ -11,7 +11,8 @@ class ReserveAdmin(admin.ModelAdmin):
   list_display=('room','room_name','date')
   def room_name(self, obj):
     if obj.room=="1":
-      return "B126"
+      name="B126
+      return name
     return "else"
  #   elif obj.room=="2":
   #    return "B127"

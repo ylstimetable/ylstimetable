@@ -18,4 +18,7 @@ urlpatterns = [
     path('inquiry/', include('inquiry.urls'))
 ]
 
+admin.site.index_title = "YLS TimeTable"
+admin.site.site_header = "YLS TimeTable Admin"
+
 handler404 = 'common.views.page_not_found'

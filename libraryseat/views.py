@@ -36,7 +36,7 @@ def receive(request):
     floor = request.POST.get("floor") # 학년
     smoke = request.POST.get("smoke") # 흡연여부
 
-    q = Receipt.objects.filter(semester='2025-1')
+    q = Receipt.objects.filter(semester='2025-2')
     for obj in q:
         q_obj = obj
 
@@ -56,7 +56,7 @@ def receive(request):
 @login_required(login_url='common:login')
 def random(request):
     r_all = Result.objects.all()
-    next_semester = '2025-1'
+    next_semester = '2025-2'
 
     semester_list = []
 
@@ -129,7 +129,7 @@ def random(request):
             target.append(app)
         
     strings = ','.join(target)
-    a = Result(semester='2025-1', sequence=strings, sequence_backup=strings)
+    a = Result(semester='2025-2', sequence=strings, sequence_backup=strings)
     a.save()
 
     return redirect('libraryseat:index')
@@ -137,7 +137,7 @@ def random(request):
 
 @login_required(login_url='common:login')
 def register(request):
-    result = Result.objects.filter(semester='2025-1')
+    result = Result.objects.filter(semester='2025-2')
     for re in result:
         result = re
 
@@ -159,8 +159,8 @@ def register(request):
 
 @login_required(login_url='common:login')
 def index(request):
-    result = Result.objects.filter(semester='2025-1')
-    receipt_start = len(Receipt.objects.filter(semester='2025-1'))
+    result = Result.objects.filter(semester='2025-2')
+    receipt_start = len(Receipt.objects.filter(semester='2025-2'))
     location = 10000
     random_start = 0
     user = request.user
@@ -168,7 +168,7 @@ def index(request):
     if user.student_auth == False:
         return render(request, 'unauth.html')
 
-    if len(Result.objects.filter(semester='2025-1')) == 0:
+    if len(Result.objects.filter(semester='2025-2')) == 0:
         return render(request, 'libraryseat.html', {'location': location,
                                                     'random_start': random_start, 'receipt_start': receipt_start})
     else:
@@ -228,7 +228,7 @@ def seat_register(request, seat_number):
     smoking_zone = [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 1139, 1140, 1141, 1142, 1143, 1144, 1161, 1162, 10076, 10077, 10078, 10081, 10082, 10083, 10086, 10087, 10088]
 
     requested_seat = int(seat_number)
-    current_queue = Result.objects.filter(semester='2025-1')
+    current_queue = Result.objects.filter(semester='2025-2')
     for q in current_queue:
         current_queue = q
 

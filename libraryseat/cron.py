@@ -2,13 +2,13 @@ from .models import Reserve, Result, Receipt
 import datetime
 
 def schedule_every_ten_minutes():
-    result_count = len(Result.objects.filter(semester='2025-1'))
+    result_count = len(Result.objects.filter(semester='2025-2'))
 
     if result_count != 0:
-        result = Result.objects.filter(semester='2025-1')
+        result = Result.objects.filter(semester='2025-2')
         for a in result:
             result = a
-        receipt = Receipt.objects.filter(semester='2025-1')
+        receipt = Receipt.objects.filter(semester='2025-2')
         for a in receipt:
             receipt = a
 
@@ -18,7 +18,7 @@ def schedule_every_ten_minutes():
         day_standard_nine_hours = day_standard + diff_hours
         day_standard_twentythree_hours = day_standard_nine_hours + diff_hours + datetime.timedelta(hours=5)
 
-        random_result = Result.objects.filter(semester='2025-1')
+        random_result = Result.objects.filter(semester='2025-2')
         for random in random_result:
             random_result = random
         random_result_list = random_result.sequence.split(',')

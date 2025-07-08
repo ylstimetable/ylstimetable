@@ -67,7 +67,7 @@ def random(request):
         messages.error(request, '이미 랜덤배정이 완료되었습니다.')
         return redirect('libraryseat:index')
 
-    applicant_list = Receipt.objects.filter(semester='2025-1')
+    applicant_list = Receipt.objects.filter(semester='2025-2')
     for obj in applicant_list:
         q = obj
 

@@ -15,7 +15,7 @@ def result(request):
         name = request.POST.get("classname")
         if name == "개발자":
             return redirect('https://www.instagram.com/kkpark09/')
-        class_list = ClassD.objects.filter(semester='2025-2')
+        class_list = ClassD.objects.filter(semester='2026-1')
         classfind = class_list.filter(
             Q(title__icontains=name) |
             Q(professor__icontains=name) |
@@ -36,7 +36,7 @@ def index(request):
         return render(request, 'unauth.html')
 
     q_all = user.class_voter.all()
-    q = q_all.filter(semester='2025-2')
+    q = q_all.filter(semester='2026-1')
     m = user.class_author.all()
     ran = range(1, 14)
     rang = range(0, 5)
@@ -182,7 +182,7 @@ def index(request):
 @login_required(login_url='common:login')
 def register(request, class_id):
     q_all = request.user.class_voter.all()
-    q = q_all.filter(semester='2025-2')
+    q = q_all.filter(semester='2026-1')
 
     reg = get_object_or_404(ClassD, pk=class_id)
 
@@ -405,12 +405,12 @@ def addition(request):
                     if temptitle == asses.subject:
                         if tempprof == asses.professor:
                             sem = asses.semester
-                            asses.semester = f"2025-2, {sem}"
+                            asses.semester = f"2026-1, {sem}"
                             control = 1
                             asses.save()
 
                 if control == 0:
-                    a = ClassA(subject=temptitle, professor=tempprof, semester = '2025-2', rate = '0')
+                    a = ClassA(subject=temptitle, professor=tempprof, semester = '2026-1', rate = '0')
                     a.save()
 
     return render(request, 'addition.html')

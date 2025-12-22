@@ -398,7 +398,7 @@ def addition(request):
                         tabletime.append(int(string[0]) + count)
 
                 t = ClassD(title=temptitle, room=temproom, professor=tempprof, time=temptime,
-                              semester='2025-2', number=f"YJD{classnum}", ban=i)
+                              semester='2026-1', number=f"YJD{classnum}", ban=i)
                 t.save()
 
                 for asses in assess:
